@@ -1,0 +1,109 @@
+<!--Begin Marketo Form customization-->
+<script>
+
+var refSourceFormValue;
+var searchFormValue;
+var socialFormValue;
+var paidSource;
+
+$(document).ready(function() {
+//Note: "Cookies" is the name of a library function; don't change it.
+
+  //PART 1a: Set Search Engine Source in a Cookie and store the Cookie value in variable
+  if (searchSource != null) {
+    Cookies.set('kapostsearch', searchSource, { domain: 'kapost.com' }); //Set Cookie
+    searchFormValue =  Cookies.get('kapostsearch', { domain: 'kapost.com' }); //Store cookie value in variable
+  } else {
+    searchFormValue =  Cookies.get('kapostsearch', { domain: 'kapost.com' }); //Store cookie value in variable
+  }
+
+  //PART 2a: Set Social Source in a Cookie and store the Cookie value in variable
+  if (socialSource != null) {
+    Cookies.set('kapostsocial', socialSource, { domain: 'kapost.com' }); //Set Cookie
+    socialFormValue =  Cookies.get('kapostsocial', { domain: 'kapost.com' }); //Store cookie value in variable
+  } else {
+    socialFormValue =  Cookies.get('kapostsocial', { domain: 'kapost.com' }); //Store cookie value in variable
+  }
+
+  //PART 3a: Set Paid Source in a Cookie and store the Cookie value in variable
+  if (paidSource != null) {
+    Cookies.set('kapostpaid', paidSource, { domain: 'kapost.com' }); //Set Cookie
+    paidFormValue =  Cookies.get('kapostpaid', { domain: 'kapost.com' }); //Store cookie value in variable
+  } else {
+    paidFormValue =  Cookies.get('kapostpaid', { domain: 'kapost.com' }); //Store cookie value in variable
+  }
+
+  //PART 4a: Set Referral Source in a Cookie and store the Cookie value in variable
+  if (refSource != null) {
+    Cookies.set('kapostsource', refSource, { domain: 'kapost.com' }); //Set Cookie
+    refSourceFormValue =  Cookies.get('kapostsource', { domain: 'kapost.com' }); //Store cookie value to variable
+  }
+
+  //PART 1b: Push Search Engine Source into form field
+  if (searchFormValue != null) {
+    document.getElementById("searchPlatformMostRecent").value = searchFormValue;
+  }
+
+  //PART 2b: Push Social Source into form field
+  if (socialFormValue != null) {
+    document.getElementById("socialNetworkMostRecent").value = socialFormValue;
+  }
+
+  //PART 3b: Push Social Source into form field
+  if (paidFormValue != null) {
+    document.getElementById("paidServiceMostRecent").value = paidFormValue;
+  }
+
+  //PART 4a: Set Referral Source in a Cookie and store the Cookie value in variable
+  if (refSource != null) {
+    document.getElementById("referralSourceMostRecent").value = refSourceFormValue;
+  } else {
+    refSourceFormValue =  'Unknown'; //Store cookie value to variable
+    document.getElementById("referralSourceMostRecent").value = refSourceFormValue;
+  }
+
+  //PART 5: Push additional fields into form fields
+  document.getElementById("campaignPageURL").value = document.location.href;
+  document.getElementById("campaignPageURLReferrer").value = document.referrer;
+
+});
+
+/*
+//PART 6: When form is submitted, delete the cookies from the end users browser
+form.onSuccess(function() {
+  Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+  Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+  Cookies.remove('kapostsource', { domain: 'kapost.com' });
+  Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+  Cookies.remove('kapostsearch');
+  Cookies.remove('kapostsocial');
+  Cookies.remove('kapostsource');
+  Cookies.remove('kapostpaid');
+
+}); */
+
+
+</script>
+
+
+<!-- BEGIN GOOGLE ANALYTICS CODE -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-12328066-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- END GOOGLE ANALYTICS CODE -->
+
+<!-- BEGIN Oktopost Lead Capture -->
+<script type="text/javascript" src="//okt.to/okt.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+_addEvents('001Vv6Ty4KXw72l');
+};
+</script>
+<!-- END Oktopost Lead Capture -->
