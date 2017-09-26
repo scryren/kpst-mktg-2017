@@ -1,0 +1,188 @@
+
+<style>
+/* https://proto.io/freebies/onoff/ */
+.onoffswitch {
+    position: relative; width: 128px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0;
+
+    box-sizing: border-box;
+    background-clip: padding-box;
+    /* Font styling was in this one*/
+}
+.onoffswitch-inner:before {
+    font-family: FontAwesome, "Open Sans";
+    content: "Subscribed";
+    background-color: #85a952; color: #ffffff;
+    text-align: center;
+    font-weight: 700;
+}
+.onoffswitch-inner:after {
+    font-family: FontAwesome, "Open Sans";
+    content: "Unsubscribed";
+    background-color: #97a2a5; color: #ffffff;
+    text-align: center;
+    font-weight: 700;
+}
+/*
+.onoffswitch-switch {
+    display: block; width: 0px; margin: 0px;
+    background: #000000;
+    position: absolute; top: 0; bottom: 0;
+    right: 107px;
+    transition: all 0.3s ease-in 0s;
+} */
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+</style>
+
+
+
+<div id="form-container" class="container-fluid">
+  <div class="container" style="border: 1px solid #00ff00">
+    <div class="row no-gutters justify-content-center">
+      <div class="col-12 col-lg-10" >
+        <div class="form-wrapper">
+
+          <!--Start Form Code-->
+          <form id="kapostmktoform-preference" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
+          <input type="hidden" name="munchkinId" value="389-IOX-111">
+          <input type="hidden" name="formid" value="${mkto-form-id}">
+          <input type="hidden" name="returnLPId" value="-1"> <!--What does this do?-->
+          <input type="hidden" name="_mkt_trk" value=""> <!--Munchkin passes value into this field-->
+          <input type="hidden" id="leadSourceMostRecent" name="Lead_Source_Most_Recent__c" value="${mkto-form-lead-source-most-recent}"> <!-- Lead Source (Most Recent) -->
+          <input type="hidden" id="referralSourceMostRecent" name="Referral_Source_Most_Recent__c" value="Unknown"> <!-- Referral Source (Most Recent) -->
+          <input type="hidden" id="searchPlatformMostRecent" name="Search_Platform_Most_Recent__c" value="Unknown"> <!-- Search Platform (Most Recent) -->
+          <input type="hidden" id="socialNetworkMostRecent" name="Social_Network_Most_Recent__c" value="Unknown"> <!-- Social Network (Most Recent) -->
+          <input type="hidden" id="paidServiceMostRecent" name="Paid_Service_Most_Recent__c" value="Unknown"> <!-- Paid Service (Most Recent) -->
+          <input type="hidden" id="campaignPageURL" name="Campaign_Page_URL__c" value=""> <!-- Campaign Page URL -->
+          <input type="hidden" id="campaignPageURLReferrer" name="Campaign_Page_URL_Referrer__c" value=""> <!-- Campaign Page URL (Referrer) -->
+          <!--<input type="hidden" name="Hand_Raise_Most_Recent__c" value="Demo Request Form">--> <!-- Hand Raise Only -->
+          <!--<input type="hidden" name="Hand_Raised__c" value="true">--> <!-- Hand Raise Only -->
+          <input type="hidden" name="ret" value="${mkto-form-redirect}" />
+
+          <!--Hidden email address field; pre-pops-->
+          <input id="Email" name="Email" type="hidden" value="{{lead.Email Address}}">
+
+
+
+
+          <script>
+            $(function() {
+              $('#toggle-two').bootstrapToggle({
+                on: 'Enabled',
+                off: 'Disabled'
+                size: 'Small'
+              });
+            })
+          </script>
+
+            <!--Start Subscription 1-->
+            <div class="row">
+
+              <div class="col-12 col-lg-3 text-center" style="border: 1px solid #ff0000;">
+                <img src="http://via.placeholder.com/300x300" style="max-height: 150px;" class="img-fluid">
+              </div>
+
+              <div class="col-12 col-lg" style="border: 1px solid #ff0000;">
+                <b style="font-size: 14px">The Hitchhiker's Guide to the Galaxy</b>
+
+                <p style="font-size: 80%">People of Earth, your attention, please. As you will no doubt be aware, the plans for development of the outlying regions of the Galaxy require the building of a hyperspatial express route through your star system.</p>
+              </div>
+
+              <div class="col-12 col-lg-2 "  style="border: 1px solid #ff0000; ">
+                <div class="row justify-content-center">
+                  <div class="onoffswitch" style="border: 1px solid #ff0000; ">
+                      <input id="MARKETOFIELD"  name="MARKETOFIELD" type="checkbox" class="onoffswitch-checkbox" >
+                      <label class="onoffswitch-label" for="MARKETOFIELD">
+                          <span class="onoffswitch-inner"></span>
+                          <span class="onoffswitch-switch"></span>
+                      </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!--End Subscription 1-->
+
+
+
+            <!--Submit Button-->
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-6">
+                <button name="kapostmktoform" type="submit" class="btn btn-block">${mkto-form-button-copy}</button>
+              </div>
+            </div>
+
+
+
+          </form>
+
+          <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+          <script>
+            //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+            //Customize error messages here...
+            var myLanguage = {
+             errorTitle: 'One or more required fields are missing!',
+             requiredFields: 'This field is required',
+             badEmail: 'Please enter a valid email address',
+             badTelephone: 'Please enter a valid phone number',
+             lengthBadStart: 'The input value must be between ',
+             lengthBadEnd: ' characters',
+             lengthTooLongStart: 'The input value is longer than ',
+             lengthTooShortStart: 'The input value is shorter than ',
+             badCustomVal: 'The input value is incorrect',
+             andSpaces: ' and spaces ',
+             badInt: 'Please enter a valid phone number',
+             badAlphaNumeric: 'The input value can only contain alphanumeric characters '
+            };
+
+            $.validate({
+              form : '#kapostmktoform', //form ID
+              modules : 'html5',
+              errorMessagePosition : 'top', // Instead of 'inline' which is default
+              scrollToTopOnError : true, // Set this property to true on longer forms
+              addSuggestions : false, // Set to false if you don't want the plugin to search through the form for input suggestions.
+              language : myLanguage, // Customize error messages
+
+              onSuccess : function($form) {
+                Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+                Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+                Cookies.remove('kapostsource', { domain: 'kapost.com' });
+                Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+                Cookies.remove('kapostsearch');
+                Cookies.remove('kapostsocial');
+                Cookies.remove('kapostsource');
+                Cookies.remove('kapostpaid');
+              }
+
+            });
+          </script>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
