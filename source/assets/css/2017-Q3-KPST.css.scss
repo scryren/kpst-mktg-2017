@@ -613,7 +613,7 @@ body.modal-open .blur{
 }
 
 /* Style Button */
-#kapostmktoform button[type="submit"] {
+#kapostmktoform button[type="submit"], #kapostmktoform-preference button[type="submit"] {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
@@ -640,7 +640,7 @@ body.modal-open .blur{
   word-break: normal;
   word-wrap: break-word; }
 
-#kapostmktoform button[type=submit]:hover {
+#kapostmktoform button[type=submit]:hover, #kapostmktoform-preference button[type=submit]:hover {
   background-color: #54a6e6;
   cursor: pointer; }
 
@@ -783,3 +783,70 @@ body.modal-open .blur{
 
 #kapostmktoform #legalCheckbox {
   margin: 0px 10px 0px 0px; }
+
+
+
+/* On/Off Switch
+   ================================== */
+/* Modified From: https://proto.io/freebies/onoff/ */
+
+.onoffswitch {
+    -moz-user-select:none;
+    -ms-user-select: none;
+    -webkit-user-select:none;
+    margin-top: 0.5em;
+    position: relative;
+    width: 30px;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+}
+.onoffswitch-inner {
+    display: block;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+    width: 200%;
+
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    background-clip: padding-box;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: block;
+    float: left;
+    font-family: FontAwesome, "Open Sans";
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px; /* "Vertical padding" */
+    padding: 0;
+    text-align: center;
+    width: 50%;
+}
+.onoffswitch-inner:before {
+    background-color: #2196F3;
+    content: "\f00c ";
+}
+.onoffswitch-inner:after {
+    background-color: #bebebe;
+    content: "\f00d ";
+}
+/*
+.onoffswitch-switch {
+    display: block; width: 0px; margin: 0px;
+    background: #000000;
+    position: absolute; top: 0; bottom: 0;
+    right: 107px;
+    transition: all 0.3s ease-in 0s;
+} */
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}

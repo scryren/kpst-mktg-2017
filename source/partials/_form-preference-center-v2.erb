@@ -1,65 +1,7 @@
-
-<style>
-/* https://proto.io/freebies/onoff/ */
-.onoffswitch {
-    position: relative; width: 128px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-}
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-}
-.onoffswitch-inner {
-    display: block; width: 200%; margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block; float: left; width: 50%; height: 30px; padding: 0;
-
-    box-sizing: border-box;
-    background-clip: padding-box;
-    /* Font styling was in this one*/
-}
-.onoffswitch-inner:before {
-    font-family: FontAwesome, "Open Sans";
-    content: "Subscribed";
-    background-color: #85a952; color: #ffffff;
-    text-align: center;
-    font-weight: 700;
-}
-.onoffswitch-inner:after {
-    font-family: FontAwesome, "Open Sans";
-    content: "Unsubscribed";
-    background-color: #97a2a5; color: #ffffff;
-    text-align: center;
-    font-weight: 700;
-}
-/*
-.onoffswitch-switch {
-    display: block; width: 0px; margin: 0px;
-    background: #000000;
-    position: absolute; top: 0; bottom: 0;
-    right: 107px;
-    transition: all 0.3s ease-in 0s;
-} */
-
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px;
-}
-</style>
-
-
-
 <div id="form-container" class="container-fluid">
-  <div class="container" style="border: 1px solid #00ff00">
+  <div class="container">
     <div class="row no-gutters justify-content-center">
-      <div class="col-12 col-lg-10" >
-        <div class="form-wrapper">
+      <div class="col-12 col-lg-7" >
 
           <!--Start Form Code-->
           <form id="kapostmktoform-preference" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
@@ -82,47 +24,112 @@
           <input id="Email" name="Email" type="hidden" value="{{lead.Email Address}}">
 
 
+            <!--Start Promotional-->
+            <div id="sub-promo" class="row" style="margin-bottom: 1em;">
+              <div class="media">
 
-
-          <script>
-            $(function() {
-              $('#toggle-two').bootstrapToggle({
-                on: 'Enabled',
-                off: 'Disabled'
-                size: 'Small'
-              });
-            })
-          </script>
-
-            <!--Start Subscription 1-->
-            <div class="row">
-
-              <div class="col-12 col-lg-3 text-center" style="border: 1px solid #ff0000;">
-                <img src="http://via.placeholder.com/300x300" style="max-height: 150px;" class="img-fluid">
-              </div>
-
-              <div class="col-12 col-lg" style="border: 1px solid #ff0000;">
-                <b style="font-size: 14px">The Hitchhiker's Guide to the Galaxy</b>
-
-                <p style="font-size: 80%">People of Earth, your attention, please. As you will no doubt be aware, the plans for development of the outlying regions of the Galaxy require the building of a hyperspatial express route through your star system.</p>
-              </div>
-
-              <div class="col-12 col-lg-2 "  style="border: 1px solid #ff0000; ">
-                <div class="row justify-content-center">
-                  <div class="onoffswitch" style="border: 1px solid #ff0000; ">
-                      <input id="MARKETOFIELD"  name="MARKETOFIELD" type="checkbox" class="onoffswitch-checkbox" >
-                      <label class="onoffswitch-label" for="MARKETOFIELD">
-                          <span class="onoffswitch-inner"></span>
-                          <span class="onoffswitch-switch"></span>
-                      </label>
-                  </div>
+                <div class="align-self-center mr-3">
+                    <div class="onoffswitch">
+                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <label class="onoffswitch-label" for="Subscribed_to_Promotions__c">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
                 </div>
+
+                <div>
+                  <b style="font-size: 14px">Marketing Resources</b>
+
+                  <p style="font-size: 80%">Don't miss any of our content launches, marketing tips or special announcements!</p>
+                </div>
+
               </div>
-
             </div>
-            <!--End Subscription 1-->
+            <!--End Promotional-->
 
+            <!--Start Newsletter-->
+            <div id="sub-newsletter" class="row" style="margin-bottom: 1em;">
+              <div class="media">
 
+                <div class="align-self-center mr-3">
+                    <div class="onoffswitch">
+                        <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <label class="onoffswitch-label" for="Subscribed_to_Newsletter__c">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                  <b style="font-size: 14px">The Content Marketeer Newsletter</b>
+
+                  <p style="font-size: 80%">Weekly eNewsletter featuring fresh insights and best practices from Kapost's Marketing Blog.</p>
+                </div>
+
+              </div>
+            </div>
+            <!--End Newsletter-->
+
+            <!--Start Customer Marketing-->
+            <div id="sub-customermktg" class="row" style="margin-bottom: 1em; display: none;">
+              <div class="media">
+
+                <div class="align-self-center mr-3">
+                    <div class="onoffswitch">
+                        <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <label class="onoffswitch-label" for="Subscribed_to_Customer_Marketing__c">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                  <b style="font-size: 14px">Product Release Updates</b>
+
+                  <p style="font-size: 80%">People of Earth, your attention, please. As you will no doubt be aware, the plans for development of the outlying regions of the Galaxy require the building of a hyperspatial express route through your star system.</p>
+                </div>
+
+              </div>
+            </div>
+            <!--End Customer Marketing-->
+
+            <hr>
+
+            <!--Start Global-->
+            <div id="sub-global" class="row" style="margin-bottom: 1em;">
+              <div class="media">
+
+                <div class="align-self-center mr-3">
+                    <div class="onoffswitch">
+                        <input id="Unsubscribed" name="Unsubscribed" type="checkbox" class="onoffswitch-checkbox" >
+                        <label class="onoffswitch-label" for="Unsubscribed">
+                            <span id="global-onoffswitch" class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                  <b style="font-size: 14px">Unsubscribe from all Kapost communications</b>
+
+                  <p style="font-size: 80%">If you continue to receive emails after you’ve opted out, email us at response@kapost.com and we’ll get things straightened out.</p>
+
+                  <p style="font-size: 80%; font-style: italic;">Please note that customers will continue to receive transactional information regarding their Kapost accounts.</p>
+                </div>
+
+              </div>
+            </div>
+            <!--End Global-->
+
+            <!--Global Opt Out Warning-->
+            <div id="optOutWarning" class="row justify-content-center" style="display: none;">
+              <div class="col-12  col-md-10 text-center">
+                <p style="font-size: 80%; color: rgb(201, 71, 41); font-weight: 700;">Heads up! You've added one or more subscriptions to your preferences but you're still globally opted out.</p>
+              </div>
+            </div>
 
             <!--Submit Button-->
             <div class="row justify-content-center">
@@ -130,8 +137,6 @@
                 <button name="kapostmktoform" type="submit" class="btn btn-block">${mkto-form-button-copy}</button>
               </div>
             </div>
-
-
 
           </form>
 
@@ -178,10 +183,46 @@
           </script>
 
 
+            <!--START PREFERENCE CENTER LOGIC-->
+            <script type="text/javascript">
+              //Show/Hide Customer Marketing
+              var accountStatus = "{{lead.Account Status (C)}}";
+              if (accountStatus !== "") {
+                document.getElementById('sub-customermktg').style.display = "";
+              }
+            </script>
+            <!--END PREFERENCE CENTER LOGIC-->
+
+
+            <script>
+
+            //If globally opted out and checks a subscription
+            $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c').change(function(){
+              if ($('#Unsubscribed').is(":checked") && $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c').is(":checked"))
+              {
+                document.getElementById('optOutWarning').style.display = "";
+              } else {
+                document.getElementById('optOutWarning').style.display = "none";
+              }
+
+            });
+
+            //If they uncheck Global Opt Out
+            $('#Unsubscribed').change(function(){
+              if ($('#Unsubscribed').is(":checked"))
+              {
+                //Leave warning up
+              } else {
+                document.getElementById('optOutWarning').style.display = "none";
+              }
+
+            });
+
+
+            </script>
 
 
 
-        </div>
       </div>
     </div>
   </div>
