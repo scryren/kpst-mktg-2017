@@ -182,18 +182,17 @@
             });
           </script>
 
-
             <!--START PREFERENCE CENTER LOGIC-->
             <script type="text/javascript">
               //Show/Hide Customer Marketing
               var accountStatus = "{{lead.Account Status (C)}}";
-              if (accountStatus !== "") {
+              if (accountStatus === "Customer") {
                 document.getElementById('sub-customermktg').style.display = "";
               }
             </script>
             <!--END PREFERENCE CENTER LOGIC-->
 
-
+            <!-- START OPT OUT WARNINGS -->
             <script>
 
             //If globally opted out and checks a subscription
@@ -217,9 +216,8 @@
               }
 
             });
-
-
             </script>
+            <!-- END OPT OUT WARNINGS -->
 
 
 

@@ -4,8 +4,11 @@
         <div class="col-12 col-lg-5">
           <div class="form-wrapper">
 
+
+            <%= javascript_include_tag "jquery.job-role-kpst" %>
+
             <!--Start Form Code-->
-            <form id="kapostmktoform" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
+            <form id="kapostmktoform" name="kapostmktoform" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
             <input type="hidden" name="munchkinId" value="389-IOX-111">
             <input type="hidden" name="formid" value="${mkto-form-id}">
             <input type="hidden" name="returnLPId" value="-1"> <!--What does this do?-->
@@ -21,10 +24,8 @@
             <!--<input type="hidden" name="Hand_Raised__c" value="true">--> <!-- Hand Raise Only -->
             <input type="hidden" name="ret" value="${mkto-form-redirect}" />
 
-            <!--START Form Reset-->
-
+            <!--START Form Reset--><!--
             <script>
-
             $(document).ready(function() {
 
               var hideKnownFieldsValue = ${mkto-form-showhide};
@@ -48,7 +49,6 @@
               }
 
             });
-
             </script>
 
             <div id="clearFormContainer" class="row">
@@ -56,7 +56,7 @@
                 <p style="line-height: 18px; font-size: 12px;">Not you? <a href="#clearForm" id="clearForm">Clear form fields</a>.</p>
 
               </div>
-            </div>
+            </div>-->
             <!--END Form Reset-->
 
             <div class="row"> <!-- Start field row -->
@@ -65,7 +65,7 @@
               <!--First Name-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="FirstName">First Name Label</label>
-                  <input id="FirstName" name="FirstName" data-validation="required" type="text" class="form-control floatlabel" placeholder="First Name" value="{{lead.First Name}}">
+                  <input id="FirstName" name="FirstName" data-validation="required" type="text" class="form-control floatlabel" placeholder="First Name" value="{{lead.First Name}}" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                 </fieldset>
               </div>
 
@@ -73,7 +73,7 @@
               <!--Last Name-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="LastName">Last Name</label>
-                  <input id="LastName" name="LastName" data-validation="required" type="text" class="form-control floatlabel" placeholder="Last Name" value="{{lead.Last Name}}">
+                  <input id="LastName" name="LastName" data-validation="required" type="text" class="form-control floatlabel" placeholder="Last Name" value="{{lead.Last Name}}" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                 </fieldset>
               </div>
 
@@ -81,7 +81,7 @@
               <!--Email Address-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Email">Email address</label>
-                  <input id="Email" name="Email" data-validation="email" type="text" class="form-control floatlabel" placeholder="Email Address" value="{{lead.Email Address}}">
+                  <input id="Email" name="Email" data-validation="email" type="text" class="form-control floatlabel" placeholder="Email Address" value="{{lead.Email Address}}" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                 </fieldset>
               </div>
 
@@ -89,7 +89,7 @@
               <!--Phone Number-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Phone">Phone Number</label>
-                  <input id="Phone" name="Phone" data-validation="required" type="text" class="form-control floatlabel" placeholder="Phone Number" value="{{lead.Phone Number}}">
+                  <input id="Phone" name="Phone" data-validation="required" type="text" class="form-control floatlabel" placeholder="Phone Number" value="{{lead.Phone Number}}" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                 </fieldset>
               </div>
 
@@ -97,22 +97,39 @@
               <!--Company Name-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Company">Company</label>
-                  <input id="Company" name="Company" data-validation="required" type="text" class="form-control floatlabel" placeholder="Company Name" value="{{company.Company Name}}">
+                  <input id="Company" name="Company" data-validation="required" type="text" class="form-control floatlabel" placeholder="Company Name" value="{{company.Company Name}}" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                 </fieldset>
               </div>
 
 
               <div class="col-12">
+                <!--Country-->
+                <fieldset class="form-group">
+                  <label class="sr-only" for="Marketing_Country__c">Country</label>
+                  <select id="Marketing_Country__c" name="Marketing_Country__c" data-validation="required" class="form-control" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
+                    <option value="" selected>Country...</option>
+                    <option value="Australia" >Australia</option>
+                    <option value="Canada" >Canada</option>
+                    <option value="Germany" >Germany</option>
+                    <option value="United States" >United States</option>
+
+                  </select>
+                </fieldset>
+              </div>
+
+
+
+              <div class="col-12">
                 <!--Title Category-->
                 <fieldset class="form-group">
-                  <label class="sr-only" for="SFDCAPINAME">Title Category</label>
-                  <select id="SFDCAPINAME" name="SFDCAPINAME" data-validation="required" class="form-control">
+                  <label class="sr-only" for="Title_Category__c">Title Category</label>
+                  <select id="Title_Category__c" name="Title_Category__c" data-validation="required" class="form-control" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                     <option value="" selected>Title Category...</option>
                     <option value="C-Level" >C-Level</option>
                     <option value="Executive" >Executive</option>
                     <option value="Director" >Director</option>
                     <option value="Manager" >Manager</option>
-                    <option value="Specialist" >Specialist</option>
+                    <option value="Specialist or Associate" >Specialist or Associate</option>
                     <option value="Agency or Consultant" >Agency or Consultant</option>
                     <option value="Other" >Other</option>
 
@@ -123,9 +140,10 @@
               <div class="col-12">
                 <!--Department-->
                 <fieldset class="form-group">
-                  <label class="sr-only" for="SFDCAPINAME">Department</label>
-                  <select id="SFDCAPINAME" name="SFDCAPINAME" data-validation="required" class="form-control">
+                  <label class="sr-only" for="Job_Function__c">Department</label>
+                  <select id="Job_Function__c" name="Job_Function__c" data-validation="required" class="form-control" onchange="populateJobRole(document.kapostmktoform.Job_Function__c.options[document.kapostmktoform.Job_Function__c.selectedIndex].value);" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit" size="1">
                     <option value="" selected>Department...</option>
+                    <!--
                     <option value="Accounting" >Accounting</option>
                     <option value="Customer Service" >Customer Service</option>
                     <option value="Engineering" >Engineering</option>
@@ -134,51 +152,46 @@
                     <option value="Information Technology" >Information Technology</option>
                     <option value="Legal" >Legal</option>
                     <option value="Marketing" >Marketing</option>
-                    <option value="Other" >Other</option>
+                    <option value="Product" >Product</option>
                     <option value="Purchasing" >Purchasing</option>
                     <option value="Research and Development" >Research and Development</option>
                     <option value="Sales" >Sales</option>
+                    <option value="Other" >Other</option>-->
 
                   </select>
                 </fieldset>
               </div>
 
-              <div class="col-12">
+              <div id="JR" class="col-12" style="display: none;">
                 <!--Job Role-->
                 <fieldset class="form-group">
-                  <label class="sr-only" for="SFDCAPINAME">Role</label>
-                  <select id="SFDCAPINAME" name="SFDCAPINAME" data-validation="required" class="form-control">
+                  <label class="sr-only" for="Job_Role__c">Role</label>
+                  <select id="Job_Role__c" name="Job_Role__c" data-validation="required" class="form-control" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit" size="1">
                     <option value="" selected>Job Role...</option>
+                    <!--<option value="Accounts Payable" >Accounts Payable</option>
+                    <option value="Business Operations" >	Business Operations</option>
                     <option value="Content Marketer" >Content Marketer</option>
                     <option value="Copywriter" >Copywriter</option>
                     <option value="Corporate Communications" >Corporate Communications</option>
                     <option value="Creative" >Creative</option>
-                    <option value="Business Operations" >Business Operations</option>
                     <option value="Demand Generation" >Demand Generation</option>
                     <option value="Editor" >Editor</option>
                     <option value="Event Coordinator" >Event Coordinator</option>
                     <option value="Intern" >Intern</option>
-                    <option value="Leadership" >Leadership</option>
                     <option value="Marketing Analyst" >Marketing Analyst</option>
                     <option value="Marketing Automation" >Marketing Automation</option>
+                    <option value="Marketing Leadership" >Marketing Leadership</option>
                     <option value="Marketing Operations" >Marketing Operations</option>
-                    <option value="Other" >Other</option>
+                    <option value="Procurement" >Procurement</option>
                     <option value="Product Marketer" >Product Marketer</option>
                     <option value="Project Manager" >Project Manager</option>
                     <option value="Public Relations" >Public Relations</option>
+                    <option value="Sales Leadership" >Sales Leadership</option>
                     <option value="Sales Operations" >Sales Operations</option>
+                    <option value="Sales Representative" >Sales Representative</option>
                     <option value="SEO" >SEO</option>
                     <option value="Social" >Social</option>
-                    <option value="Accounts Payable" >Accounts Payable</option>
-                    <option value="Sales Leadership" >Sales Leadership</option>
-                    <option value="Account Executive" >Account Executive</option>
-                    <option value="Account Coordinator" >Account Coordinator</option>
-                    <option value="Sales Development" >Sales Development</option>
-
-
-
-
-
+                    <option value="Other" >Other</option>-->
                   </select>
                 </fieldset>
               </div>
@@ -188,7 +201,7 @@
                 <!--Marketing Automation-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Marketing_Automation__c">Marketing Automation</label>
-                  <select id="Marketing_Automation__c" name="Marketing_Automation__c" data-validation="required" class="form-control">
+                  <select id="Marketing_Automation__c" name="Marketing_Automation__c" data-validation="required" class="form-control"  data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                     <option value="" selected>Marketing Automation...</option>
                     <option value="Act-On" >Act-On</option>
                     <option value="Adobe" >Adobe</option>
@@ -209,7 +222,7 @@
                 <!--Business Type-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Business_Type__c">Business Type</label>
-                  <select id="Business_Type__c" name="Business_Type__c" data-validation="required" class="form-control">
+                  <select id="Business_Type__c" name="Business_Type__c" data-validation="required" class="form-control" data-validation-error-msg="One or more required fields are missing" data-validation-error-msg-container="#validation-error-above-submit">
                     <option selected="selected" value="">Business Type...</option>
                     <option value="B2B">B2B</option>
                     <option value="B2C">B2C</option>
@@ -226,12 +239,12 @@
                 </fieldset>
               </div>
 
-              <div id="subscribedtoNewsletterWrapper" class="col-12">
+              <div id="newsletter-wrapper" class="col-12" style="display: none;">
                 <div class="form-check">
                   <!--<p style="font-size: 90%;">Also subscribe me to...</p>
                   <hr>-->
                   <label class="checkbox">
-                    <input id="subscribedtoNewsletter" name="subscribedtoNewsletter"  type="checkbox">
+                    <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c"  type="checkbox">
                     <span class="checkbox-option" style="font-weight: 700;">The Content Marketeer</span>
                   </label>
                   <p style="padding-left: 25px; font-size: 80%;">Subscribe to our weekly newsletter and get fresh insights, stories, data and best practices delivered right to your inbox.</p>
@@ -240,6 +253,14 @@
 
 
             </div> <!--End Field Row-->
+
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <div id="validation-error-above-submit"></div>
+              </div>
+            </div>
+
+
 
             <!--Submit Button-->
             <div class="row justify-content-center">
@@ -252,10 +273,24 @@
             <div class="row">
               <div class="col-12">
 
-                <div id="privacy-statement"><!--<h5>Terms of Service</h5>--></div>
+
+                <div id="privacy-statement"><!--<h5>Terms of Service</h5>-->
+
+                  <div id="privacy-statement-checkbox">
+
+                    <input id="legalCheckbox" name="legalCheckbox" type="checkbox" data-validation="required" data-validation-depends-on="Marketing_Country__c" data-validation-depends-on-value="Canada, Germany, Australia" data-validation-error-msg="You must agree to Kapost&rsquo;s Terms of Service." data-validation-error-msg-container="#validation-error-express-opt-in">
+
+                    <span id="validation-error-express-opt-in"></span>
+                    <span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost's use of my contact information to communicate with me regarding Kapost's products, services, and events.</span>
+
+                  </div>
+
+
+                </div>
 
               </div>
             </div>
+
 
           </form>
 
@@ -265,27 +300,18 @@
             //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
             //Customize error messages here...
             var myLanguage = {
-             errorTitle: 'One or more required fields are missing!',
-             requiredFields: 'This field is required',
-             badEmail: 'Please enter a valid email address',
-             badTelephone: 'Please enter a valid phone number',
-             lengthBadStart: 'The input value must be between ',
-             lengthBadEnd: ' characters',
-             lengthTooLongStart: 'The input value is longer than ',
-             lengthTooShortStart: 'The input value is shorter than ',
-             badCustomVal: 'The input value is incorrect',
-             andSpaces: ' and spaces ',
-             badInt: 'Please enter a valid phone number',
-             badAlphaNumeric: 'The input value can only contain alphanumeric characters '
+              errorTitle: 'Form submission failed!',
+              requiredFields: 'You have not answered all required fields'
             };
 
             $.validate({
               form : '#kapostmktoform', //form ID
-              modules : 'html5',
-              errorMessagePosition : 'top', // Instead of 'inline' which is default
+              modules : 'html5, logic',
+              //errorMessagePosition : 'top', // Instead of 'inline' which is default
               scrollToTopOnError : true, // Set this property to true on longer forms
               addSuggestions : false, // Set to false if you don't want the plugin to search through the form for input suggestions.
               language : myLanguage, // Customize error messages
+
 
               onSuccess : function($form) {
                 Cookies.remove('kapostsearch', { domain: 'kapost.com' });
@@ -301,8 +327,53 @@
             });
           </script>
 
+
+
           <!--START PICK LIST PRE-POP-->
           <script type="text/javascript">
+
+          var marketingCountryValue = "{{lead.Marketing Country}}";
+          var marketingCountryList = document.getElementById('Marketing_Country__c').options;
+            for (var i=0; i<marketingCountryList.length; i++) {
+              if (marketingCountryValue==marketingCountryList[i].value) {
+              document.getElementById('Marketing_Country__c').value = marketingCountryValue;
+              break;}
+              else {
+              document.getElementById('Marketing_Automation__c').value = "";}
+            }
+
+            var titleCategoryValue = "{{lead.Title Category}}";
+            var titleCategoryList = document.getElementById('Title_Category__c').options;
+              for (var i=0; i<titleCategoryList.length; i++) {
+                if (titleCategoryValue==titleCategoryList[i].value){
+                document.getElementById('Title_Category__c').value = titleCategoryValue;
+                break; }
+                else {
+                document.getElementById('Title_Category__c').value = "";}
+              }
+
+/*
+            var jobFunctionValue = "{{lead.Job Function}}";
+            var jobFunctionList = document.getElementById('Job_Function__c').options;
+              for (var i=0; i<jobFunctionList.length; i++) {
+                if (jobFunctionValue==jobFunctionList[i].value){
+                document.getElementById('Job_Function__c').value = jobFunctionValue;
+                break; }
+                else {
+                document.getElementById('Job_Function__c').value = "";}
+              }
+
+            var jobRoleValue = "{{lead.Job Role}}";
+            var jobRoleList = document.getElementById('Job_Role__c').options;
+              for (var i=0; i<jobRoleList.length; i++) {
+                if (jobRoleValue==jobRoleList[i].value){
+                document.getElementById('Job_Role__c').value = jobRoleValue;
+                break; }
+                else {
+                document.getElementById('Job_Role__c').value = "";}
+              }
+              */
+
             var marketingAutomationValue = "{{lead.Marketing Automation}}";
             var marketingAutomationList = document.getElementById('Marketing_Automation__c').options;
               for (var i=0; i<marketingAutomationList.length; i++) {
@@ -326,17 +397,16 @@
           </script>
           <!--END PICK LIST PRE-POP-->
 
-          <!--START NEWSLETTER PRE-POP & SHOW/HIDE-->
+          <!--START NEWSLETTER SHOW/HIDE-->
           <script type="text/javascript">
-            var newsletterValue = "{{lead.Subscribed to Newsletter}}"; //checkbox value 1 or empty
+          var newsletterValue = "{{lead.Subscribed to Newsletter}}"; //= ""; //
 
-            if (newsletterValue == "1") {
-              document.getElementById('subscribedtoNewsletter').checked = "checked"; //check the newsletter subscription box
-              document.getElementById('subscribedtoNewsletterWrapper').style.display = 'none'; //hide the newsletter subscription div
-            }
+          if (newsletterValue !== "1") {
+            document.getElementById('newsletter-wrapper').style.display = "";
+          }
 
           </script>
-          <!--END NEWSLETTER PRE-POP & SHOW/HIDE-->
+          <!--END NEWSLETTER SHOW-->
 
           <script type="text/javascript">
             //Show/hide based on pre-pop
@@ -344,7 +414,10 @@
             var fieldLastName = document.getElementById('LastName');
             var fieldPhone = document.getElementById('Phone');
             var fieldCompany = document.getElementById('Company');
-            var fieldTitle = document.getElementById('Title');
+            var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+            var fieldTitleCategory = document.getElementById('Title_Category__c');
+            var fieldJobFuntion = document.getElementById('Job_Function__c');
+            var fieldJobRole = document.getElementById('Job_Role__c');
             var fieldMarketingAutomation = document.getElementById('Marketing_Automation__c');
             var fieldBusinessType = document.getElementById('Business_Type__c');
 
@@ -371,9 +444,24 @@
                 fieldCompany.setAttribute("data-validation", "");
               }
 
-              if ((fieldTitle.value) !== '') {
-                $(fieldTitle).parents('div').eq(1).fadeOut();
-                fieldTitle.setAttribute("data-validation", "");
+              if ((fieldMarketingCountry.value) !== '') {
+                $(fieldMarketingCountry).parents('div').eq(1).fadeOut();
+                fieldMarketingCountry.setAttribute("data-validation", "");
+              }
+
+              if ((fieldTitleCategory.value) !== '') {
+                $(fieldTitleCategory).parents('div').eq(1).fadeOut();
+                fieldTitleCategory.setAttribute("data-validation", "");
+              }
+
+              if ((fieldJobFuntion.value) !== '') {
+                $(fieldJobFuntion).parents('div').eq(1).fadeOut();
+                fieldJobFuntion.setAttribute("data-validation", "");
+              }
+
+              if ((fieldJobRole.value) !== '') {
+                $(fieldJobRole).parents('div').eq(1).fadeOut();
+                fieldJobRole.setAttribute("data-validation", "");
               }
 
               if ((fieldMarketingAutomation.value) !== '') {
@@ -394,7 +482,10 @@
               $(fieldLastName).parents('div').eq(1).fadeIn();
               $(fieldPhone).parents('div').eq(1).fadeIn();
               $(fieldCompany).parents('div').eq(1).fadeIn();
-              $(fieldTitle).parents('div').eq(1).fadeIn();
+              $(fieldMarketingCountry).parents('div').eq(1).fadeIn();
+              $(fieldTitleCategory).parents('div').eq(1).fadeIn();
+              $(fieldJobFuntion).parents('div').eq(1).fadeIn();
+              $(fieldJobRole).parents('div').eq(1).fadeIn();
               $(fieldMarketingAutomation).parents('div').eq(0).fadeIn();
               $(fieldBusinessType).parents('div').eq(0).fadeIn();
 
@@ -403,7 +494,10 @@
               fieldLastName.setAttribute("data-validation", "required");
               fieldPhone.setAttribute("data-validation", "required");
               fieldCompany.setAttribute("data-validation", "required");
-              fieldTitle.setAttribute("data-validation", "required");
+              fieldMarketingCountry.setAttribute("data-validation", "required");
+              fieldTitleCategory.setAttribute("data-validation", "required");
+              fieldJobFuntion.setAttribute("data-validation", "required");
+              fieldJobRole.setAttribute("data-validation", "required");
               fieldMarketingAutomation.setAttribute("data-validation", "required");
               fieldBusinessType.setAttribute("data-validation", "required");
 

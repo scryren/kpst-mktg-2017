@@ -13,66 +13,57 @@
    ========================================================================== */
 
 $(document).ready(function () {
-	$('#privacy-statement-checkbox').css('display','hide');
+	//$('#privacy-statement-checkbox').css('display','show');
 
-	$('#privacy-statement').append('<div id="privacy-statement-checkbox"><input id="legalCheckbox" name="legalCheckbox" type="checkbox" value="on"></div><span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost&rsquo;s use of my contact information to communicate with me regarding Kapost&rsquo;s products, services, and events.</span>');
+	$('#privacy-statement').append('<div id="privacy-statement-checkbox"><input id="legalCheckbox" name="legalCheckbox" type="checkbox" value="on" data-validation="required" data-validation-depends-on="Marketing_Country__c" data-validation-depends-on-value="Canada, Germany, Australia" data-validation-error-msg="You must agree to Kapost&rsquo;s Terms of Service." data-validation-error-msg-container="#email-error-dialog"><span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost&rsquo;s use of my contact information to communicate with me regarding Kapost&rsquo;s products, services, and events.</span>');
+
+});
 
 
 /* ==========================================================================
    Show & Make Checkbox Required If... (CASL)
    ========================================================================== */
 
-	var listOfCanadianProvinces = [
-		"AB", //Alberta
-		"BC", //British Columbia
-		"MB", //Manitoba
-		"NB", //New Brunswick
-		"NL", //Newfoundland and Labrador
-		"NT", //Northwest Territories
-		"NS", //Nova Scotia
-		"NU", //Nunavut
-		"ON", //Ontario
-		"PE", //Prince Edward Island
-		"QC", //Quebec
-		"SK", //Saskatchewan
-		"YT"  //Yukon
+	var userExpressCountry = [
+		"Canada",
+		"Germany",
+		"Australia"
 	];
 
 
-	function checkForCanadian() {
+	function checkForExpressCountry() {
 
-		var selectedCanadianProvince;
+		var selectedExpressCountry;
 
-		for (var i=0; i<listOfCanadianProvinces.length; i++) {
+		for (var i=0; i<userExpressCountry.length; i++) {
 
-			if ($("[name=stateOrProvince]").val()==listOfCanadianProvinces[i]) {
-				selectedCanadianProvince = listOfCanadianProvinces[i];
+			if ($("[name=Marketing_Country__c]").val()==userExpressCountry[i]) {
+				selectedExpressCountry = userExpressCountry[i];
 			}
 
 			else {}
 
 		}
 
-		var legalCheckbox = new LiveValidation('legalCheckbox'); legalCheckbox.add( Validate.Acceptance, {failureMessage: "You must agree to Penton's Terms of Service." } );
+		//var legalCheckbox = new LiveValidation('legalCheckbox'); legalCheckbox.add( Validate.Acceptance, {failureMessage: "You must agree to Penton's Terms of Service." } );
 
-		if ($("[name=country]").val() == "Canada") {
-			$("#privacy-statement-checkbox").css('display','inline');
-			legalCheckbox.enable()
-		}
+		var expressOptIn;
 
-		else if (($("[name=stateOrProvince]").val() == selectedCanadianProvince) && ($("[name=stateOrProvince]").val() != null)) {
+ 		if (($("[name=Marketing_Country__c]").val() == selectedExpressCountry) && ($("[name=Marketing_Country__c]").val() != null)) {
 			$("#privacy-statement-checkbox").css('display','inline');
-			legalCheckbox.enable()
+			$("#legalCheckbox").attr("data-validation", "required");
+			expressOptIn = "Required"; //For Warning
 		}
 
 		else {
 			$("#privacy-statement-checkbox").css('display','none');
-			legalCheckbox.disable()
+			$("#legalCheckbox").attr("data-validation", "");
+			expressOptIn = ""; //For Warning
 		}
 
 	}
 
-	$(document).ready(checkForCanadian);
-	$("[name=stateOrProvince], [name=country]").change(checkForCanadian);
+	$(document).ready(checkForExpressCountry);
+	$("[name=Marketing_Country__c]").change(checkForExpressCountry);
 
 });

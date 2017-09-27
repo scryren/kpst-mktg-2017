@@ -699,24 +699,32 @@ body.modal-open .blur{
 #kapostmktoform .form-error::before {}
 
 /* Element showing the help text declared in data-validation-help */
-#kapostmktoform .help-block {
+#kapostmktoform #validation-error-above-submit .help-block {
   background-color: #e24b44 !important;
-  border-radius: 0rem .250rem .250rem .250rem !important;
+  // border-radius: 0rem .250rem .250rem .250rem !important;
   color: #fefefe !important;
   display: block;
   font-family: Arial, sans-serif !important;
-  font-size: 0.625em;
+  font-size: 14px;
   font-weight: bold;
-  margin-left: 1rem !important;
-  margin-top: 1rem !important;
-  padding: 0.125rem 0.5rem !important;
+  padding: 0.5em;
+  text-align: center;
 }
 
-#kapostmktoform .help-block::before {
+
+/* Element showing the help text declared in data-validation-help */
+#kapostmktoform #validation-error-express-opt-in .help-block {
+  color: #e24b44 !important;
+  font-weight: bold;
+}
+
+
+/*
+#kapostmktoform #validation-error-above-submit .help-block::before {
   font-family: FontAwesome;
   content: "\f062";
   padding-right: 6px;
-}
+} */
 
 /* Here you can style the look of the input while server being
   requested when using data-validation="server" */
