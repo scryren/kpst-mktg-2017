@@ -23,6 +23,7 @@ function populateJobFunction() {
 	//Populate	the select ID called "Job_Function__c" with the following options
 	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Department...', '');
 	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Accounting');
+	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Administration');
 	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Customer Service');
 	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Engineering');
 	optionsJobFunction.options[optionsJobFunction.options.length] = new Option('Finance');
