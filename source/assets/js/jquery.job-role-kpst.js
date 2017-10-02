@@ -93,6 +93,7 @@ function populateJobRole(o) {
 		document.getElementById('JR').style.display = "";
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Job Role...', '');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Business Operations');
+		optionsJobRole.options[optionsJobRole.options.length] = new Option('Demand Generation');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Sales Leadership');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Sales Operations');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Sales Representative');
