@@ -72,7 +72,8 @@ function populateJobRole(o) {
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Creative');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Demand Generation');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Editor');
-		optionsJobRole.options[optionsJobRole.options.length] = new Option('Event Coordinator');
+		optionsJobRole.options[optionsJobRole.options.length] = new Option('Event Management');
+		optionsJobRole.options[optionsJobRole.options.length] = new Option('Field Marketing');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Intern');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Marketing Analyst');
 		optionsJobRole.options[optionsJobRole.options.length] = new Option('Marketing Automation');
