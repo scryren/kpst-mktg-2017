@@ -644,6 +644,129 @@ body.modal-open .blur{
   background-color: #54a6e6;
   cursor: pointer; }
 
+/**
+ * Default CSS theme for jQuery-Form-Validator.
+ * @author Victor Jonsson <victorjonsson.se>
+ */
+
+/* Input element having an invalid value */
+#kapostmktoform select.error,
+#kapostmktoform input.error {
+  border-color: #e59393 !important;
+  background-image: url('http://resources.kapost.com/rs/389-IOX-111/images/form-remove-symbol-red.svg');
+  background-size: 10px;
+  background-position:  right 10px center;
+  background-repeat: no-repeat;
+}
+
+  #kapostmktoform select.error {
+    background-position:  right 25px center;
+  }
+
+/* Input element having a valid value */
+#kapostmktoform select.valid,
+#kapostmktoform input.valid {
+  border-color: #7cc667;
+  background-image: url('http://resources.kapost.com/rs/389-IOX-111/images/form-correct-symbol-green.svg');
+  background-size: 11px;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+
+/* Input element having a valid value */
+#kapostmktoform select.valid {
+  background-position: right 25px center;
+}
+
+/* File inputs with invalid value */
+#kapostmktoform input[type="file"].error {
+    color: #e24b44;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* File inputs with valid value */
+#kapostmktoform input[type="file"].valid {
+    color: #7cc667;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* Element showing an inline error message */
+#kapostmktoform .form-error {}
+#kapostmktoform .form-error::before {}
+
+/* Element showing the help text declared in data-validation-help */
+#kapostmktoform #validation-error-above-submit .help-block {
+  background-color: #e24b44 !important;
+  // border-radius: 0rem .250rem .250rem .250rem !important;
+  color: #fefefe !important;
+  display: block;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.5em;
+  text-align: center;
+}
+
+
+/* Element showing the help text declared in data-validation-help */
+#kapostmktoform #validation-error-express-opt-in .help-block {
+  color: #e24b44 !important;
+  font-weight: bold;
+}
+
+
+/*
+#kapostmktoform #validation-error-above-submit .help-block::before {
+  font-family: FontAwesome;
+  content: "\f062";
+  padding-right: 6px;
+} */
+
+/* Here you can style the look of the input while server being
+  requested when using data-validation="server" */
+#kapostmktoform select.validating-server-side,
+#kapostmktoform input.validating-server-side {
+    opacity: 0.5;
+    //background-image: url('');
+    //background-position:  right 5px center;
+    //background-repeat: no-repeat;
+    //background-color: #FFF;
+}
+
+/* Here you can style the entire form while server being
+  requested when using data-validation="server" */
+#kapostmktoform form.validating-server-side {
+}
+
+/* Container for error messages when having configuration
+   parameter "errorMessagePosition" set to "top" */
+#kapostmktoform div.form-error {
+    background-color: #e24b44;
+    border: #e59393 1px solid;
+    border-radius: 4px;
+}
+
+/* Title in top of the error message container */
+#kapostmktoform div.form-error strong {
+    font-weight: bold;
+    display: block;
+}
+
+/* Typography styling in the error message container */
+#kapostmktoform div.form-error strong {
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+}
+
+#kapostmktoform div.form-error ul,
+#kapostmktoform div.form-error ul li {
+    display: none;
+}
 
 /* Privacy Statement
    ================================== */
