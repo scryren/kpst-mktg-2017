@@ -1,6 +1,34 @@
 <!--START PICK LIST PRE-POP-->
+
 <script type="text/javascript">
 
+var arrayPrepopSelect = new Array ();
+
+// 0: Field ID | 1: Marketo Token
+
+arrayPrepopSelect[0] = new Array (document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}");
+arrayPrepopSelect[1] = new Array (document.getElementById('Title_Category__c'), "{{lead.Title Category}}");
+arrayPrepopSelect[2] = new Array (document.getElementById('Job_Function__c'), "{{lead.Job Function}}");
+arrayPrepopSelect[3] = new Array (document.getElementById('Job_Role__c'), "{{lead.Job Role}}");
+arrayPrepopSelect[4] = new Array (document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}");
+arrayPrepopSelect[5] = new Array (document.getElementById('Business_Type__c'), "{{lead.Business Type}}");
+
+
+for (var i = 0; i < arrayPrepopSelect.length; i++) {
+
+  for (var x=0; x<arrayPrepopSelect[i][0].options; x++) {
+    if (arrayPrepopSelect[i][0].value==arrayPrepopSelect[i][1].value) {
+    //arrayPrepopSelect[i][0].value==arrayPrepopSelect[i][1].value
+    break;}
+    else {
+    arrayPrepopSelect[i][0].value = "";}
+  }
+
+}
+</script>
+
+<script>
+/*
 var marketingCountryValue = "{{lead.Marketing Country}}";
 var marketingCountryList = document.getElementById('Marketing_Country__c').options;
   for (var i=0; i<marketingCountryList.length; i++) {
@@ -8,8 +36,9 @@ var marketingCountryList = document.getElementById('Marketing_Country__c').optio
     document.getElementById('Marketing_Country__c').value = marketingCountryValue;
     break;}
     else {
-    document.getElementById('Marketing_Automation__c').value = "";}
+    document.getElementById('Marketing_Country__c').value = "";}
   }
+
 
   var titleCategoryValue = "{{lead.Title Category}}";
   var titleCategoryList = document.getElementById('Title_Category__c').options;
@@ -63,7 +92,9 @@ var marketingCountryList = document.getElementById('Marketing_Country__c').optio
       document.getElementById('Business_Type__c').value = "";}
     }
 
+*/
 </script>
+
 <!--END PICK LIST PRE-POP-->
 
 <!--START NEWSLETTER SHOW/HIDE-->
@@ -91,7 +122,6 @@ if (newsletterValue !== "1") {
   var fieldBusinessType = document.getElementById('Business_Type__c');
 
   //Show/Hide Form Fields
-
   function hideKnownFields() {
 
     var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
@@ -107,17 +137,16 @@ if (newsletterValue !== "1") {
 
   }
 
-    function showAllFields() {
+  function showAllFields() {
 
-        var myVariableArray2 = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
+    var myVariableArray2 = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
 
-        var arrayLength2 = myVariableArray2.length;
+    var arrayLength2 = myVariableArray2.length;
 
-        for (var i = 0; i < arrayLength2; i++) {
-          $(myVariableArray2[i]).parents('div').eq(1).fadeIn();
-          $(myVariableArray2[i]).removeClass("ignore");
-
-        }
+    for (var i = 0; i < arrayLength2; i++) {
+      $(myVariableArray2[i]).parents('div').eq(1).fadeIn();
+      $(myVariableArray2[i]).removeClass("ignore");
+    }
 
   }
 
