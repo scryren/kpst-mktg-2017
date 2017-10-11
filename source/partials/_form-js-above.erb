@@ -1,0 +1,35 @@
+<!--START Form Reset-->
+<script>
+$(document).ready(function() {
+
+  //var hideKnownFieldsValue = ${mkto-form-showhide};
+  var hideKnownFieldsValue = true;
+
+  if (hideKnownFieldsValue == true) {
+    hideKnownFields(); //hide fields and remove requirement
+
+    $('#clearForm').on('click', function() {
+      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
+      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
+      showAllFields(); //show all fields again and make them required again
+    });
+
+  } else {
+
+    $('#clearForm').on('click', function() {
+      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
+      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
+    });
+
+  }
+
+});
+</script>
+
+<div id="clearFormContainer" class="row">
+  <div class="col-12 text-center text-lg-left">
+    <p style="line-height: 18px; font-size: 12px;">Not you? <a href="#clearForm" id="clearForm">Clear form fields</a>.</p>
+
+  </div>
+</div>
+<!--END Form Reset-->

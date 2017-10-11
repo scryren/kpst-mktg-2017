@@ -1,0 +1,221 @@
+<!--START PICK LIST PRE-POP-->
+<script type="text/javascript">
+
+var marketingCountryValue = "{{lead.Marketing Country}}";
+var marketingCountryList = document.getElementById('Marketing_Country__c').options;
+  for (var i=0; i<marketingCountryList.length; i++) {
+    if (marketingCountryValue==marketingCountryList[i].value) {
+    document.getElementById('Marketing_Country__c').value = marketingCountryValue;
+    break;}
+    else {
+    document.getElementById('Marketing_Automation__c').value = "";}
+  }
+
+  var titleCategoryValue = "{{lead.Title Category}}";
+  var titleCategoryList = document.getElementById('Title_Category__c').options;
+    for (var i=0; i<titleCategoryList.length; i++) {
+      if (titleCategoryValue==titleCategoryList[i].value){
+      document.getElementById('Title_Category__c').value = titleCategoryValue;
+      break; }
+      else {
+      document.getElementById('Title_Category__c').value = "";}
+    }
+
+
+  var jobFunctionValue = "{{lead.Job Function}}";
+  var jobFunctionList = document.getElementById('Job_Function__c').options;
+    for (var i=0; i<jobFunctionList.length; i++) {
+      if (jobFunctionValue==jobFunctionList[i].value){
+      document.getElementById('Job_Function__c').value = jobFunctionValue;
+      break; }
+      else {
+      document.getElementById('Job_Function__c').value = "";}
+    }
+
+  var jobRoleValue = "{{lead.Job Role}}";
+  var jobRoleList = document.getElementById('Job_Role__c').options;
+    for (var i=0; i<jobRoleList.length; i++) {
+      if (jobRoleValue==jobRoleList[i].value){
+      document.getElementById('Job_Role__c').value = jobRoleValue;
+      break; }
+      else {
+      document.getElementById('Job_Role__c').value = "";}
+    }
+
+
+  var marketingAutomationValue = "{{lead.Marketing Automation}}";
+  var marketingAutomationList = document.getElementById('Marketing_Automation__c').options;
+    for (var i=0; i<marketingAutomationList.length; i++) {
+      if (marketingAutomationValue==marketingAutomationList[i].value) {
+      document.getElementById('Marketing_Automation__c').value = marketingAutomationValue;
+      break;}
+      else {
+      document.getElementById('Marketing_Automation__c').value = "";}
+    }
+
+  var businessTypeValue = "{{lead.Business Type}}";
+  var businessTypeList = document.getElementById('Business_Type__c').options;
+    for (var i=0; i<businessTypeList.length; i++) {
+      if (businessTypeValue==businessTypeList[i].value){
+      document.getElementById('Business_Type__c').value = businessTypeValue;
+      break; }
+      else {
+      document.getElementById('Business_Type__c').value = "";}
+    }
+
+</script>
+<!--END PICK LIST PRE-POP-->
+
+<!--START NEWSLETTER SHOW/HIDE-->
+<script type="text/javascript">
+var newsletterValue = "{{lead.Subscribed to Newsletter}}"; //= ""; //
+
+if (newsletterValue !== "1") {
+  document.getElementById('newsletter-wrapper').style.display = "";
+}
+
+</script>
+<!--END NEWSLETTER SHOW-->
+
+<script type="text/javascript">
+  //Show/hide based on pre-pop
+  var fieldFirstName = document.getElementById('FirstName');
+  var fieldLastName = document.getElementById('LastName');
+  var fieldPhone = document.getElementById('Phone');
+  var fieldCompany = document.getElementById('Company');
+  var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+  var fieldTitleCategory = document.getElementById('Title_Category__c');
+  var fieldJobFuntion = document.getElementById('Job_Function__c');
+  var fieldJobRole = document.getElementById('Job_Role__c');
+  var fieldMarketingAutomation = document.getElementById('Marketing_Automation__c');
+  var fieldBusinessType = document.getElementById('Business_Type__c');
+
+  //Show/Hide Form Fields
+
+  function hideKnownFields() {
+
+    var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
+
+    var arrayLength = myVariableArray.length;
+
+    for (var i = 0; i < arrayLength; i++) {
+      if ((myVariableArray[i].value) !== '') {
+        $(myVariableArray[i]).parents('div').eq(1).fadeOut();
+        $(myVariableArray[i]).addClass("ignore");
+      }
+    }
+
+  }
+
+    function showAllFields() {
+
+        var myVariableArray2 = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
+
+        var arrayLength2 = myVariableArray2.length;
+
+        for (var i = 0; i < arrayLength2; i++) {
+          $(myVariableArray2[i]).parents('div').eq(1).fadeIn();
+          $(myVariableArray2[i]).removeClass("ignore");
+
+        }
+
+  }
+
+  </script>
+
+
+
+  <script>
+  //Privacy Policy Show/Hide
+  $(document).ready(function () {
+
+    function checkForExpressCountry() {
+
+      userMarktingCountry = document.getElementById('Marketing_Country__c').value;
+      listExpressCountry = ["Canada","Germany","Australia"];
+      var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+
+      if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
+          $(wrapperPrivacyStatement).fadeIn();
+          return true;
+      } else {
+          $(wrapperPrivacyStatement).fadeOut();
+          return false;
+      }
+    }
+
+      $(document).ready(checkForExpressCountry);
+      $("[id=Marketing_Country__c]").change(checkForExpressCountry);
+
+  });
+  </script>
+
+
+  <script>
+  //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+
+  $("#kapostmktoform").validate({
+
+    ignore: ".ignore",
+    rules: {
+      FirstName: {required: true},
+      LastName: {required: true},
+      Email: {required: true, email: true},
+      Phone: {required: true},
+      Company: {required: true},
+      Marketing_Country__c: {required: true},
+      Title_Category__c: {required: true},
+      Job_Function__c: {required: true},
+      Job_Role__c:
+      { required:
+        { depends:
+          function () { //Start Function
+
+            var userJobFunction = document.getElementById('Job_Function__c').value;
+            var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+
+            if( $.inArray(userJobFunction, listJobFunction) != -1){
+              return true;
+            } else {
+              return false;
+            }
+
+          } //End Function
+        } //End Depends
+      }, //End Required
+      Marketing_Automation__c: {required: true},
+      Business_Type__c: {required: true},
+      legalCheckbox:
+      { required:
+        { depends:
+          function () { //Start Function
+
+            if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
+                return true;
+            } else {
+                return false;
+            }
+
+          } //End Function
+        } //End Depends
+      } //End Required
+    }, //End Rules
+
+    submitHandler: function($form) {
+      Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+      Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+      Cookies.remove('kapostsource', { domain: 'kapost.com' });
+      Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+      Cookies.remove('kapostsearch');
+      Cookies.remove('kapostsocial');
+      Cookies.remove('kapostsource');
+      Cookies.remove('kapostpaid');
+      alert("submit hander function ran");
+      form.submit();
+    }
+
+  }); //End .validate
+
+
+
+</script>
