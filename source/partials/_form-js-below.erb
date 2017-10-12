@@ -1,103 +1,44 @@
-<!--START PICK LIST PRE-POP-->
-
+<!--START SELECT PRE-POP-->
 <script type="text/javascript">
+//$(document).ready(function () {
 
-var arrayPrepopSelect = new Array ();
+  var arrayPrepopSelect = new Array ();
 
-// 0: Field ID | 1: Marketo Token
+  // 0: Field ID | 1: Marketo Token
+  arrayPrepopSelect[0] = new Array (document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}");
+  arrayPrepopSelect[1] = new Array (document.getElementById('Title_Category__c'), "{{lead.Title Category}}");
+  arrayPrepopSelect[2] = new Array (document.getElementById('Job_Function__c'), "{{lead.Job Function}}");
+  arrayPrepopSelect[3] = new Array (document.getElementById('Job_Role__c'), "{{lead.Job Role}}");
+  arrayPrepopSelect[4] = new Array (document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}");
+  arrayPrepopSelect[5] = new Array (document.getElementById('Business_Type__c'), "{{lead.Business Type}}");
 
-arrayPrepopSelect[0] = new Array (document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}");
-arrayPrepopSelect[1] = new Array (document.getElementById('Title_Category__c'), "{{lead.Title Category}}");
-arrayPrepopSelect[2] = new Array (document.getElementById('Job_Function__c'), "{{lead.Job Function}}");
-arrayPrepopSelect[3] = new Array (document.getElementById('Job_Role__c'), "{{lead.Job Role}}");
-arrayPrepopSelect[4] = new Array (document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}");
-arrayPrepopSelect[5] = new Array (document.getElementById('Business_Type__c'), "{{lead.Business Type}}");
-
-
-for (var i = 0; i < arrayPrepopSelect.length; i++) {
-
-  for (var x=0; x<arrayPrepopSelect[i][0].options; x++) {
-    if (arrayPrepopSelect[i][0].value==arrayPrepopSelect[i][1].value) {
-    //arrayPrepopSelect[i][0].value==arrayPrepopSelect[i][1].value
-    break;}
-    else {
-    arrayPrepopSelect[i][0].value = "";}
+  for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
+    for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
+      if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
+        arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+        //alert("Token: " + arrayPrepopSelect[i][1] + " Option Value: " + arrayPrepopSelect[i][0].options[x].value);
+        break;
+      } else { arrayPrepopSelect[i][0].value = ""; }
+    }
   }
 
-}
-</script>
+//});
 
-<script>
 /*
-var marketingCountryValue = "{{lead.Marketing Country}}";
-var marketingCountryList = document.getElementById('Marketing_Country__c').options;
-  for (var i=0; i<marketingCountryList.length; i++) {
-    if (marketingCountryValue==marketingCountryList[i].value) {
-    document.getElementById('Marketing_Country__c').value = marketingCountryValue;
-    break;}
-    else {
-    document.getElementById('Marketing_Country__c').value = "";}
-  }
+if ("{{lead.Job Function}}" != "") {
+  document.getElementById('Job_Function__c').value = "{{lead.Job Function}}"
+}
+
+if ("{{lead.Job Role}}" != "") {
+  document.getElementById('Job_Role__c').value = "{{lead.Job Role}}"
+} */
 
 
-  var titleCategoryValue = "{{lead.Title Category}}";
-  var titleCategoryList = document.getElementById('Title_Category__c').options;
-    for (var i=0; i<titleCategoryList.length; i++) {
-      if (titleCategoryValue==titleCategoryList[i].value){
-      document.getElementById('Title_Category__c').value = titleCategoryValue;
-      break; }
-      else {
-      document.getElementById('Title_Category__c').value = "";}
-    }
 
-
-  var jobFunctionValue = "{{lead.Job Function}}";
-  var jobFunctionList = document.getElementById('Job_Function__c').options;
-    for (var i=0; i<jobFunctionList.length; i++) {
-      if (jobFunctionValue==jobFunctionList[i].value){
-      document.getElementById('Job_Function__c').value = jobFunctionValue;
-      break; }
-      else {
-      document.getElementById('Job_Function__c').value = "";}
-    }
-
-  var jobRoleValue = "{{lead.Job Role}}";
-  var jobRoleList = document.getElementById('Job_Role__c').options;
-    for (var i=0; i<jobRoleList.length; i++) {
-      if (jobRoleValue==jobRoleList[i].value){
-      document.getElementById('Job_Role__c').value = jobRoleValue;
-      break; }
-      else {
-      document.getElementById('Job_Role__c').value = "";}
-    }
-
-
-  var marketingAutomationValue = "{{lead.Marketing Automation}}";
-  var marketingAutomationList = document.getElementById('Marketing_Automation__c').options;
-    for (var i=0; i<marketingAutomationList.length; i++) {
-      if (marketingAutomationValue==marketingAutomationList[i].value) {
-      document.getElementById('Marketing_Automation__c').value = marketingAutomationValue;
-      break;}
-      else {
-      document.getElementById('Marketing_Automation__c').value = "";}
-    }
-
-  var businessTypeValue = "{{lead.Business Type}}";
-  var businessTypeList = document.getElementById('Business_Type__c').options;
-    for (var i=0; i<businessTypeList.length; i++) {
-      if (businessTypeValue==businessTypeList[i].value){
-      document.getElementById('Business_Type__c').value = businessTypeValue;
-      break; }
-      else {
-      document.getElementById('Business_Type__c').value = "";}
-    }
-
-*/
 </script>
+<!--END SELECT PRE-POP-->
 
-<!--END PICK LIST PRE-POP-->
-
-<!--START NEWSLETTER SHOW/HIDE-->
+<!--START HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 <script type="text/javascript">
 var newsletterValue = "{{lead.Subscribed to Newsletter}}"; //= ""; //
 
@@ -106,10 +47,10 @@ if (newsletterValue !== "1") {
 }
 
 </script>
-<!--END NEWSLETTER SHOW-->
+<!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 
+<!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 <script type="text/javascript">
-  //Show/hide based on pre-pop
   var fieldFirstName = document.getElementById('FirstName');
   var fieldLastName = document.getElementById('LastName');
   var fieldPhone = document.getElementById('Phone');
@@ -121,7 +62,7 @@ if (newsletterValue !== "1") {
   var fieldMarketingAutomation = document.getElementById('Marketing_Automation__c');
   var fieldBusinessType = document.getElementById('Business_Type__c');
 
-  //Show/Hide Form Fields
+  //Fade Out (Hide) Form Fields
   function hideKnownFields() {
 
     var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
@@ -137,6 +78,7 @@ if (newsletterValue !== "1") {
 
   }
 
+  //Fade In (Show) Form Fields
   function showAllFields() {
 
     var myVariableArray2 = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
@@ -150,101 +92,100 @@ if (newsletterValue !== "1") {
 
   }
 
-  </script>
+</script>
+<!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 
 
+<script>
+//Privacy Policy Show/Hide
+$(document).ready(function () {
 
-  <script>
-  //Privacy Policy Show/Hide
-  $(document).ready(function () {
+  function checkForExpressCountry() {
 
-    function checkForExpressCountry() {
+    userMarktingCountry = document.getElementById('Marketing_Country__c').value;
+    listExpressCountry = ["Canada","Germany","Australia"];
+    var wrapperPrivacyStatement = document.getElementById('privacy-statement');
 
-      userMarktingCountry = document.getElementById('Marketing_Country__c').value;
-      listExpressCountry = ["Canada","Germany","Australia"];
-      var wrapperPrivacyStatement = document.getElementById('privacy-statement');
-
-      if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
-          $(wrapperPrivacyStatement).fadeIn();
-          return true;
-      } else {
-          $(wrapperPrivacyStatement).fadeOut();
-          return false;
-      }
+    if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
+        $(wrapperPrivacyStatement).fadeIn();
+        return true;
+    } else {
+        $(wrapperPrivacyStatement).fadeOut();
+        return false;
     }
+  }
 
-      $(document).ready(checkForExpressCountry);
-      $("[id=Marketing_Country__c]").change(checkForExpressCountry);
+    $(document).ready(checkForExpressCountry);
+    $("[id=Marketing_Country__c]").change(checkForExpressCountry);
 
-  });
-  </script>
+});
+</script>
 
 
-  <script>
-  //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+<script>
+//START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
 
-  $("#kapostmktoform").validate({
+$("#kapostmktoform").validate({
 
-    ignore: ".ignore",
-    rules: {
-      FirstName: {required: true},
-      LastName: {required: true},
-      Email: {required: true, email: true},
-      Phone: {required: true},
-      Company: {required: true},
-      Marketing_Country__c: {required: true},
-      Title_Category__c: {required: true},
-      Job_Function__c: {required: true},
-      Job_Role__c:
-      { required:
-        { depends:
-          function () { //Start Function
+  ignore: ".ignore",
+  rules: {
+    FirstName: {required: true},
+    LastName: {required: true},
+    Email: {required: true, email: true},
+    Phone: {required: true},
+    Company: {required: true},
+    Marketing_Country__c: {required: true},
+    Title_Category__c: {required: true},
+    Job_Function__c: {required: true},
+    Job_Role__c:
+    { required:
+      { depends:
+        function () { //Start Function
 
-            var userJobFunction = document.getElementById('Job_Function__c').value;
-            var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+          var userJobFunction = document.getElementById('Job_Function__c').value;
+          var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
-            if( $.inArray(userJobFunction, listJobFunction) != -1){
+          if( $.inArray(userJobFunction, listJobFunction) != -1){
+            return true;
+          } else {
+            return false;
+          }
+
+        } //End Function
+      } //End Depends
+    }, //End Required
+    Marketing_Automation__c: {required: true},
+    Business_Type__c: {required: true},
+    legalCheckbox:
+    { required:
+      { depends:
+        function () { //Start Function
+
+          if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
               return true;
-            } else {
+          } else {
               return false;
-            }
+          }
 
-          } //End Function
-        } //End Depends
-      }, //End Required
-      Marketing_Automation__c: {required: true},
-      Business_Type__c: {required: true},
-      legalCheckbox:
-      { required:
-        { depends:
-          function () { //Start Function
+        } //End Function
+      } //End Depends
+    } //End Required
+  }, //End Rules
 
-            if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
-                return true;
-            } else {
-                return false;
-            }
+  submitHandler: function($form) {
+    Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+    Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+    Cookies.remove('kapostsource', { domain: 'kapost.com' });
+    Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+    Cookies.remove('kapostsearch');
+    Cookies.remove('kapostsocial');
+    Cookies.remove('kapostsource');
+    Cookies.remove('kapostpaid');
+    alert("submit hander function ran");
+    form.submit();
+  }
 
-          } //End Function
-        } //End Depends
-      } //End Required
-    }, //End Rules
-
-    submitHandler: function($form) {
-      Cookies.remove('kapostsearch', { domain: 'kapost.com' });
-      Cookies.remove('kapostsocial', { domain: 'kapost.com' });
-      Cookies.remove('kapostsource', { domain: 'kapost.com' });
-      Cookies.remove('kapostpaid', { domain: 'kapost.com' });
-      Cookies.remove('kapostsearch');
-      Cookies.remove('kapostsocial');
-      Cookies.remove('kapostsource');
-      Cookies.remove('kapostpaid');
-      alert("submit hander function ran");
-      form.submit();
-    }
-
-  }); //End .validate
-
+}); //End .validate
 
 
 </script>
