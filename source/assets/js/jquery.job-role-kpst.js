@@ -8,11 +8,13 @@
 */
 
 /* ==========================================================================
-   Business Type Primary
+   Job Function
    ========================================================================== */
 
-//Create the function populateBusinessTypePrimary
+//Create the function populateJobFunction
 function populateJobFunction() {
+
+alert("populateJobFunction ran");
 
 	//Create the variable optionsJobFunction to equal the following
 	var optionsJobFunction = document.kapostmktoform.Job_Function__c;
@@ -123,7 +125,7 @@ function populateJobRole(o) {
 /* ==========================================================================
    Execute
    ========================================================================== */
-	 $(window).on("load",function(){
+	 $(document).ready(function () {
 
 		 //Populate the select ID called "Job_Function__c" with the options from the external file
 		 populateJobFunction(document.kapostmktoform.Job_Function__c.options[document.kapostmktoform.Job_Function__c.selectedIndex].value);

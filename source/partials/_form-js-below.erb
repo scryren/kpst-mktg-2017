@@ -1,6 +1,29 @@
+<!--START POPULATE JOB FUNCTION-->
+<script type="text/javascript">
+$(document).ready(function () {
+
+  var arrayJobFunction = ["Accounting", "Administration", "Customer Service", "Engineering", "Finance", "Human Resources", "Information Technology", "Legal", "Marketing", "Product", "Purchasing", "Research and Development", "Sales", "Other"];
+  var fieldID = document.getElementById('Job_Function__c');
+
+  for(var i = 0; i < arrayJobFunction.length; i++) {
+      var fieldOptions = document.createElement('option');
+      fieldOptions.innerHTML = arrayJobFunction[i];
+      fieldOptions.value = arrayJobFunction[i];
+      fieldID.appendChild(fieldOptions);
+  }
+
+
+
+});
+</script>
+
+
+
 <!--START SELECT PRE-POP-->
 <script type="text/javascript">
-//$(document).ready(function () {
+$(document).ready(function () {
+
+alert("Pre-pop selects ran");
 
   var arrayPrepopSelect = new Array ();
 
@@ -18,11 +41,11 @@
         arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
         //alert("Token: " + arrayPrepopSelect[i][1] + " Option Value: " + arrayPrepopSelect[i][0].options[x].value);
         break;
-      } else { arrayPrepopSelect[i][0].value = ""; }
+      } //else { arrayPrepopSelect[i][0].value = ""; }
     }
   }
 
-//});
+});
 
 /*
 if ("{{lead.Job Function}}" != "") {
