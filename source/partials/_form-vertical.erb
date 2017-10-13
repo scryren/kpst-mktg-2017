@@ -109,7 +109,8 @@
                 <!--Department-->
                 <fieldset class="form-group">
                   <label class="sr-only" for="Job_Function__c">Department</label>
-                  <select id="Job_Function__c" name="Job_Function__c" class="form-control" onchange="populateJobRole(document.kapostmktoform.Job_Function__c.options[document.kapostmktoform.Job_Function__c.selectedIndex].value);" size="1">
+                  <!--<select id="Job_Function__c" name="Job_Function__c" class="form-control" onchange="populateJobRole(document.kapostmktoform.Job_Function__c.options[document.kapostmktoform.Job_Function__c.selectedIndex].value);" size="1">-->
+                  <select id="Job_Function__c" name="Job_Function__c" onChange="updateJobRole();" class="form-control">
                     <option value="" selected>Department...</option>
                   </select>
                 </fieldset>
@@ -188,8 +189,6 @@
                 <div id="validation-error-above-submit"></div>
               </div>
             </div>
-
-
 
             <!--Submit Button-->
             <div class="row justify-content-center">

@@ -33,3 +33,96 @@ $(document).ready(function() {
   </div>
 </div>
 <!--END Form Reset-->
+
+
+
+
+<!--START POPULATE JOB FUNCTION and Job Role-->
+<script type="text/javascript">
+//Populate Job Function
+
+$(document).ready(function () {
+
+    function populateJobFunction() {
+
+      var arrayJobFunction = ["Accounting", "Administration", "Customer Service", "Engineering", "Finance", "Human Resources", "Information Technology", "Legal", "Marketing", "Product", "Purchasing", "Research and Development", "Sales", "Other"];
+      var fieldJobFunctionID = document.getElementById('Job_Function__c');
+
+      for(var i = 0; i < arrayJobFunction.length; i++) {
+          var fieldOptions = document.createElement('option');
+          fieldOptions.innerHTML = arrayJobFunction[i];
+          fieldOptions.value = arrayJobFunction[i];
+          fieldJobFunctionID.appendChild(fieldOptions);
+      }
+    }
+
+});
+
+/*
+
+    //Clear Job Role before populating again
+    function updateJobRole() {
+      document.getElementById('Job_Role__c').options.length = 0;
+      alert("updateJobRole ran");
+      populateJobRole();
+    };
+
+
+
+    //Populate Job Role
+    function populateJobRole() {
+
+      var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
+
+      //Marketing
+      if (fieldJobFunctionID == "Marketing") {
+
+        alert("populateJobRole ran");
+
+        var arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+        var fieldJobRoleID = document.getElementById('Job_Role__c');
+
+        for(var i = 0; i < arrayMarketingOptions.length; i++) {
+            var fieldOptions = document.createElement('option');
+            fieldOptions.innerHTML = arrayMarketingOptions[i];
+            fieldOptions.value = arrayMarketingOptions[i];
+            fieldJobRoleID.appendChild(fieldOptions);
+        }
+
+      }
+
+      //Sales
+      if (fieldJobFunctionID == "Sales") {
+
+        var arrayMarketingOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+        var fieldJobRoleID = document.getElementById('Job_Role__c');
+
+        for(var i = 0; i < arrayMarketingOptions.length; i++) {
+            var fieldOptions = document.createElement('option');
+            fieldOptions.innerHTML = arrayMarketingOptions[i];
+            fieldOptions.value = arrayMarketingOptions[i];
+            fieldJobRoleID.appendChild(fieldOptions);
+        }
+
+      }
+
+
+      //Accounting, Finance or Purchasing
+      if (fieldJobFunctionID == "Accounting" || fieldJobFunctionID == "Finance" || fieldJobFunctionID == "Purchasing") {
+
+        var arrayMarketingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+        var fieldJobRoleID = document.getElementById('Job_Role__c');
+
+        for(var i = 0; i < arrayMarketingOptions.length; i++) {
+            var fieldOptions = document.createElement('option');
+            fieldOptions.innerHTML = arrayMarketingOptions[i];
+            fieldOptions.value = arrayMarketingOptions[i];
+            fieldJobRoleID.appendChild(fieldOptions);
+        }
+
+      }
+
+    } */
+
+
+</script>
