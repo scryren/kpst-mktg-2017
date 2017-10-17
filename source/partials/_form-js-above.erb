@@ -35,94 +35,47 @@ $(document).ready(function() {
 <!--END Form Reset-->
 
 
-
-
 <!--START POPULATE JOB FUNCTION and Job Role-->
 <script type="text/javascript">
-//Populate Job Function
+//Populate Job Role
+function populateJobRole() {
 
-$(document).ready(function () {
+  var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
+  var fieldJobRoleID = document.getElementById('Job_Role__c');
 
-    function populateJobFunction() {
+  var arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
 
-      var arrayJobFunction = ["Accounting", "Administration", "Customer Service", "Engineering", "Finance", "Human Resources", "Information Technology", "Legal", "Marketing", "Product", "Purchasing", "Research and Development", "Sales", "Other"];
-      var fieldJobFunctionID = document.getElementById('Job_Function__c');
+  var arraySalesOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
 
-      for(var i = 0; i < arrayJobFunction.length; i++) {
-          var fieldOptions = document.createElement('option');
-          fieldOptions.innerHTML = arrayJobFunction[i];
-          fieldOptions.value = arrayJobFunction[i];
-          fieldJobFunctionID.appendChild(fieldOptions);
-      }
+  var arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+
+  //Marketing
+  if (fieldJobFunctionID == "Marketing") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    for(index in arrayMarketingOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayMarketingOptions[index], arrayMarketingOptions[index]);
     }
+  }
 
-});
+  //Sales
+  if (fieldJobFunctionID == "Sales") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    for(index in arraySalesOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arraySalesOptions[index], arraySalesOptions[index]);
+    }
+  }
 
-/*
+  //Accounting, Finance or Purchasing
+  if (fieldJobFunctionID == "Accounting" || fieldJobFunctionID == "Finance" || fieldJobFunctionID == "Purchasing") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    for(index in arrayAccountingOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayAccountingOptions[index], arrayAccountingOptions[index]);
+    }
+  }
 
-    //Clear Job Role before populating again
-    function updateJobRole() {
-      document.getElementById('Job_Role__c').options.length = 0;
-      alert("updateJobRole ran");
-      populateJobRole();
-    };
-
-
-
-    //Populate Job Role
-    function populateJobRole() {
-
-      var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
-
-      //Marketing
-      if (fieldJobFunctionID == "Marketing") {
-
-        alert("populateJobRole ran");
-
-        var arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
-        var fieldJobRoleID = document.getElementById('Job_Role__c');
-
-        for(var i = 0; i < arrayMarketingOptions.length; i++) {
-            var fieldOptions = document.createElement('option');
-            fieldOptions.innerHTML = arrayMarketingOptions[i];
-            fieldOptions.value = arrayMarketingOptions[i];
-            fieldJobRoleID.appendChild(fieldOptions);
-        }
-
-      }
-
-      //Sales
-      if (fieldJobFunctionID == "Sales") {
-
-        var arrayMarketingOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
-        var fieldJobRoleID = document.getElementById('Job_Role__c');
-
-        for(var i = 0; i < arrayMarketingOptions.length; i++) {
-            var fieldOptions = document.createElement('option');
-            fieldOptions.innerHTML = arrayMarketingOptions[i];
-            fieldOptions.value = arrayMarketingOptions[i];
-            fieldJobRoleID.appendChild(fieldOptions);
-        }
-
-      }
-
-
-      //Accounting, Finance or Purchasing
-      if (fieldJobFunctionID == "Accounting" || fieldJobFunctionID == "Finance" || fieldJobFunctionID == "Purchasing") {
-
-        var arrayMarketingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
-        var fieldJobRoleID = document.getElementById('Job_Role__c');
-
-        for(var i = 0; i < arrayMarketingOptions.length; i++) {
-            var fieldOptions = document.createElement('option');
-            fieldOptions.innerHTML = arrayMarketingOptions[i];
-            fieldOptions.value = arrayMarketingOptions[i];
-            fieldJobRoleID.appendChild(fieldOptions);
-        }
-
-      }
-
-    } */
-
+}
 
 </script>

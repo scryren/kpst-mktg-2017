@@ -13,9 +13,9 @@ alert("Pre-pop selects ran");
   arrayPrepopSelect[0] = new Array (document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}");
   arrayPrepopSelect[1] = new Array (document.getElementById('Title_Category__c'), "{{lead.Title Category}}");
   arrayPrepopSelect[2] = new Array (document.getElementById('Job_Function__c'), "{{lead.Job Function}}");
-  arrayPrepopSelect[3] = new Array (document.getElementById('Job_Role__c'), "{{lead.Job Role}}");
-  arrayPrepopSelect[4] = new Array (document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}");
-  arrayPrepopSelect[5] = new Array (document.getElementById('Business_Type__c'), "{{lead.Business Type}}");
+  //arrayPrepopSelect[3] = new Array (document.getElementById('Job_Role__c'), "{{lead.Job Role}}");
+  arrayPrepopSelect[3] = new Array (document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}");
+  arrayPrepopSelect[4] = new Array (document.getElementById('Business_Type__c'), "{{lead.Business Type}}");
 
   for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
     for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
@@ -25,6 +25,15 @@ alert("Pre-pop selects ran");
         break;
       } //else { arrayPrepopSelect[i][0].value = ""; }
     }
+  }
+
+
+  var userJobFunction = document.getElementById('Job_Function__c').value;
+  var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+
+  if( $.inArray(userJobFunction, listJobFunction) != -1){
+    populateJobRole();
+    alert("Populate Job Role");
   }
 
 });
