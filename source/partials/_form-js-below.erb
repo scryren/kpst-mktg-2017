@@ -1,11 +1,6 @@
-
-
-
-<!--START SELECT PRE-POP-->
+<!--START PRE-POPULATE PICKLISTS-->
 <script type="text/javascript">
-$(document).ready(function () {
-
-alert("Pre-pop selects ran");
+function prePopulatePicklists() {
 
   // 0: Field ID | 1: Marketo Token
   var arrayPrepopSelect = [
@@ -24,32 +19,67 @@ alert("Pre-pop selects ran");
       }
     }
   }
+}
+</script>
+<!--END PRE-POPULATE PICKLISTS-->
 
+<!--START PROPULATE JOB ROLE OPTIONS-->
+<script>
+function populateJobRoleOptions() {
 
-  var userJobFunction = document.getElementById('Job_Function__c').value;
-  var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+  var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
+  var fieldJobRoleID = document.getElementById('Job_Role__c');
+  var mktoTokenJobRole = "{{lead.Job Role}}";
 
-  if( $.inArray(userJobFunction, listJobFunction) != -1){
-    populateJobRoleOptions();
-    alert("Populate Job Role Options");
+  var arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+
+  var arraySalesOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+
+  var arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+
+  //Marketing
+  if (fieldJobFunctionID == "Marketing") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    //Add the array as options to Job Role
+    for(index in arrayMarketingOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayMarketingOptions[index], arrayMarketingOptions[index]);
+    }
+    //If Marketo Token is in the array, set Job Role to the Marketo Token value
+    if(arrayMarketingOptions.indexOf('{{lead.Job Role}}') !== -1){
+      fieldJobRoleID.value = "{{lead.Job Role}}";
+    }
+
   }
 
-});
+  //Sales
+  if (fieldJobFunctionID == "Sales") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    for(index in arraySalesOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arraySalesOptions[index], arraySalesOptions[index]);
+    }
+    if(arraySalesOptions.indexOf('{{lead.Job Role}}') !== -1){
+      fieldJobRoleID.value = "{{lead.Job Role}}";
+    }
+  }
 
+  //Accounting, Finance or Purchasing
+  if (fieldJobFunctionID == "Accounting" || fieldJobFunctionID == "Finance" || fieldJobFunctionID == "Purchasing") {
+    fieldJobRoleID.options.length = 0;
+    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
+    for(index in arrayAccountingOptions) {
+        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayAccountingOptions[index], arrayAccountingOptions[index]);
+    }
+    if(arrayAccountingOptions.indexOf('{{lead.Job Role}}') !== -1){
+      fieldJobRoleID.value = "{{lead.Job Role}}";
+    }
+  }
 
-</script>
-<!--END SELECT PRE-POP-->
-
-<!--START HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
-<script type="text/javascript">
-var newsletterValue = "{{lead.Subscribed to Newsletter}}"; //= ""; //
-
-if (newsletterValue !== "1") {
-  document.getElementById('newsletter-wrapper').style.display = "";
 }
 
 </script>
-<!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
+<!--END PROPULATE JOB ROLE OPTIONS-->
 
 <!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 <script type="text/javascript">
@@ -83,13 +113,13 @@ if (newsletterValue !== "1") {
   //Fade In (Show) Form Fields
   function showAllFields() {
 
-    var myVariableArray2 = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
+    var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
 
-    var arrayLength2 = myVariableArray2.length;
+    var arrayLength = myVariableArray.length;
 
-    for (var i = 0; i < arrayLength2; i++) {
-      $(myVariableArray2[i]).parents('div').eq(1).fadeIn();
-      $(myVariableArray2[i]).removeClass("ignore");
+    for (var i = 0; i < arrayLength; i++) {
+      $(myVariableArray[i]).parents('div').eq(1).fadeIn();
+      $(myVariableArray[i]).removeClass("ignore");
     }
 
   }
@@ -98,29 +128,66 @@ if (newsletterValue !== "1") {
 <!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 
 
+<!--START FORM RESET-->
 <script>
-//Privacy Policy Show/Hide
-$(document).ready(function () {
+function clearFormShowHide() {
 
-  function checkForExpressCountry() {
+  //var hideKnownFieldsValue = ${mkto-form-showhide};
+  var hideKnownFieldsValue = false;
 
-    userMarktingCountry = document.getElementById('Marketing_Country__c').value;
-    listExpressCountry = ["Canada","Germany","Australia"];
-    var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+  if (hideKnownFieldsValue == true) {
+    hideKnownFields(); //hide fields and remove requirement
 
-    if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
-        $(wrapperPrivacyStatement).fadeIn();
-        return true;
-    } else {
-        $(wrapperPrivacyStatement).fadeOut();
-        return false;
-    }
+    $('#clearForm').on('click', function() {
+      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
+      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
+      showAllFields(); //show all fields again and make them required again
+    });
+
+  } else {
+
+    $('#clearForm').on('click', function() {
+      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
+      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
+    });
+
   }
 
-    $(document).ready(checkForExpressCountry);
-    $("[id=Marketing_Country__c]").change(checkForExpressCountry);
+}
+</script>
+<!--END FORM RESET-->
 
-});
+
+<!--START HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
+<script type="text/javascript">
+var newsletterWrapper = document.getElementById('newsletter-wrapper');
+
+if ("{{lead.Subscribed to Newsletter}}" == 1) {
+  $(newsletterWrapper).fadeOut();
+} else {
+  $(newsletterWrapper).fadeIn();
+}
+
+</script>
+<!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
+
+<script>
+//Privacy Policy Show/Hide
+function checkForExpressCountry() {
+
+  userMarktingCountry = document.getElementById('Marketing_Country__c').value;
+  arrayExpressCountry = ["Canada","Germany","Australia"];
+  var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+
+  if(arrayExpressCountry.indexOf(userMarktingCountry) !== -1){
+    $(wrapperPrivacyStatement).fadeIn();
+  } else {
+    $(wrapperPrivacyStatement).fadeOut();
+  }
+
+}
+
+  $("[id=Marketing_Country__c]").change(checkForExpressCountry);
 </script>
 
 
@@ -163,10 +230,10 @@ $("#kapostmktoform").validate({
       { depends:
         function () { //Start Function
 
-          if( $.inArray(userMarktingCountry, listExpressCountry) != -1){
-              return true;
+          if(arrayExpressCountry.indexOf(userMarktingCountry) !== -1){
+            return true;
           } else {
-              return false;
+            return false;
           }
 
         } //End Function

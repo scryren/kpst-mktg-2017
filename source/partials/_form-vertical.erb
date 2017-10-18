@@ -4,9 +4,6 @@
         <div class="col-12 col-lg-5">
           <div class="form-wrapper">
 
-
-            <%# javascript_include_tag "jquery.job-role-kpst" %>
-
             <!--Start Form Code-->
             <form id="kapostmktoform" name="kapostmktoform" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
             <input type="hidden" name="munchkinId" value="389-IOX-111">
@@ -25,7 +22,12 @@
             <!--<input type="hidden" name="ret" value="${mkto-form-redirect}" />-->
             <input type="hidden" name="ret" value="http://deathsvertigo.com" />
 
-            <%= partial "partials/form-js-above" %>
+            <div id="clearFormContainer" class="row">
+              <div class="col-12 text-center text-lg-left">
+                <p style="line-height: 18px; font-size: 12px;">Not you? <a href="#clearForm" id="clearForm">Clear form fields</a>.</p>
+
+              </div>
+            </div>
 
             <div class="row"> <!-- Start field row -->
 

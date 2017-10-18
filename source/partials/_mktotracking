@@ -6,7 +6,8 @@ var searchFormValue;
 var socialFormValue;
 var paidSource;
 
-$(document).ready(function() {
+function cookiesHiddenFields () {
+
 //Note: "Cookies" is the name of a library function; don't change it.
 
   //PART 1a: Set Search Engine Source in a Cookie and store the Cookie value in variable
@@ -66,23 +67,7 @@ $(document).ready(function() {
   document.getElementById("campaignPageURL").value = document.location.href;
   document.getElementById("campaignPageURLReferrer").value = document.referrer;
 
-});
-
-/*
-//PART 6: When form is submitted, delete the cookies from the end users browser
-form.onSuccess(function() {
-  Cookies.remove('kapostsearch', { domain: 'kapost.com' });
-  Cookies.remove('kapostsocial', { domain: 'kapost.com' });
-  Cookies.remove('kapostsource', { domain: 'kapost.com' });
-  Cookies.remove('kapostpaid', { domain: 'kapost.com' });
-  Cookies.remove('kapostsearch');
-  Cookies.remove('kapostsocial');
-  Cookies.remove('kapostsource');
-  Cookies.remove('kapostpaid');
-
-}); */
-
-
+}
 </script>
 
 
