@@ -31,11 +31,13 @@ function populateJobRoleOptions() {
   var fieldJobRoleID = document.getElementById('Job_Role__c');
   var mktoTokenJobRole = "{{lead.Job Role}}";
 
-  var arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+  allowJobFunctionRolesHide = false;
 
-  var arraySalesOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+  arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
 
-  var arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+  arraySalesOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+
+  arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
 
   //Marketing
   if (fieldJobFunctionID == "Marketing") {
@@ -48,6 +50,7 @@ function populateJobRoleOptions() {
     //If Marketo Token is in the array, set Job Role to the Marketo Token value
     if(arrayMarketingOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
+      allowJobFunctionRolesHide = true;
     }
 
   }
@@ -61,6 +64,7 @@ function populateJobRoleOptions() {
     }
     if(arraySalesOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
+      allowJobFunctionRolesHide = true;
     }
   }
 
@@ -73,6 +77,7 @@ function populateJobRoleOptions() {
     }
     if(arrayAccountingOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
+      allowJobFunctionRolesHide = true;
     }
   }
 
@@ -81,59 +86,14 @@ function populateJobRoleOptions() {
 </script>
 <!--END PROPULATE JOB ROLE OPTIONS-->
 
-<!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
-<script type="text/javascript">
-  var fieldFirstName = document.getElementById('FirstName');
-  var fieldLastName = document.getElementById('LastName');
-  var fieldPhone = document.getElementById('Phone');
-  var fieldCompany = document.getElementById('Company');
-  var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
-  var fieldTitleCategory = document.getElementById('Title_Category__c');
-  var fieldJobFuntion = document.getElementById('Job_Function__c');
-  var fieldJobRole = document.getElementById('Job_Role__c');
-  var fieldMarketingAutomation = document.getElementById('Marketing_Automation__c');
-  var fieldBusinessType = document.getElementById('Business_Type__c');
-
-  //Fade Out (Hide) Form Fields
-  function hideKnownFields() {
-
-    var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
-
-    var arrayLength = myVariableArray.length;
-
-    for (var i = 0; i < arrayLength; i++) {
-      if ((myVariableArray[i].value) !== '') {
-        $(myVariableArray[i]).parents('div').eq(1).fadeOut();
-        $(myVariableArray[i]).addClass("ignore");
-      }
-    }
-
-  }
-
-  //Fade In (Show) Form Fields
-  function showAllFields() {
-
-    var myVariableArray = [fieldFirstName, fieldLastName, fieldPhone, fieldCompany, fieldTitleCategory, fieldJobFuntion, fieldJobRole, fieldMarketingAutomation, fieldBusinessType];
-
-    var arrayLength = myVariableArray.length;
-
-    for (var i = 0; i < arrayLength; i++) {
-      $(myVariableArray[i]).parents('div').eq(1).fadeIn();
-      $(myVariableArray[i]).removeClass("ignore");
-    }
-
-  }
-
-</script>
-<!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 
 
 <!--START FORM RESET-->
-<script>
+<script>/*
 function clearFormShowHide() {
 
-  //var hideKnownFieldsValue = ${mkto-form-showhide};
-  var hideKnownFieldsValue = false;
+  var hideKnownFieldsValue = ${mkto-form-showhide};
+  //var hideKnownFieldsValue = false;
 
   if (hideKnownFieldsValue == true) {
     hideKnownFields(); //hide fields and remove requirement
@@ -153,7 +113,7 @@ function clearFormShowHide() {
 
   }
 
-}
+} */
 </script>
 <!--END FORM RESET-->
 
@@ -190,6 +150,64 @@ function checkForExpressCountry() {
   $("[id=Marketing_Country__c]").change(checkForExpressCountry);
 </script>
 
+
+<!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
+<script type="text/javascript">
+
+function showHideFields() {
+
+  //var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
+  //var fieldJobRoleID = document.getElementById('Job_Role__c');
+
+  var mktoTokenJobRole = "{{lead.Job Role}}";
+  var mktoTokenJobFunction = "{{lead.Job Function}}";
+
+  var arrayExcludeJobFunctions = ["Marketing","Sales","Finance","Accounting","Purchasing",""];
+
+  var arrayShowHideFieldID = [
+    [document.getElementById('FirstName'), "{{lead.First Name}}"],
+    [document.getElementById('LastName'), "{{lead.Last Name}}"],
+    [document.getElementById('Phone'), "{{lead.Phone Number}}"],
+    [document.getElementById('Company'), "{{company.Company Name}}"],
+    [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
+    //[document.getElementById('Job_Function__c'), "{{lead.Job Function}}"],
+    //[document.getElementById('Job_Role__c'), "{{lead.Job Role}}"],
+    [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
+    [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
+  ]
+
+  if (allowJobFunctionRolesHide == true) {
+    arrayShowHideFieldID.push(
+      [document.getElementById('Job_Function__c'), "{{lead.Job Function}}"],
+      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
+    );
+  }
+
+  if(arrayExcludeJobFunctions.indexOf(mktoTokenJobFunction) == -1){
+    arrayShowHideFieldID.push(
+      [document.getElementById('Job_Function__c'), "{{lead.Job Function}}"]
+      //TO DO: Set Job Role to null (should we add a Not Applicable to Job Role? yes?)
+    );
+  }
+
+  for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
+
+      if (arrayShowHideFieldID[i][1] !== "") {
+        $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeOut();
+        $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeOut();
+        $(arrayShowHideFieldID[i][0]).addClass("ignore");
+      } else {
+        $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeIn();
+        $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeIn();
+        $(arrayShowHideFieldID[i][0]).removeClass("ignore");
+
+      }
+
+    }
+
+}
+</script>
+<!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 
 <script>
 //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
