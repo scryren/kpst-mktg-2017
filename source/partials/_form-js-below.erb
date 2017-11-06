@@ -178,6 +178,7 @@ function showHideFields() {
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
   ]
 
+/*
   //If correct combo, hide Department and Job Role by adding it to arrayShowHideFieldID
   if (hasProperJobRoleCombo == true) {
     arrayShowHideFieldID.push(
@@ -194,7 +195,7 @@ function showHideFields() {
     document.getElementById('Department').value = "";
     document.getElementById('Job_Role__c').value = "";
 
-  }
+  } */
 
   for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
 
