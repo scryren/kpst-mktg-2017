@@ -6,7 +6,7 @@ function prePopulatePicklists() {
   var arrayPrepopSelect = [
     [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}"],
     [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
-    [document.getElementById('Job_Function__c'), "{{lead.Job Function}}"],
+    [document.getElementById('Department'), "{{lead.Department}}"],
     [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
   ]
@@ -27,11 +27,13 @@ function prePopulatePicklists() {
 <script>
 function populateJobRoleOptions() {
 
-  var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
+  var fieldDepartmentID = document.getElementById('Department').value;
   var fieldJobRoleID = document.getElementById('Job_Role__c');
   var mktoTokenJobRole = "{{lead.Job Role}}";
 
-  allowJobFunctionRolesHide = false;
+  hasProperJobRoleCombo = false;
+
+  var arrayDepartmentsWithRoles = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
   arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
 
@@ -39,8 +41,13 @@ function populateJobRoleOptions() {
 
   arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
 
+  //Not Applicable Departments/Role Combos
+  if(fieldDepartmentID !== "" && mktoTokenJobRole == "Not Applicable" && arrayDepartmentsWithRoles.indexOf(fieldDepartmentID) == -1){
+    hasProperJobRoleCombo = true;
+  }
+
   //Marketing
-  if (fieldJobFunctionID == "Marketing") {
+  if (fieldDepartmentID == "Marketing") {
     fieldJobRoleID.options.length = 0;
     fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
     //Add the array as options to Job Role
@@ -50,13 +57,13 @@ function populateJobRoleOptions() {
     //If Marketo Token is in the array, set Job Role to the Marketo Token value
     if(arrayMarketingOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
-      allowJobFunctionRolesHide = true;
+      hasProperJobRoleCombo = true;
     }
 
   }
 
   //Sales
-  if (fieldJobFunctionID == "Sales") {
+  if (fieldDepartmentID == "Sales") {
     fieldJobRoleID.options.length = 0;
     fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
     for(index in arraySalesOptions) {
@@ -64,12 +71,12 @@ function populateJobRoleOptions() {
     }
     if(arraySalesOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
-      allowJobFunctionRolesHide = true;
+      hasProperJobRoleCombo = true;
     }
   }
 
   //Accounting, Finance or Purchasing
-  if (fieldJobFunctionID == "Accounting" || fieldJobFunctionID == "Finance" || fieldJobFunctionID == "Purchasing") {
+  if (fieldDepartmentID == "Accounting" || fieldDepartmentID == "Finance" || fieldDepartmentID == "Purchasing") {
     fieldJobRoleID.options.length = 0;
     fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
     for(index in arrayAccountingOptions) {
@@ -77,7 +84,7 @@ function populateJobRoleOptions() {
     }
     if(arrayAccountingOptions.indexOf('{{lead.Job Role}}') !== -1){
       fieldJobRoleID.value = "{{lead.Job Role}}";
-      allowJobFunctionRolesHide = true;
+      hasProperJobRoleCombo = true;
     }
   }
 
@@ -139,6 +146,7 @@ function checkForExpressCountry() {
   arrayExpressCountry = ["Canada","Germany","Australia"];
   var wrapperPrivacyStatement = document.getElementById('privacy-statement');
 
+  //if the user's Country value is Canada, etc., add privacy statement to layout
   if(arrayExpressCountry.indexOf(userMarktingCountry) !== -1){
     $(wrapperPrivacyStatement).fadeIn();
   } else {
@@ -151,18 +159,14 @@ function checkForExpressCountry() {
 </script>
 
 
+
 <!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
 <script type="text/javascript">
 
 function showHideFields() {
 
-  //var fieldJobFunctionID = document.getElementById('Job_Function__c').value;
-  //var fieldJobRoleID = document.getElementById('Job_Role__c');
-
   var mktoTokenJobRole = "{{lead.Job Role}}";
-  var mktoTokenJobFunction = "{{lead.Job Function}}";
-
-  var arrayExcludeJobFunctions = ["Marketing","Sales","Finance","Accounting","Purchasing",""];
+  var mktoTokenDepartment = "{{lead.Department}}";
 
   var arrayShowHideFieldID = [
     [document.getElementById('FirstName'), "{{lead.First Name}}"],
@@ -170,24 +174,26 @@ function showHideFields() {
     [document.getElementById('Phone'), "{{lead.Phone Number}}"],
     [document.getElementById('Company'), "{{company.Company Name}}"],
     [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
-    //[document.getElementById('Job_Function__c'), "{{lead.Job Function}}"],
-    //[document.getElementById('Job_Role__c'), "{{lead.Job Role}}"],
     [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
   ]
 
-  if (allowJobFunctionRolesHide == true) {
+  //If correct combo, hide Department and Job Role by adding it to arrayShowHideFieldID
+  if (hasProperJobRoleCombo == true) {
     arrayShowHideFieldID.push(
-      [document.getElementById('Job_Function__c'), "{{lead.Job Function}}"],
+      [document.getElementById('Department'), "{{lead.Department}}"],
       [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
     );
   }
 
-  if(arrayExcludeJobFunctions.indexOf(mktoTokenJobFunction) == -1){
+  //If incorrect combo, hide only Job Role by adding it to arrayShowHideFieldID (let Department logic turn it back on), reset Department and Job Role
+  if (hasProperJobRoleCombo == false) {
     arrayShowHideFieldID.push(
-      [document.getElementById('Job_Function__c'), "{{lead.Job Function}}"]
-      //TO DO: Set Job Role to null (should we add a Not Applicable to Job Role? yes?)
+      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
     );
+    document.getElementById('Department').value = "";
+    document.getElementById('Job_Role__c').value = "";
+
   }
 
   for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
@@ -223,16 +229,16 @@ $("#kapostmktoform").validate({
     Company: {required: true},
     Marketing_Country__c: {required: true},
     Title_Category__c: {required: true},
-    Job_Function__c: {required: true},
+    Department: {required: true},
     Job_Role__c:
     { required:
       { depends:
         function () { //Start Function
 
-          var userJobFunction = document.getElementById('Job_Function__c').value;
-          var listJobFunction = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+          var userDepartment = document.getElementById('Department').value;
+          var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
-          if( $.inArray(userJobFunction, listJobFunction) != -1){
+          if( $.inArray(userDepartment, listDepartment) != -1){
             return true;
           } else {
             return false;
