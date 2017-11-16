@@ -1,20 +1,23 @@
 <!--START GLOBAL VARIABLES -->
 <script type="text/javascript">
-  fieldDepartment = document.getElementById('Department');
-  fieldJobRole = document.getElementById('Job_Role__c');
-  fieldMarketingCountry = document.getElementById('Marketing_Country__c');
-  mktoTokenJobRole = "{{lead.Job Role}}";
-  mktoTokenDepartment = "{{lead.Department}}";
 
-  listExpressCountries = ["Canada","Germany","Australia"];
+  var showJobRole = null;
 
-  listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+  var fieldDepartment = document.getElementById('Department');
+  var fieldJobRole = document.getElementById('Job_Role__c');
+  var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+  var mktoTokenJobRole = "{{lead.Job Role}}";
+  var mktoTokenDepartment = "{{lead.Department}}";
 
-  marketingJobRoles = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+  var listExpressCountries = ["Canada","Germany","Australia"];
 
-  salesJobRoles = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+  var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
-  accountingJobRoles = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+  var marketingJobRoles = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+
+  var salesJobRoles = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+
+  var accountingJobRoles = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
 </script>
 <!--END GLOBAL VARIABLES -->
 
@@ -51,14 +54,13 @@ function populateJobRoleOptions() {
 
   //Marketing
   if (fieldDepartment.value == "Marketing") {
-    //1) Remove all values in the Job Role picklist
     fieldJobRole.options.length = 0;
-    //2) Add the default Job Role value back into the picklist as the selected option
     fieldJobRole.options[fieldJobRole.options.length] = new Option('Job Role...', '', true, true);
-    //3) Populate Job Role with values from the Marketing rray (defined above)
     for(index in marketingJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(marketingJobRoles[index], marketingJobRoles[index]);
     }
+    showJobRole = true;
+    toggleVisibilityJobRole();
   }
 
   //Sales
@@ -68,6 +70,8 @@ function populateJobRoleOptions() {
     for(index in salesJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(salesJobRoles[index], salesJobRoles[index]);
     }
+    showJobRole = true;
+    toggleVisibilityJobRole();
   }
 
   //Accounting, Finance or Purchasing
@@ -77,12 +81,16 @@ function populateJobRoleOptions() {
     for(index in accountingJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(accountingJobRoles[index], accountingJobRoles[index]);
     }
+    showJobRole = true;
+    toggleVisibilityJobRole();
   }
 
   //Not Applicable
   if(listDepartment.indexOf(fieldDepartment.value) == -1){
     fieldJobRole.options.length = 0;
     fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+    showJobRole = false;
+    toggleVisibilityJobRole();
   }
 
 }
@@ -97,29 +105,30 @@ function populateJobRoleOptions() {
     //Marketing
     if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
+      showJobRole = false;
+      toggleVisibilityJobRole();
     }
 
     //Sales
     if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
+      showJobRole = false;
+      toggleVisibilityJobRole();
     }
 
     //Accounting, Finance or Purchasing
     if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
+      showJobRole = false;
+      toggleVisibilityJobRole();
     }
 
-    //Not Applicable
-    if(listDepartment.indexOf(fieldDepartment.value) == -1){
+    //If pre-popped Department isn't in listDepartment then hard code Job Role to Not Applicable
+    if(listDepartment.indexOf(mktoTokenDepartment) == -1){
       fieldJobRole.value = "Not Applicable";
+      showJobRole = false;
+      toggleVisibilityJobRole();
     }
-
-
-    //Not Applicable
-    /*
-    if(fieldDepartment.value !== "" && mktoTokenJobRole == "Not Applicable" && listDepartment.indexOf(fieldDepartment.value) == -1){
-      //hasProperJobRoleCombo = true;
-    }*/
 
   }
 
@@ -129,6 +138,9 @@ function populateJobRoleOptions() {
 
 <!--START FORM RESET-->
 <script>/*
+
+THIS IS OUT OF DATE
+
 function clearFormShowHide() {
 
   var hideKnownFieldsValue = ${mkto-form-showhide};
@@ -170,6 +182,9 @@ if ("{{lead.Subscribed to Newsletter}}" == 1) {
 </script>
 <!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 
+
+
+
 <script>
 //Privacy Policy Show/Hide
 function checkForExpressCountry() {
@@ -190,11 +205,10 @@ function checkForExpressCountry() {
 
 
 
-<!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
+<!--START SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
 <script type="text/javascript">
 
-function showHideFields() {
-
+function toggleVisibilityMain() {
 
   var arrayShowHideFieldID = [
     [document.getElementById('FirstName'), "{{lead.First Name}}"],
@@ -206,27 +220,7 @@ function showHideFields() {
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
   ]
 
-/*
-  //If correct combo, hide Department and Job Role by adding it to arrayShowHideFieldID
-  if (hasProperJobRoleCombo == true) {
-    arrayShowHideFieldID.push(
-      [document.getElementById('Department'), "{{lead.Department}}"],
-      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
-    );
-  }
-
-  //If incorrect combo, hide only Job Role by adding it to arrayShowHideFieldID (let Department logic turn it back on), reset Department and Job Role
-  if (hasProperJobRoleCombo == false) {
-    arrayShowHideFieldID.push(
-      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
-    );
-    document.getElementById('Department').value = "";
-    document.getElementById('Job_Role__c').value = "";
-
-  } */
-
   for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
-
 
       if (arrayShowHideFieldID[i][1] !== "") {
         //If the field has a value in Marketo, then hide the field and ignore validation by adding Ignore class
@@ -245,7 +239,26 @@ function showHideFields() {
 
 }
 </script>
-<!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
+<!--END SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
+
+
+<script type="text/javascript">
+
+function toggleVisibilityJobRole() {
+
+  if (showJobRole == true) {
+    $(fieldJobRole).parents('div').eq(0).fadeIn();
+    $(fieldJobRole).parents('fieldset').eq(0).fadeIn();
+    $(fieldJobRole).removeClass("ignore");
+  } else if (showJobRole == false) {
+    $(fieldJobRole).parents('div').eq(0).fadeOut();
+    $(fieldJobRole).parents('fieldset').eq(0).fadeOut();
+    $(fieldJobRole).addClass("ignore");
+  }
+
+}
+
+</script>
 
 <script>
 //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
@@ -267,9 +280,10 @@ $("#kapostmktoform").validate({
       { depends:
         function () { //Start Function
 
-          //If the value in the Department field is in the list of Departments (defined above), make Job Role required
           //NOTE: N/A being autoselected doesn't clear the required warning message. might have to show/hide it with field
-          if( $.inArray(fieldDepartment.value, listDepartment) != -1){
+          //CHANGE TO: if showJobRole = true then required, if showJobRole = false then not required
+          if( showJobRole == true){
+          //if( $.inArray(fieldDepartment.value, listDepartment) != -1){
             return true; //required
           } else {
             return false; //not required
