@@ -2,6 +2,7 @@
 <script type="text/javascript">
 
   var showJobRole = null;
+  var showDepartment = null;
 
   var fieldDepartment = document.getElementById('Department');
   var fieldJobRole = document.getElementById('Job_Role__c');
@@ -83,6 +84,7 @@ function populateJobRoleOptions() {
     }
     showJobRole = true;
     toggleVisibilityJobRole();
+
   }
 
   //Not Applicable
@@ -106,21 +108,27 @@ function populateJobRoleOptions() {
     if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
       showJobRole = false;
+      //showDepartment = false;
       toggleVisibilityJobRole();
+      //toggleVisibilityDepartment();
     }
 
     //Sales
     if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
       showJobRole = false;
+      //showDepartment = false;
       toggleVisibilityJobRole();
+      //toggleVisibilityDepartment();
     }
 
     //Accounting, Finance or Purchasing
     if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
       fieldJobRole.value = mktoTokenJobRole;
       showJobRole = false;
+      //showDepartment = false;
       toggleVisibilityJobRole();
+    //  toggleVisibilityDepartment();
     }
 
     //If pre-popped Department isn't in listDepartment then hard code Job Role to Not Applicable
@@ -243,6 +251,20 @@ function toggleVisibilityMain() {
 
 
 <script type="text/javascript">
+
+function toggleVisibilityDepartment() {
+
+  if (showDepartment == true) {
+    $(fieldDepartment).parents('div').eq(0).fadeIn();
+    $(fieldDepartment).parents('fieldset').eq(0).fadeIn();
+    $(fieldDepartment).removeClass("ignore");
+  } else if (showDepartment == false) {
+    $(fieldDepartment).parents('div').eq(0).fadeOut();
+    $(fieldDepartment).parents('fieldset').eq(0).fadeOut();
+    $(fieldDepartment).addClass("ignore");
+  }
+
+}
 
 function toggleVisibilityJobRole() {
 
