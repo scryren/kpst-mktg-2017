@@ -14,7 +14,7 @@
 
   var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
-  var marketingJobRoles = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
+  var marketingJobRoles = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Digital Marketer", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "Social", "Other"]
 
   var salesJobRoles = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
 
@@ -25,6 +25,15 @@
 
 <!--START PRE-POPULATE PICKLISTS-->
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+Picklists cannot populate from Marketo Tokens like text fields can. The Marketo Token value must be compared to the options in the picklist to see if there is a match. This is done by looping through the arrays (defined globally above) to see if the Marketo Token matches a value in the array. If it matches, put the array value as the selected option in the picklist.
+*/
+
   function prePopulatePicklists() {
 
     // 0: Field ID | 1: Marketo Token
@@ -51,6 +60,18 @@
 
 <!--START PROPULATE JOB ROLE OPTIONS-->
 <script>
+/*************/
+/*Description*/
+/*************/
+/*
+This function runs every time the Department field value changes.
+
+Dynamic Picklists cannot have their options coded into the picklist on the form--they must be populated dynamically through a loop. This function looks at the current Dapartment value, then populated Job Role with the corresponding array (globally defined above).
+
+Next, there is logic to define if Job Role needs to be visible to the end user (showJobRole = true or false). Then it calls the function (toggleVisibilityJobRole) do the actual show/hiding. If the Department does not have a corresponding list of Job Roles, then Job Role is set to "Not Applicable", and Job Role is hidden from the end user.
+*/
+
+
 function populateJobRoleOptions() {
 
   //Marketing
@@ -87,7 +108,7 @@ function populateJobRoleOptions() {
 
   }
 
-  //Not Applicable
+  //Not Applicable - False
   if(listDepartment.indexOf(fieldDepartment.value) == -1){
     fieldJobRole.options.length = 0;
     fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
@@ -102,41 +123,62 @@ function populateJobRoleOptions() {
 
 <!--START PRE-POPULATE JOB ROLE-->
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+This function looks at what the current Department is. If it's a Department with a Job Role list, loop through the appropriate Job Role array to check for a match against the Marketo Token. If there is a match, set the Job Role value to the Marketo Token. Next, there is logic to define if Job Role and Department needs to be visible to the end user (showJobRole = true or false). Then it calls the function (toggleVisibilityJobRole and toggleVisibilityDepartment) do the actual show/hiding. If the Department does not have a corresponding list of Job Roles, then Job Role is set to "Not Applicable", and Job Role is hidden from the end user.
+
+The following isn't explicitly coded--it happens because of how the rest of the code is written:
+Department and Job Role are mis-matched: Department shows the Marketo Token value. If that Department has a Job Role list then Job Role shows that list. Otherwise, Job Role is hidden and assigned the value of "Not Applicable."
+Department is empty: Department shows the default value. J
+*/
+
   function prePopulateJobRole() {
 
     //Marketing
-    if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
-      fieldJobRole.value = mktoTokenJobRole;
-      showJobRole = false;
-      //showDepartment = false;
-      toggleVisibilityJobRole();
-      //toggleVisibilityDepartment();
+    if (fieldDepartment.value == "Marketing") {
+      if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
     }
 
     //Sales
-    if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
-      fieldJobRole.value = mktoTokenJobRole;
-      showJobRole = false;
-      //showDepartment = false;
-      toggleVisibilityJobRole();
-      //toggleVisibilityDepartment();
+    if (fieldDepartment.value == "Sales") {
+      if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
     }
+
 
     //Accounting, Finance or Purchasing
-    if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
-      fieldJobRole.value = mktoTokenJobRole;
-      showJobRole = false;
-      //showDepartment = false;
-      toggleVisibilityJobRole();
-    //  toggleVisibilityDepartment();
+    if (fieldDepartment.value == "Accounting" || fieldDepartment.value == "Finance" || fieldDepartment.value == "Purchasing") {
+      if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
     }
 
-    //If pre-popped Department isn't in listDepartment then hard code Job Role to Not Applicable
+    //If pre-popped Department isn't in listDepartment, then hard code Job Role to Not Applicable. Empty Department is not an issue.
     if(listDepartment.indexOf(mktoTokenDepartment) == -1){
-      fieldJobRole.value = "Not Applicable";
       showJobRole = false;
+      fieldJobRole.value = "Not Applicable";
       toggleVisibilityJobRole();
     }
+
 
   }
 
@@ -179,6 +221,13 @@ function clearFormShowHide() {
 
 <!--START HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+Hide everything in the newsletter wrapper if the end user is already subscribed to the newsletter.
+*/
+
 var newsletterWrapper = document.getElementById('newsletter-wrapper');
 
 if ("{{lead.Subscribed to Newsletter}}" == 1) {
@@ -191,30 +240,44 @@ if ("{{lead.Subscribed to Newsletter}}" == 1) {
 <!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 
 
-
-
 <script>
+/*************/
+/*Description*/
+/*************/
+/*
+This function runs every time the Country field value changes. This is defined in this script tag, but must be outside the function.
+
+If the Country chosen is one that requires additional privacy functionality, show the privacy statement and make it required.
+*/
+
 //Privacy Policy Show/Hide
-function checkForExpressCountry() {
+  function checkForExpressCountry() {
 
-  var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+    var wrapperPrivacyStatement = document.getElementById('privacy-statement');
 
-  //if the user's Country value is Canada, etc., add privacy statement to layout
-  if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
-    $(wrapperPrivacyStatement).fadeIn();
-  } else {
-    $(wrapperPrivacyStatement).fadeOut();
+    //if the user's Country value is Canada, etc., add privacy statement to layout
+    if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
+      $(wrapperPrivacyStatement).fadeIn();
+    } else {
+      $(wrapperPrivacyStatement).fadeOut();
+    }
+
   }
-
-}
 
   $("[id=Marketing_Country__c]").change(checkForExpressCountry);
 </script>
 
 
-
 <!--START SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page first loads (document.ready). This is defined in the page HEAD.
+
+This function gathers the specified fields (Department and Job Role cannot be in this) and looks to see if there is a value in the Marketo Token. If there is a value in the Marketo Token, hide the field and make it not required. If there isn't a value in the Marketo Token, show the field and make it required.
+*/
 
 function toggleVisibilityMain() {
 
@@ -251,6 +314,12 @@ function toggleVisibilityMain() {
 
 
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+These functions run when they are called by another function (prePopulateJobRole). They control Department and Job Role's Show/Hide.
+*/
 
 function toggleVisibilityDepartment() {
 
@@ -266,6 +335,7 @@ function toggleVisibilityDepartment() {
 
 }
 
+//This function also runs via the onChange on the Department form field.
 function toggleVisibilityJobRole() {
 
   if (showJobRole == true) {
