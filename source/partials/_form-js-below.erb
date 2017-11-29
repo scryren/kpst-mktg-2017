@@ -1,91 +1,147 @@
+<!--START GLOBAL VARIABLES -->
+<script type="text/javascript">
+
+  var showJobRole = null;
+  var showDepartment = null;
+  var jobRoleNotApplicable = null;
+
+  var fieldDepartment = document.getElementById('Department');
+  var fieldJobRole = document.getElementById('Job_Role__c');
+  var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+  var mktoTokenJobRole = "{{lead.Job Role}}";
+  var mktoTokenDepartment = "{{lead.Department}}";
+  var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}";
+
+  var listExpressCountries = ["Canada","Germany","Australia"];
+
+  var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
+
+  var marketingJobRoles = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Digital Marketer", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "Social", "Other"]
+
+  var salesJobRoles = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
+
+  var accountingJobRoles = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
+</script>
+<!--END GLOBAL VARIABLES -->
+
+
+<!--START PRE-POPULATE TEXT FIELDS-->
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+Text fields can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do. If the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
+*/
+
+  function prePopulateTextFields() {
+    document.getElementById('FirstName').value = "{{lead.First Name}}";
+    document.getElementById('LastName').value = "{{lead.Last Name}}";
+    document.getElementById('Email').value = "{{lead.Email Address}}";
+    document.getElementById('Phone').value = "{{lead.Phone Number}}";
+    document.getElementById('Company').value = "{{company.Company Name}}";
+  }
+
+</script>
+<!--END PRE-POPULATE TEXT FIELDS -->
+
+
 <!--START PRE-POPULATE PICKLISTS-->
 <script type="text/javascript">
-function prePopulatePicklists() {
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
 
-  // 0: Field ID | 1: Marketo Token
-  var arrayPrepopSelect = [
-    [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}"],
-    [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
-    [document.getElementById('Department'), "{{lead.Department}}"],
-    [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
-    [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
-  ]
+Picklists cannot populate from Marketo Tokens like text fields can. The Marketo Token value must be compared to the options in the picklist to see if there is a match. This is done by looping through the arrays (defined globally above) to see if the Marketo Token matches a value in the array. If it matches, put the array value as the selected option in the picklist.
+*/
 
-  for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
-    for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
-      if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
-        arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
-        break;
+  function prePopulatePicklists() {
+
+    // 0: Field ID | 1: Marketo Token
+    var arrayPrepopSelect = [
+      [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}"],
+      [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
+      [document.getElementById('Department'), "{{lead.Department}}"],
+      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"],
+      [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
+      [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
+    ]
+
+    for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
+      for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
+        if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
+          arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+          break;
+        }
       }
     }
   }
-}
 </script>
 <!--END PRE-POPULATE PICKLISTS-->
 
 <!--START PROPULATE JOB ROLE OPTIONS-->
 <script>
+/*************/
+/*Description*/
+/*************/
+/*
+This function runs every time the Department field value changes.
+
+Dynamic Picklists cannot have their options coded into the picklist on the form--they must be populated dynamically through a loop. This function looks at the current Dapartment value, then populated Job Role with the corresponding array (globally defined above).
+
+Next, there is logic to define if Job Role needs to be visible to the end user (showJobRole = true or false). Then it calls the function (toggleVisibilityJobRole) do the actual show/hiding. If the Department does not have a corresponding list of Job Roles, then Job Role is set to "Not Applicable", and Job Role is hidden from the end user.
+*/
+
+
 function populateJobRoleOptions() {
 
-  var fieldDepartmentID = document.getElementById('Department').value;
-  var fieldJobRoleID = document.getElementById('Job_Role__c');
-  var mktoTokenJobRole = "{{lead.Job Role}}";
-
-  hasProperJobRoleCombo = false;
-
-  var arrayDepartmentsWithRoles = ["Marketing","Sales","Finance","Accounting","Purchasing"];
-
-  arrayMarketingOptions = ["Business Operations", "Content Marketer", "Copywriter", "Corporate Communications", "Creative", "Demand Generation", "Editor", "Event Management", "Field Marketing", "Intern", "Marketing Analyst", "Marketing Automation", "Marketing Leadership", "Marketing Operations", "Product Marketer", "Project Manager", "Public Relations", "Sales Operations", "SEO", "Social", "Other"]
-
-  arraySalesOptions = ["Business Operations", "Demand Generation", "Sales Leadership", "Sales Operations", "Sales Representative", "Other"]
-
-  arrayAccountingOptions = ["Accounts Payable", "Business Operations", "Marketing Operations", "Procurement", "Sales Operations", "Other"]
-
-  //Not Applicable Departments/Role Combos
-  if(fieldDepartmentID !== "" && mktoTokenJobRole == "Not Applicable" && arrayDepartmentsWithRoles.indexOf(fieldDepartmentID) == -1){
-    hasProperJobRoleCombo = true;
-  }
-
   //Marketing
-  if (fieldDepartmentID == "Marketing") {
-    fieldJobRoleID.options.length = 0;
-    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
-    //Add the array as options to Job Role
-    for(index in arrayMarketingOptions) {
-        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayMarketingOptions[index], arrayMarketingOptions[index]);
+  if (fieldDepartment.value == "Marketing") {
+    fieldJobRole.options.length = 0;
+    fieldJobRole.options[fieldJobRole.options.length] = new Option('Job Role...', '', true, true);
+    for(index in marketingJobRoles) {
+        fieldJobRole.options[fieldJobRole.options.length] = new Option(marketingJobRoles[index], marketingJobRoles[index]);
     }
-    //If Marketo Token is in the array, set Job Role to the Marketo Token value
-    if(arrayMarketingOptions.indexOf('{{lead.Job Role}}') !== -1){
-      fieldJobRoleID.value = "{{lead.Job Role}}";
-      hasProperJobRoleCombo = true;
-    }
-
+    showJobRole = true;
+    toggleVisibilityJobRole();
   }
 
   //Sales
-  if (fieldDepartmentID == "Sales") {
-    fieldJobRoleID.options.length = 0;
-    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
-    for(index in arraySalesOptions) {
-        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arraySalesOptions[index], arraySalesOptions[index]);
+  if (fieldDepartment.value == "Sales") {
+    fieldJobRole.options.length = 0;
+    fieldJobRole.options[fieldJobRole.options.length] = new Option('Job Role...', '', true, true);
+    for(index in salesJobRoles) {
+        fieldJobRole.options[fieldJobRole.options.length] = new Option(salesJobRoles[index], salesJobRoles[index]);
     }
-    if(arraySalesOptions.indexOf('{{lead.Job Role}}') !== -1){
-      fieldJobRoleID.value = "{{lead.Job Role}}";
-      hasProperJobRoleCombo = true;
-    }
+    showJobRole = true;
+    toggleVisibilityJobRole();
   }
 
   //Accounting, Finance or Purchasing
-  if (fieldDepartmentID == "Accounting" || fieldDepartmentID == "Finance" || fieldDepartmentID == "Purchasing") {
-    fieldJobRoleID.options.length = 0;
-    fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option('Job Role...', '', true, true);
-    for(index in arrayAccountingOptions) {
-        fieldJobRoleID.options[fieldJobRoleID.options.length] = new Option(arrayAccountingOptions[index], arrayAccountingOptions[index]);
+  if (fieldDepartment.value == "Accounting" || fieldDepartment.value == "Finance" || fieldDepartment.value == "Purchasing") {
+    fieldJobRole.options.length = 0;
+    fieldJobRole.options[fieldJobRole.options.length] = new Option('Job Role...', '', true, true);
+    for(index in accountingJobRoles) {
+        fieldJobRole.options[fieldJobRole.options.length] = new Option(accountingJobRoles[index], accountingJobRoles[index]);
     }
-    if(arrayAccountingOptions.indexOf('{{lead.Job Role}}') !== -1){
-      fieldJobRoleID.value = "{{lead.Job Role}}";
-      hasProperJobRoleCombo = true;
-    }
+    showJobRole = true;
+    toggleVisibilityJobRole();
+
+  }
+
+  //Not Applicable
+  if(listDepartment.indexOf(fieldDepartment.value) == -1){
+    fieldJobRole.options.length = 0;
+    //fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+    jobRoleNotApplicable = true;
+    showJobRole = false;
+    toggleVisibilityJobRole();
+
+
   }
 
 }
@@ -93,80 +149,188 @@ function populateJobRoleOptions() {
 </script>
 <!--END PROPULATE JOB ROLE OPTIONS-->
 
+<!--START PRE-POPULATE JOB ROLE-->
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+This function looks at what the current Department is. If it's a Department with a Job Role list, loop through the appropriate Job Role array to check for a match against the Marketo Token. If there is a match, set the Job Role value to the Marketo Token. Next, there is logic to define if Job Role and Department needs to be visible to the end user (showJobRole = true or false). Then it calls the function (toggleVisibilityJobRole and toggleVisibilityDepartment) do the actual show/hiding. If the Department does not have a corresponding list of Job Roles, then Job Role is set to "Not Applicable", and Job Role is hidden from the end user.
+
+The following isn't explicitly coded--it happens because of how the rest of the code is written:
+Department and Job Role are mis-matched: Department shows the Marketo Token value. If that Department has a Job Role list then Job Role shows that list. Otherwise, Job Role is hidden and assigned the value of "Not Applicable."
+Department is empty: Department shows the default value. J
+*/
+
+  function prePopulateJobRole() {
+
+    //Marketing
+    if (fieldDepartment.value == "Marketing") {
+      if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
+    }
+
+    //Sales
+    if (fieldDepartment.value == "Sales") {
+      if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
+    }
 
 
-<!--START FORM RESET-->
-<script>/*
-function clearFormShowHide() {
+    //Accounting, Finance or Purchasing
+    if (fieldDepartment.value == "Accounting" || fieldDepartment.value == "Finance" || fieldDepartment.value == "Purchasing") {
+      if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
+        fieldJobRole.value = mktoTokenJobRole;
+        showJobRole = false;
+        toggleVisibilityJobRole();
+        showDepartment = false;
+        toggleVisibilityDepartment();
+      }
+    }
 
-  var hideKnownFieldsValue = ${mkto-form-showhide};
-  //var hideKnownFieldsValue = false;
+    //If pre-popped Department is empty, then show it
+    if(fieldDepartment.value == "" ){
+      showJobRole = false;
+      toggleVisibilityJobRole();
+      showDepartment = true;
+      toggleVisibilityDepartment();
+    }
 
-  if (hideKnownFieldsValue == true) {
-    hideKnownFields(); //hide fields and remove requirement
+    //If pre-popped Department isn't in listDepartment and isn't empty, then hard code Job Role to Not Applicable
+    if(fieldDepartment.value !== "" && listDepartment.indexOf(mktoTokenDepartment) == -1){
+      //fieldJobRole.value = "Not Applicable";
+      jobRoleNotApplicable = true;
+      showJobRole = false;
+      toggleVisibilityJobRole();
+      showDepartment = false;
+      toggleVisibilityDepartment();
+    }
 
-    $('#clearForm').on('click', function() {
-      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
-      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
-      showAllFields(); //show all fields again and make them required again
-    });
-
-  } else {
-
-    $('#clearForm').on('click', function() {
-      $("#kapostmktoform")[0].reset(); //clears validation, but Marketo tokens return
-      $('#kapostmktoform').find('input:text, input:password, select, textarea').val(''); //clears Marketo tokens out of fields
-    });
 
   }
 
-} */
+</script>
+<!--END PRE-POPULATE JOB ROLE-->
+
+
+<!--START FORM RESET-->
+<script>
+/*************/
+/*Description*/
+/*************/
+/*
+Every pre-populating form needs a "whoops, that's not me!" function to reset the form.
+*/
+
+function clearFormFields() {
+
+    var clearFormFieldIDs = [
+      [document.getElementById('FirstName')],
+      [document.getElementById('LastName')],
+      [document.getElementById('Email')],
+      [document.getElementById('Phone')],
+      [document.getElementById('Company')],
+      [document.getElementById('Marketing_Country__c')],
+      [document.getElementById('Title_Category__c')],
+      [document.getElementById('Department')],
+      [document.getElementById('Marketing_Automation__c')],
+      [document.getElementById('Business_Type__c')]
+    ]
+
+    $('#clearForm').on('click', function() {
+      document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
+
+      //loop through each form field
+      for (var i = 0; i < clearFormFieldIDs.length; i++) {
+          $(clearFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
+          $(clearFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
+          $(clearFormFieldIDs[i][0]).removeClass("ignore");
+        }
+
+        mktoTokenNewsletter = 0; //sets newsletter to "unsubscribed"
+        newsletterSubscriber(); //calls the function that shows/hides the newsletter section
+        privacyPolicy(); //calls the function that shows/hides and makes Country required
+    });
+
+}
 </script>
 <!--END FORM RESET-->
 
 
 <!--START HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 <script type="text/javascript">
-var newsletterWrapper = document.getElementById('newsletter-wrapper');
+/*************/
+/*Description*/
+/*************/
+/*
+Hide everything in the newsletter wrapper if the end user is already subscribed to the newsletter.
+*/
+  function newsletterSubscriber() {
+    var newsletterWrapper = document.getElementById('newsletter-wrapper');
 
-if ("{{lead.Subscribed to Newsletter}}" == 1) {
-  $(newsletterWrapper).fadeOut();
-} else {
-  $(newsletterWrapper).fadeIn();
-}
+    if (mktoTokenNewsletter == 1) {
+      $(newsletterWrapper).fadeOut();
+    } else {
+      $(newsletterWrapper).fadeIn();
+    }
+  }
 
 </script>
 <!--END HIDE NEWSLETTER OPTION FOR SUBSCRIBERS-->
 
+
 <script>
+/*************/
+/*Description*/
+/*************/
+/*
+This function runs every time the Country field value changes. This is defined in this script tag, but must be outside the function.
+
+If the Country chosen is one that requires additional privacy functionality, show the privacy statement and make it required.
+*/
+
 //Privacy Policy Show/Hide
-function checkForExpressCountry() {
+  function privacyPolicy() {
 
-  userMarktingCountry = document.getElementById('Marketing_Country__c').value;
-  arrayExpressCountry = ["Canada","Germany","Australia"];
-  var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+    var wrapperPrivacyStatement = document.getElementById('privacy-statement');
 
-  //if the user's Country value is Canada, etc., add privacy statement to layout
-  if(arrayExpressCountry.indexOf(userMarktingCountry) !== -1){
-    $(wrapperPrivacyStatement).fadeIn();
-  } else {
-    $(wrapperPrivacyStatement).fadeOut();
+    //if the user's Country value is Canada, etc., add privacy statement to layout
+    if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
+      $(wrapperPrivacyStatement).fadeIn();
+    } else {
+      $(wrapperPrivacyStatement).fadeOut();
+    }
+
   }
 
-}
-
-  $("[id=Marketing_Country__c]").change(checkForExpressCountry);
+  $("[id=Marketing_Country__c]").change(privacyPolicy);
 </script>
 
 
-
-<!--START SHOW/HIDE PRE-POPULATED FORM FIELDS-->
+<!--START SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
 <script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+This function only runs when the page first loads (document.ready). This is defined in the page HEAD.
 
-function showHideFields() {
+This function gathers the specified fields (Department and Job Role cannot be in this) and looks to see if there is a value in the Marketo Token. If there is a value in the Marketo Token, hide the field and make it not required. If there isn't a value in the Marketo Token, show the field and make it required.
+*/
 
-  var mktoTokenJobRole = "{{lead.Job Role}}";
-  var mktoTokenDepartment = "{{lead.Department}}";
+function toggleVisibilityMain() {
 
   var arrayShowHideFieldID = [
     [document.getElementById('FirstName'), "{{lead.First Name}}"],
@@ -178,32 +342,15 @@ function showHideFields() {
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
   ]
 
-/*
-  //If correct combo, hide Department and Job Role by adding it to arrayShowHideFieldID
-  if (hasProperJobRoleCombo == true) {
-    arrayShowHideFieldID.push(
-      [document.getElementById('Department'), "{{lead.Department}}"],
-      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
-    );
-  }
-
-  //If incorrect combo, hide only Job Role by adding it to arrayShowHideFieldID (let Department logic turn it back on), reset Department and Job Role
-  if (hasProperJobRoleCombo == false) {
-    arrayShowHideFieldID.push(
-      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"]
-    );
-    document.getElementById('Department').value = "";
-    document.getElementById('Job_Role__c').value = "";
-
-  } */
-
   for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
 
       if (arrayShowHideFieldID[i][1] !== "") {
+        //If the field has a value in Marketo, then hide the field and ignore validation by adding Ignore class
         $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeOut();
         $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeOut();
         $(arrayShowHideFieldID[i][0]).addClass("ignore");
       } else {
+        //If the field does not have value in Marketo, then show it and add validation by removing Ignore class
         $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeIn();
         $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeIn();
         $(arrayShowHideFieldID[i][0]).removeClass("ignore");
@@ -214,7 +361,47 @@ function showHideFields() {
 
 }
 </script>
-<!--END SHOW/HIDE PRE-POPULATED FORM FIELDS-->
+<!--END SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
+
+
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+These functions run when they are called by another function (prePopulateJobRole). They control Department and Job Role's Show/Hide.
+*/
+
+function toggleVisibilityDepartment() {
+
+  if (showDepartment == true) {
+    $(fieldDepartment).parents('div').eq(0).fadeIn();
+    $(fieldDepartment).parents('fieldset').eq(0).fadeIn();
+    $(fieldDepartment).removeClass("ignore");
+  } else if (showDepartment == false) {
+    $(fieldDepartment).parents('div').eq(0).fadeOut();
+    $(fieldDepartment).parents('fieldset').eq(0).fadeOut();
+    $(fieldDepartment).addClass("ignore");
+  }
+
+}
+
+//This function also runs via the onChange on the Department form field.
+function toggleVisibilityJobRole() {
+
+  if (showJobRole == true) {
+    $(fieldJobRole).parents('div').eq(0).fadeIn();
+    $(fieldJobRole).parents('fieldset').eq(0).fadeIn();
+    $(fieldJobRole).removeClass("ignore");
+  } else if (showJobRole == false) {
+    $(fieldJobRole).parents('div').eq(0).fadeOut();
+    $(fieldJobRole).parents('fieldset').eq(0).fadeOut();
+    $(fieldJobRole).addClass("ignore");
+  }
+
+}
+
+</script>
 
 <script>
 //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
@@ -236,13 +423,13 @@ $("#kapostmktoform").validate({
       { depends:
         function () { //Start Function
 
-          var userDepartment = document.getElementById('Department').value;
-          var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
-
-          if( $.inArray(userDepartment, listDepartment) != -1){
-            return true;
+          //NOTE: N/A being autoselected doesn't clear the required warning message. might have to show/hide it with field
+          //CHANGE TO: if showJobRole = true then required, if showJobRole = false then not required
+          if( showJobRole == true){
+          //if( $.inArray(fieldDepartment.value, listDepartment) != -1){
+            return true; //required
           } else {
-            return false;
+            return false; //not required
           }
 
         } //End Function
@@ -255,10 +442,11 @@ $("#kapostmktoform").validate({
       { depends:
         function () { //Start Function
 
-          if(arrayExpressCountry.indexOf(userMarktingCountry) !== -1){
-            return true;
+          //Gets values from the function called "privacyPolicy"
+          if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
+            return true; //required
           } else {
-            return false;
+            return false; //not required
           }
 
         } //End Function
@@ -275,7 +463,10 @@ $("#kapostmktoform").validate({
     Cookies.remove('kapostsocial');
     Cookies.remove('kapostsource');
     Cookies.remove('kapostpaid');
-    alert("submit hander function ran");
+    if (jobRoleNotApplicable == true) {
+      fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+    }
+    alert("submit hander function ran. Job Role is " + fieldJobRole.value);
     form.submit();
   }
 

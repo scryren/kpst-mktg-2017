@@ -23,19 +23,18 @@
     <link rel="stylesheet" href="http://resources.kapost.com/rs/389-IOX-111/images/bootstrap.min-4.0.0-beta.css">
     <script src="http://resources.kapost.com/rs/389-IOX-111/images/bootstrap.min-4.0.0-beta.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://resources.kapost.com/rs/389-IOX-111/images/floatlabels-textarea-select-support.js"></script>
 
     <script>
-      $(document).ready(function () {
-        $('.floatlabel').floatlabel(); //Floating Form Labels
+      $(document).ready(function () {      
+        prePopulateTextFields();
         prePopulatePicklists();
         populateJobRoleOptions();
         prePopulateJobRole();
-        checkForExpressCountry();
-        //clearFormShowHide();
+        privacyPolicy();
+        newsletterSubscriber();
         toggleVisibilityMain();
-        //toggleVisibilityJobRole();
         cookiesHiddenFields();
+        clearFormFields();
       });
     </script>
 
