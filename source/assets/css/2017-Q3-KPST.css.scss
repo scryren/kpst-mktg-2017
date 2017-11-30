@@ -520,7 +520,7 @@ body.modal-open .blur{
   line-height: 1.5rem;
   margin-top: 0.4rem;
   margin-left: 0.1rem;
-  padding: 0.475rem 0.75rem;
+  padding: 0.475rem 0.75rem 0.275rem 0.75rem;
   text-transform: none;
   color: #1a233c;
 }
@@ -531,6 +531,7 @@ body.modal-open .blur{
   border-right: 0px;
   border-left: 0px;
   border-bottom: 1px solid rgba(170, 170, 170, .8);
+  margin-bottom: 1.25rem;
 }
 
 
@@ -633,10 +634,12 @@ body {
   font-size: 10px !important;
   font-weight: normal;
   line-height: 1.5rem;
-  margin-left: 0.1rem;
-  padding: 0.475rem 0.75rem;
+  //margin-left: 0.1rem;
+  //padding: 0.475rem 0.75rem;
   text-transform: none;
 }
+
+
 
 
 
