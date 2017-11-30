@@ -504,74 +504,55 @@ body.modal-open .blur{
 
 /* Marketo Form Override
 *********************************/
-/* Style Fields */
+
+// Style Fields
 #kapostmktoform textarea,
 #kapostmktoform input,
 #kapostmktoform select {
-  border-radius: 0.15rem !important;
   background-color: #fff;
   background-image: none;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 14px !important;
-  line-height: 1.5rem;
-  padding: 0.375rem 0.75rem;
-  text-transform: none; }
-
-#kapostmktoform textarea {
-  line-height: 1.375rem;
-}
-
-/* Style Select "Placeholder" */
-#kapostmktoform select  {
-  color: #a4a6a7;
-  text-transform: uppercase; }
-
-/* Style Fields Values (Except Select) */
-#kapostmktoform textarea,
-#kapostmktoform input {
-  color: #1a233c;
-  text-transform: none; }
-
-/* Style Select Options */
-#kapostmktoform select option {
-  color: #55595c;
-  text-transform: none; }
-
-/* Hide "Select One" option */
-#kapostmktoform select option:first-child {
-  display: none; }
-
-/* Style Placeholder text */
-:-moz-placeholder,
-:-ms-input-placeholder,
-::-moz-placeholder,
-::-webkit-input-placeholder {
-  text-transform: uppercase;
-  color: #9eb5c1; }
-
-/* Set Heights */
-#kapostmktoform textarea {
-  min-height: 100px; }
-
-/* Set Heights */
-/*#kapostmktoform select,
-#kapostmktoform input[type="text"],
-#kapostmktoform input[type="email"],
-#kapostmktoform input[type="tel"] {min-height: 30px;} */
-#kapostmktoform select {
-  height: 50px; }
-
-/* Style Labels */
-#kapostmktoform label {
-//  color: #616669;
+  border-radius: 0rem !important;
   cursor: auto;
   font-family: "Open Sans",Arial,sans-serif;
+  font-size: 16px !important;
   font-weight: normal;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  margin-bottom: 0.2rem;
+  //letter-spacing: 1.3px;
+  line-height: 1.5rem;
+  margin-top: 0.4rem;
   margin-left: 0.1rem;
+  padding: 0.475rem 0.75rem;
+  text-transform: none;
+  color: #1a233c;
+}
+
+#kapostmktoform input,
+#kapostmktoform select {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 1px solid rgba(170, 170, 170, .8);
+}
+
+
+#kapostmktoform textarea{
+  border: 1px solid #cccccc;
+}
+
+.custom-control-input:focus ~ .custom-control-indicator {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(255, 0, 130, 0.25);
+}
+
+
+#kapostmktoform .form-control::placeholder {
+  font-size: 16px;
+  color: #aaaaaa;
+}
+#kapostmktoform .form-control:focus {
+  color: #1a233c;
+  background-color: #fff;
+  border-color: #1a233c;
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
 
 #kapostmktoform .checkbox-option {
@@ -582,35 +563,83 @@ body.modal-open .blur{
   font-size: 14px;
   text-transform: none;
   letter-spacing: normal;
-//  padding-left: 2px;
+  padding-left: 5px;
 
 }
 
-#kapostmktoform .label-floatlabel {
-  font-weight: bold;
+
+#kapostmktoform label.float-label {
+  position: absolute;
+  //top: -13px;
+  left: 1.75rem;
   font-size: 11px;
-  color: #9eb5c1 !important;
-  padding-top: 0.325em;
+  color: #2196F3;
+  opacity: 0;
+  text-transform: uppercase;
+  transition: all 0.1s linear;
+  font-weight: 600;
+  margin-top: 0.2rem;
 }
 
-/* Label Instructions */
-#kapostmktoform .instructions {
-  font-size: 75%;
-  display: block;
-  margin-bottom: 0.5rem;
+
+#kapostmktoform label.on {
+  color: #2196F3;
+}
+
+#kapostmktoform label.show {
+  top: -15px;
+  opacity: 1;
+  font-weight: 600;
+}
+
+#kapostmktoform option {
+  color: #1a233c;
+}
+
+#kapostmktoform .watermark {
+  color: #aaaaaa;
+}
+
+body {
+//the following line fixes a blink in chrome https://code.google.com/p/chromium/issues/detail?id=108025
+  -webkit-backface-visibility: hidden;
+}
+
+
+#kapostmktoform textarea {
+  line-height: 1.375rem;
+}
+
+// Hide "Select One" option
+#kapostmktoform select option:first-child {
+  display: none; }
+
+// Set Heights
+#kapostmktoform textarea {
+  min-height: 100px; }
+
+// Set Heights
+#kapostmktoform select,
+#kapostmktoform input[type="text"],
+#kapostmktoform input[type="email"],
+#kapostmktoform input[type="tel"] {min-height: 30px;}
+#kapostmktoform select {
+  height: 50px;
+}
+
+#kapostmktoform label.error {
+  color: #ff0000;
+  font-family: "Open Sans",Arial,sans-serif;
+  font-size: 10px !important;
+  font-weight: normal;
+  line-height: 1.5rem;
+  margin-left: 0.1rem;
+  padding: 0.475rem 0.75rem;
   text-transform: none;
-  letter-spacing: normal; }
-
-/* Label Options */
-#kapostmktoform .optional {
-  font-size: 75%;
-  display: inline; }
-
-/* Style Checkboxes */
-#kapostmktoform [type="checkbox"] {
-  margin-right: 5px;
-  cursor: pointer;
 }
+
+
+
 
 /* Style Button */
 #kapostmktoform button[type="submit"], #kapostmktoform-preference button[type="submit"] {

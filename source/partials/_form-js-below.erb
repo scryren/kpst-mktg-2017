@@ -257,8 +257,12 @@ function clearFormFields() {
           $(clearFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
           $(clearFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
           $(clearFormFieldIDs[i][0]).removeClass("ignore");
+
         }
 
+        $('.float-label').removeClass('show');
+        $('select').addClass('watermark');
+        $('select').removeClass('watermark');
         mktoTokenNewsletter = 0; //sets newsletter to "unsubscribed"
         newsletterSubscriber(); //calls the function that shows/hides the newsletter section
         privacyPolicy(); //calls the function that shows/hides and makes Country required
@@ -402,6 +406,8 @@ function toggleVisibilityJobRole() {
 }
 
 </script>
+
+
 
 <script>
 //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
