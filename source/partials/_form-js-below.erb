@@ -33,15 +33,29 @@
 /*
 This function only runs when the page loads (document.ready). This is defined in the page HEAD.
 
-Text fields can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do. If the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
+Text fields can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do, but we need to talk to the floating labels so the loop needs to happen. If we didn't need to call the floating labels, then document.getElementById('FirstName').value = {{lead.First Name}} could be used.
+
+Note: If the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
 */
 
   function prePopulateTextFields() {
-    document.getElementById('FirstName').value = "{{lead.First Name}}";
-    document.getElementById('LastName').value = "{{lead.Last Name}}";
-    document.getElementById('Email').value = "{{lead.Email Address}}";
-    document.getElementById('Phone').value = "{{lead.Phone Number}}";
-    document.getElementById('Company').value = "{{company.Company Name}}";
+
+    // 0: Field ID | 1: Marketo Token
+    var arrayPrepopTextFields = [
+      [document.getElementById('FirstName'), "{{lead.First Name}}", "FirstName"],
+      [document.getElementById('LastName'), "{{lead.Last Name}}", "LastName"],
+      [document.getElementById('Email'), "{{lead.Email Address}}", "Email"],
+      [document.getElementById('Phone'), "{{lead.Phone Number}}", "Phone"],
+      [document.getElementById('Company'), "{{company.Company Name}}", "Company"]
+    ]
+
+    for (var i = 0; i < arrayPrepopTextFields.length; i++) { //Loop through the number of fields defined above
+        if (arrayPrepopTextFields[i][1] !== "") {
+          arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
+          var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
+          $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+        }
+    }
   }
 
 </script>
@@ -57,29 +71,41 @@ Text fields can populate directly from the Marketo Tokens, meaning they don't ne
 This function only runs when the page loads (document.ready). This is defined in the page HEAD.
 
 Picklists cannot populate from Marketo Tokens like text fields can. The Marketo Token value must be compared to the options in the picklist to see if there is a match. This is done by looping through the arrays (defined globally above) to see if the Marketo Token matches a value in the array. If it matches, put the array value as the selected option in the picklist.
+
+The third value in the array ([2]) is so the function can talk to the input's label (using "for"). The labels and inputs have the same identifier, but [0] says "the element that has the Id of x"], not "x" itself.
 */
 
-  function prePopulatePicklists() {
+function prePopulatePicklists() {
 
-    // 0: Field ID | 1: Marketo Token
-    var arrayPrepopSelect = [
-      [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}"],
-      [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
-      [document.getElementById('Department'), "{{lead.Department}}"],
-      [document.getElementById('Job_Role__c'), "{{lead.Job Role}}"],
-      [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
-      [document.getElementById('Business_Type__c'), "{{lead.Business Type}}"]
-    ]
+  // 0: Field ID | 1: Marketo Token
+  var arrayPrepopSelect = [
+    [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}", "Marketing_Country__c"],
+    [document.getElementById('Title_Category__c'), "{{lead.Title Category}}", "Title_Category__c"],
+    [document.getElementById('Department'), "{{lead.Department}}", "Department"],
+    [document.getElementById('Job_Role__c'), "{{lead.Job Role}}", "Job_Role__c"],
+    [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}", "Marketing_Automation__c"],
+    [document.getElementById('Business_Type__c'), "{{lead.Business Type}}", "Business_Type__c"]
+  ]
 
-    for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
+  for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
+
+    if (arrayPrepopSelect[i][1] !== "") {
+
       for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
         if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
-          arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+            arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+            var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
+            $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+            $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
+
           break;
         }
       }
     }
+
   }
+
+}
 </script>
 <!--END PRE-POPULATE PICKLISTS-->
 
@@ -261,8 +287,8 @@ function clearFormFields() {
         }
 
         $('.float-label').removeClass('show');
-        $('select').addClass('watermark');
-        $('select').removeClass('watermark');
+        $('select').addClass('watermark'); //makes the selects the correct placeholder color
+        //$('select').removeClass('watermark');
         mktoTokenNewsletter = 0; //sets newsletter to "unsubscribed"
         newsletterSubscriber(); //calls the function that shows/hides the newsletter section
         privacyPolicy(); //calls the function that shows/hides and makes Country required
@@ -397,6 +423,7 @@ function toggleVisibilityJobRole() {
     $(fieldJobRole).parents('div').eq(0).fadeIn();
     $(fieldJobRole).parents('fieldset').eq(0).fadeIn();
     $(fieldJobRole).removeClass("ignore");
+    $(fieldJobRole).addClass('watermark'); //sets the color to "I'm not filled out"
   } else if (showJobRole == false) {
     $(fieldJobRole).parents('div').eq(0).fadeOut();
     $(fieldJobRole).parents('fieldset').eq(0).fadeOut();
