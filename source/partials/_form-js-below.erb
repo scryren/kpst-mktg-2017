@@ -109,6 +109,7 @@ function prePopulatePicklists() {
 </script>
 <!--END PRE-POPULATE PICKLISTS-->
 
+
 <!--START PROPULATE JOB ROLE OPTIONS-->
 <script>
 /*************/
@@ -132,6 +133,7 @@ function populateJobRoleOptions() {
     for(index in marketingJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(marketingJobRoles[index], marketingJobRoles[index]);
     }
+    jobRoleNotApplicable = false;
     showJobRole = true;
     toggleVisibilityJobRole();
   }
@@ -143,6 +145,7 @@ function populateJobRoleOptions() {
     for(index in salesJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(salesJobRoles[index], salesJobRoles[index]);
     }
+    jobRoleNotApplicable = false;
     showJobRole = true;
     toggleVisibilityJobRole();
   }
@@ -154,6 +157,7 @@ function populateJobRoleOptions() {
     for(index in accountingJobRoles) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option(accountingJobRoles[index], accountingJobRoles[index]);
     }
+    jobRoleNotApplicable = false;
     showJobRole = true;
     toggleVisibilityJobRole();
 
@@ -166,8 +170,6 @@ function populateJobRoleOptions() {
     jobRoleNotApplicable = true;
     showJobRole = false;
     toggleVisibilityJobRole();
-
-
   }
 
 }
@@ -193,9 +195,10 @@ Department is empty: Department shows the default value. J
   function prePopulateJobRole() {
 
     //Marketing
-    if (fieldDepartment.value == "Marketing") {
+    if (mktoTokenDepartment == "Marketing") {
       if(marketingJobRoles.indexOf(mktoTokenJobRole) !== -1){
         fieldJobRole.value = mktoTokenJobRole;
+        jobRoleNotApplicable = false;
         showJobRole = false;
         toggleVisibilityJobRole();
         showDepartment = false;
@@ -204,9 +207,10 @@ Department is empty: Department shows the default value. J
     }
 
     //Sales
-    if (fieldDepartment.value == "Sales") {
+    if (mktoTokenDepartment == "Sales") {
       if(salesJobRoles.indexOf(mktoTokenJobRole) !== -1){
         fieldJobRole.value = mktoTokenJobRole;
+        jobRoleNotApplicable = false;
         showJobRole = false;
         toggleVisibilityJobRole();
         showDepartment = false;
@@ -216,9 +220,10 @@ Department is empty: Department shows the default value. J
 
 
     //Accounting, Finance or Purchasing
-    if (fieldDepartment.value == "Accounting" || fieldDepartment.value == "Finance" || fieldDepartment.value == "Purchasing") {
+    if (mktoTokenDepartment == "Accounting" || mktoTokenDepartment == "Finance" || mktoTokenDepartment == "Purchasing") {
       if(accountingJobRoles.indexOf(mktoTokenJobRole) !== -1){
         fieldJobRole.value = mktoTokenJobRole;
+        jobRoleNotApplicable = false;
         showJobRole = false;
         toggleVisibilityJobRole();
         showDepartment = false;
@@ -227,16 +232,15 @@ Department is empty: Department shows the default value. J
     }
 
     //If pre-popped Department is empty, then show it
-    if(fieldDepartment.value == "" ){
+    if(mktoTokenDepartment == "" ){
       showJobRole = false;
       toggleVisibilityJobRole();
       showDepartment = true;
       toggleVisibilityDepartment();
     }
 
-    //If pre-popped Department isn't in listDepartment and isn't empty, then hard code Job Role to Not Applicable
-    if(fieldDepartment.value !== "" && listDepartment.indexOf(mktoTokenDepartment) == -1){
-      //fieldJobRole.value = "Not Applicable";
+    //If pre-popped Department isn't in listDepartment and isn't empty, then flag Job Role as Not Applicable
+    if(mktoTokenDepartment !== "" && listDepartment.indexOf(mktoTokenDepartment) == -1){
       jobRoleNotApplicable = true;
       showJobRole = false;
       toggleVisibilityJobRole();
@@ -249,7 +253,6 @@ Department is empty: Department shows the default value. J
 
 </script>
 <!--END PRE-POPULATE JOB ROLE-->
-
 
 <!--START FORM RESET-->
 <script>
@@ -499,7 +502,7 @@ $("#kapostmktoform").validate({
     if (jobRoleNotApplicable == true) {
       fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
     }
-    alert("submit hander function ran. Job Role is " + fieldJobRole.value);
+    alert("Submit hander function ran. Job Role is " + fieldJobRole.value);
     form.submit();
   }
 
