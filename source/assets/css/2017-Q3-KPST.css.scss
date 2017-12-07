@@ -509,7 +509,7 @@ body.modal-open .blur{
 #kapostmktoform textarea,
 #kapostmktoform input,
 #kapostmktoform select {
-  background-color: #fff;
+  background-color: #fefefe;
   background-image: none;
   border-radius: 0rem !important;
   cursor: auto;
@@ -534,6 +534,21 @@ body.modal-open .blur{
   margin-bottom: 1.25rem;
 }
 
+#kapostmktoform select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('http://resources.kapost.com/rs/389-IOX-111/images/form-chevron-down-font-awesome.svg');
+  background-position: right 10px top 60%;
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-color: #fefefe;
+}
+
+#kapostmktoform select:hover {
+  cursor: pointer;
+}
+
 
 #kapostmktoform textarea{
   border: 1px solid #cccccc;
@@ -548,6 +563,7 @@ body.modal-open .blur{
   font-size: 16px;
   color: #aaaaaa;
 }
+
 #kapostmktoform .form-control:focus {
   color: #1a233c;
   background-color: #fff;
@@ -567,45 +583,6 @@ body.modal-open .blur{
   padding-left: 5px;
 
 }
-
-
-#kapostmktoform label.float-label {
-  position: absolute;
-  //top: -13px;
-  left: 1.75rem;
-  font-size: 11px;
-  color: #2196F3;
-  opacity: 0;
-  text-transform: uppercase;
-  transition: all 0.1s linear;
-  font-weight: 600;
-  margin-top: 0.2rem;
-}
-
-
-#kapostmktoform label.on {
-  color: #2196F3;
-}
-
-#kapostmktoform label.show {
-  top: -15px;
-  opacity: 1;
-  font-weight: 600;
-}
-
-#kapostmktoform option {
-  color: #1a233c;
-}
-
-#kapostmktoform .watermark {
-  color: #aaaaaa;
-}
-
-body {
-//the following line fixes a blink in chrome https://code.google.com/p/chromium/issues/detail?id=108025
-  -webkit-backface-visibility: hidden;
-}
-
 
 #kapostmktoform textarea {
   line-height: 1.375rem;
@@ -640,10 +617,6 @@ body {
 }
 
 
-
-
-
-
 /* Style Button */
 #kapostmktoform button[type="submit"], #kapostmktoform-preference button[type="submit"] {
   -webkit-border-radius: 0px;
@@ -675,6 +648,48 @@ body {
 #kapostmktoform button[type=submit]:hover, #kapostmktoform-preference button[type=submit]:hover {
   background-color: #54a6e6;
   cursor: pointer; }
+
+
+
+/* Floating Labels Plugin (+ Some Select Styling)
+   ================================== */
+
+#kapostmktoform label.float-label {
+ position: absolute;
+ //top: -13px;
+ left: 1.75rem;
+ font-size: 11px;
+ color: #2196F3;
+ opacity: 0;
+ text-transform: uppercase;
+ transition: all 0.1s linear;
+ font-weight: 600;
+ margin-top: 0.2rem;
+}
+
+#kapostmktoform label.on {
+ color: #2196F3;
+}
+
+#kapostmktoform label.show {
+ top: -15px;
+ opacity: 1;
+ font-weight: 600;
+}
+
+#kapostmktoform option {
+ color: #1a233c;
+}
+
+#kapostmktoform .watermark {
+ color: #aaaaaa;
+}
+
+body {
+//the following line fixes a blink in chrome https://code.google.com/p/chromium/issues/detail?id=108025
+ -webkit-backface-visibility: hidden;
+}
+
 
 
 /* Privacy Statement
