@@ -8,6 +8,7 @@
   var fieldDepartment = document.getElementById('Department');
   var fieldJobRole = document.getElementById('Job_Role__c');
   var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+  var mktoTokenEmail = "{{lead.Email Address}}";
   var mktoTokenJobRole = "{{lead.Job Role}}";
   var mktoTokenDepartment = "{{lead.Department}}";
   var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}";
@@ -55,6 +56,11 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
           var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
           $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
         }
+    }
+
+    //Show #form-reset if the user is known to Marketo
+    if(mktoTokenEmail !== ""){
+      $('#form-reset').fadeIn();
     }
   }
 
@@ -263,9 +269,9 @@ Department is empty: Department shows the default value. J
 Every pre-populating form needs a "whoops, that's not me!" function to reset the form.
 */
 
-function clearFormFields() {
+function resetForm() {
 
-    var clearFormFieldIDs = [
+    var resetFormFieldIDs = [
       [document.getElementById('FirstName')],
       [document.getElementById('LastName')],
       [document.getElementById('Email')],
@@ -278,14 +284,14 @@ function clearFormFields() {
       [document.getElementById('Business_Type__c')]
     ]
 
-    $('#clearForm').on('click', function() {
+    $('#formReset').on('click', function() {
       document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
 
       //loop through each form field
-      for (var i = 0; i < clearFormFieldIDs.length; i++) {
-          $(clearFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
-          $(clearFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
-          $(clearFormFieldIDs[i][0]).removeClass("ignore");
+      for (var i = 0; i < resetFormFieldIDs.length; i++) {
+          $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
+          $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
+          $(resetFormFieldIDs[i][0]).removeClass("ignore");
 
         }
 
@@ -350,6 +356,7 @@ If the Country chosen is one that requires additional privacy functionality, sho
 
   $("[id=Marketing_Country__c]").change(privacyPolicy);
 </script>
+
 
 
 <!--START SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
