@@ -517,10 +517,9 @@ body.modal-open .blur{
   font-size: 16px !important;
   font-weight: normal;
   //letter-spacing: 1.3px;
-  line-height: 1.5rem;
+  line-height: 2rem;
   margin-top: 0.4rem;
   margin-left: 0.1rem;
-  padding: 0.475rem 0.75rem 0.275rem 0.75rem;
   text-transform: none;
   color: #1a233c;
 }
@@ -530,14 +529,28 @@ body.modal-open .blur{
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
-  border-bottom: 1px solid rgba(170, 170, 170, .8);
+  border-bottom: 1px solid #bbbbbb;
+  border-width: 1pt;
+  border-image-slice: 1;
   margin-bottom: 1.25rem;
 }
+
+#kapostmktoform textarea {
+ padding: 0.475rem 0.75rem 0.275rem 0.75rem;
+}
+
+#kapostmktoform input {
+  padding: 0.475rem 0.75rem 0rem 0rem;
+  //border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 99%, #fefefe 0%, #fefefe 100%);
+}
+
+
 
 #kapostmktoform select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  padding: 0.475rem 0.75rem 0.275rem 0rem;
   background: url('http://resources.kapost.com/rs/389-IOX-111/images/form-chevron-down-font-awesome.svg');
   background-position: right 10px top 60%;
   background-size: 10px;
@@ -656,8 +669,8 @@ body.modal-open .blur{
 
 #kapostmktoform label.float-label {
  position: absolute;
- //top: -13px;
- left: 1.75rem;
+ //top: 0px;
+ left: 17px;
  font-size: 11px;
  color: #2196F3;
  opacity: 0;
@@ -666,6 +679,7 @@ body.modal-open .blur{
  font-weight: 600;
  margin-top: 0.2rem;
 }
+
 
 #kapostmktoform label.on {
  color: #2196F3;
@@ -688,6 +702,49 @@ body.modal-open .blur{
 body {
 //the following line fixes a blink in chrome https://code.google.com/p/chromium/issues/detail?id=108025
  -webkit-backface-visibility: hidden;
+}
+
+
+
+/* Form Styling by Browsers
+   ================================== */
+
+@-moz-document url-prefix() {
+  /* Firefox CSS styles go here */
+    #kapostmktoform input {
+      padding: 0.475rem 0.75rem 0.5rem 0.225rem;
+      border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 98.8%, #fefefe 0%, #fefefe 100%);
+    }
+
+    #kapostmktoform select {
+      //padding: 0.475rem 0.75rem 0.5rem 0.225rem;
+      border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 98.8%, #fefefe 0%, #fefefe 100%);
+    }
+
+    #kapostmktoform label.float-label {
+      left: 21px;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+/* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */
+}
+
+
+@supports (-ms-ime-align: auto) {
+   /* Microsoft EdgeV13&14 CSS styles go here */
+   #kapostmktoform input {
+     padding: 0.475rem 0.75rem 0.5rem 0.225rem;
+     border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 98.8%, #fefefe 0%, #fefefe 100%);
+   }
+
+   #kapostmktoform select {
+     border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 98.8%, #fefefe 0%, #fefefe 100%);
+   }
+
+   #kapostmktoform label.float-label {
+     left: 20px;
+   }
 }
 
 
