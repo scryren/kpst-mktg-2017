@@ -502,7 +502,7 @@ body.modal-open .blur{
 
 
 
-/* Marketo Form Override
+/* Marketo Form Styling and Override
 *********************************/
 
 // Style Fields
@@ -532,7 +532,6 @@ body.modal-open .blur{
   border-bottom: 1px solid #bbbbbb;
   border-width: 1pt;
   border-image-slice: 1;
-  margin-bottom: 1.25rem;
 }
 
 #kapostmktoform textarea {
@@ -542,6 +541,10 @@ body.modal-open .blur{
 #kapostmktoform input {
   padding: 0.475rem 0.75rem 0rem 0rem;
   //border-image-source: linear-gradient(to left, #bbbbbb 0%, #bbbbbb 99%, #fefefe 0%, #fefefe 100%);
+}
+
+#kapostmktoform .form-padding  {
+  margin-top: 2rem;
 }
 
 
@@ -610,13 +613,21 @@ body.modal-open .blur{
   min-height: 100px; }
 
 // Set Heights
+
+#kapostmktoform select,
+#kapostmktoform input[type="text"],
+#kapostmktoform input[type="email"],
+#kapostmktoform input[type="tel"] {
+  height: 50px;
+}
+/*
 #kapostmktoform select,
 #kapostmktoform input[type="text"],
 #kapostmktoform input[type="email"],
 #kapostmktoform input[type="tel"] {min-height: 30px;}
 #kapostmktoform select {
   height: 50px;
-}
+}*/
 
 #kapostmktoform label.error {
   color: #ff0000;
@@ -627,7 +638,34 @@ body.modal-open .blur{
   //margin-left: 0.1rem;
   //padding: 0.475rem 0.75rem;
   text-transform: none;
+  padding-left: .4rem;
+  margin-bottom: 0rem;
 }
+
+#kapostmktoform #privacy-statement label.error {
+  font-size: 0.825rem !important;
+  padding-left: 0rem;
+}
+
+
+#kapostmktoform .form-group {
+    margin-bottom: 0rem;
+}
+
+#kapostmktoform #textarea-wrapper {
+  margin: 2rem 0 0 0;
+}
+
+#kapostmktoform #newsletter-wrapper {
+  margin: 2rem 0 0 0;
+}
+
+#kapostmktoform #newsletter-wrapper .checkbox-description {
+  padding-left: 25px;
+  font-size: 80%;
+  margin-bottom: 0rem;
+}
+
 
 
 /* Style Button */
@@ -650,7 +688,8 @@ body.modal-open .blur{
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  margin: 1.250em 0;
+  //margin: 1.250em 0;
+  margin: 2.5rem 0 1rem 0;
   padding: 15px 10px;
   text-transform: uppercase;
   white-space: normal;
@@ -690,6 +729,7 @@ body.modal-open .blur{
  opacity: 1;
  font-weight: 600;
 }
+
 
 #kapostmktoform option {
  color: #1a233c;
