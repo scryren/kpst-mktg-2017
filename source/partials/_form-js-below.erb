@@ -445,31 +445,32 @@ function toggleVisibilityJobRole() {
 </script>
 
 
-
-
 <script type="text/javascript">
+//INVISIBLE RECAPTCHA
+//Must run before google.com/recaptcha/api.js
 
   var onloadCallback = function() {
-    console.log('recaptcha is ready');
-    grecaptcha.render('recaptcha', {
+    console.log('recaptcha callback ran');
+    grecaptcha.render('g-recaptcha', {
       'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
       'size': 'invisible'
     });
     grecaptcha.reset();
     grecaptcha.execute();
-    //form.addHiddenFields({"reCaptcha_Response__c" : reCAPTCHAResponse}); //add response to reCaptcha field
+    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+
   };
 
 </script>
+
+<!--INVISIBLE RECAPTCHA JS LIBRARY-->
+<!--Must run after recaptcha callback is defined-->
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
 
 
-
 <script>
-//START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+//VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
 //https://jqueryvalidation.org/
-
-
 
 $("#kapostmktoform").validate({
 
@@ -522,12 +523,14 @@ $("#kapostmktoform").validate({
   submitHandler: function(form) {
 
     var reCAPTCHAResponse = grecaptcha.getResponse();
+    document.getElementById('reCaptcha_Response__c').value=reCAPTCHAResponse;
+
     if (!reCAPTCHAResponse) {
       // reCaptcha Failed
-      alert("Submit hander function ran. reCaptcha Failed:" + reCAPTCHAResponse);
-
+      console.log('Submit hander function ran. reCaptcha failed.');
     } else {
       //reCaptcha Passed
+      console.log('Submit hander function ran. reCaptcha passed.');
       Cookies.remove('kapostsearch', { domain: 'kapost.com' });
       Cookies.remove('kapostsocial', { domain: 'kapost.com' });
       Cookies.remove('kapostsource', { domain: 'kapost.com' });
@@ -536,11 +539,9 @@ $("#kapostmktoform").validate({
       Cookies.remove('kapostsocial');
       Cookies.remove('kapostsource');
       Cookies.remove('kapostpaid');
-
       if (jobRoleNotApplicable == true) {
         fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
       }
-      alert("Submit hander function ran. reCaptcha is " + reCAPTCHAResponse);
       form.submit();
     }
 
