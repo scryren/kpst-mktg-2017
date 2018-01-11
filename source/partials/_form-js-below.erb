@@ -446,8 +446,30 @@ function toggleVisibilityJobRole() {
 
 
 
+
+<script type="text/javascript">
+
+  var onloadCallback = function() {
+    console.log('recaptcha is ready');
+    grecaptcha.render('recaptcha', {
+      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+      'size': 'invisible'
+    });
+    grecaptcha.reset();
+    grecaptcha.execute();
+    //form.addHiddenFields({"reCaptcha_Response__c" : reCAPTCHAResponse}); //add response to reCaptcha field
+  };
+
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
+
+
+
 <script>
 //START VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+//https://jqueryvalidation.org/
+
+
 
 $("#kapostmktoform").validate({
 
@@ -497,20 +519,31 @@ $("#kapostmktoform").validate({
     } //End Required
   }, //End Rules
 
-  submitHandler: function($form) {
-    Cookies.remove('kapostsearch', { domain: 'kapost.com' });
-    Cookies.remove('kapostsocial', { domain: 'kapost.com' });
-    Cookies.remove('kapostsource', { domain: 'kapost.com' });
-    Cookies.remove('kapostpaid', { domain: 'kapost.com' });
-    Cookies.remove('kapostsearch');
-    Cookies.remove('kapostsocial');
-    Cookies.remove('kapostsource');
-    Cookies.remove('kapostpaid');
-    if (jobRoleNotApplicable == true) {
-      fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+  submitHandler: function(form) {
+
+    var reCAPTCHAResponse = grecaptcha.getResponse();
+    if (!reCAPTCHAResponse) {
+      // reCaptcha Failed
+      alert("Submit hander function ran. reCaptcha Failed:" + reCAPTCHAResponse);
+
+    } else {
+      //reCaptcha Passed
+      Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+      Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+      Cookies.remove('kapostsource', { domain: 'kapost.com' });
+      Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+      Cookies.remove('kapostsearch');
+      Cookies.remove('kapostsocial');
+      Cookies.remove('kapostsource');
+      Cookies.remove('kapostpaid');
+
+      if (jobRoleNotApplicable == true) {
+        fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+      }
+      alert("Submit hander function ran. reCaptcha is " + reCAPTCHAResponse);
+      form.submit();
     }
-    alert("Submit hander function ran. Job Role is " + fieldJobRole.value);
-    form.submit();
+
   }
 
 }); //End .validate
