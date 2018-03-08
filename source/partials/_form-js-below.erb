@@ -13,7 +13,7 @@
   var mktoTokenDepartment = "{{lead.Department}}";
   var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}";
 
-  var listExpressCountries = ["Canada","Germany","Australia"];
+  var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
 
   var listDepartment = ["Marketing","Sales","Finance","Accounting","Purchasing"];
 
@@ -345,7 +345,8 @@ If the Country chosen is one that requires additional privacy functionality, sho
 
     var wrapperPrivacyStatement = document.getElementById('privacy-statement');
 
-    //if the user's Country value is Canada, etc., add privacy statement to layout
+    //if the user's Country value is in the list of countries that require express consent, add privacy statement to layout
+    //always show regardless of country? Comment out everything but the fadeIn row
     if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
       $(wrapperPrivacyStatement).fadeIn();
     } else {
@@ -509,6 +510,7 @@ $("#kapostmktoform").validate({
         function () { //Start Function
 
           //Gets values from the function called "privacyPolicy"
+          //Always require? Comment out everything but return true row
           if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
             return true; //required
           } else {
