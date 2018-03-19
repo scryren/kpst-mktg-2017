@@ -326,8 +326,8 @@
 
               <div class="form-group form-padding col-12">
                 <!--Department-->
-                <label class="col-form-label float-label" for="Department">Department</label>
-                <select id="Department" name="Department" onChange="populateJobRoleOptions();" class="form-control">
+                <label class="col-form-label float-label" for="Department__c">Department</label>
+                <select id="Department__c" name="Department__c" onChange="populateJobRoleOptions();" class="form-control">
                   <option value="" selected>Department...</option>
                   <option value="Accounting" >Accounting</option>
                   <option value="Administration" >Administration</option>
@@ -389,9 +389,15 @@
               </div>
 
               <!--Contact Sales Message-->
-              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-comment};">
+              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-contact-comment};">
                 <label class="col-form-label float-label" for="Contact_Sales_Message__c">Message (Optional)</label>
                 <textarea id="Contact_Sales_Message__c" name="Contact_Sales_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
+              </div>
+
+              <!--Demo Request Message-->
+              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-demo-comment};">
+                <label class="col-form-label float-label" for="Demo_Request_Message__c">Message (Optional)</label>
+                <textarea id="Demo_Request_Message__c" name="Demo_Request_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
               </div>
 
               <!--Newsletter-->

@@ -5,7 +5,7 @@
   var showDepartment = null;
   var jobRoleNotApplicable = null;
 
-  var fieldDepartment = document.getElementById('Department');
+  var fieldDepartment = document.getElementById('Department__c');
   var fieldJobRole = document.getElementById('Job_Role__c');
   var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
   var mktoTokenEmail = "{{lead.Email Address}}";
@@ -87,7 +87,7 @@ function prePopulatePicklists() {
   var arrayPrepopSelect = [
     [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}", "Marketing_Country__c"],
     [document.getElementById('Title_Category__c'), "{{lead.Title Category}}", "Title_Category__c"],
-    [document.getElementById('Department'), "{{lead.Department}}", "Department"],
+    [document.getElementById('Department__c'), "{{lead.Department}}", "Department__c"],
     [document.getElementById('Job_Role__c'), "{{lead.Job Role}}", "Job_Role__c"],
     [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}", "Marketing_Automation__c"],
     [document.getElementById('Business_Type__c'), "{{lead.Business Type}}", "Business_Type__c"]
@@ -279,7 +279,7 @@ function resetForm() {
       [document.getElementById('Company')],
       [document.getElementById('Marketing_Country__c')],
       [document.getElementById('Title_Category__c')],
-      [document.getElementById('Department')],
+      [document.getElementById('Department__c')],
       [document.getElementById('Marketing_Automation__c')],
       [document.getElementById('Business_Type__c')]
     ]
@@ -484,7 +484,7 @@ $("#kapostmktoform").validate({
     Company: {required: true},
     Marketing_Country__c: {required: true},
     Title_Category__c: {required: true},
-    Department: {required: true},
+    Department__c: {required: true},
     Job_Role__c:
     { required:
       { depends:
