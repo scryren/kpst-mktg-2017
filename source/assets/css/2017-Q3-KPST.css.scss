@@ -175,7 +175,7 @@ header {
   -webkit-background-size: cover;
   /* background-size: 100%; */
   background-attachment: scroll;
-  background-image: url('/assets/images/test.jpg');
+  background-image: url('http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 5em;
@@ -185,19 +185,19 @@ header {
 
 @media (max-width: 33.9em) {
   #hero {
-    background-image: url("/assets/images/test.jpg");
+    background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
     background-position: center center; } }
 @media (min-width: 34em) and (max-width: 47.9em) {
   #hero {
-    background-image: url("/assets/images/test.jpg");
+    background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
     background-position: center center; } }
 @media (min-width: 48em) and (max-width: 61.9em) {
   #hero {
-    background-image: url("/assets/images/test.jpg");
+    background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
     background-position: center center; } }
 @media (min-width: 62em) {
   #hero {
-    background-image: url("/assets/images/test.jpg");
+    background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
     background-position: center center; } }
 
 
