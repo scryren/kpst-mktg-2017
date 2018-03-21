@@ -11,6 +11,7 @@ WARNING: This section has been modified for the preference center. Do not copy/p
   var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}"; //mktoTokenContentNewsletter
   var mktoTokenCustomerPromo = "{{lead.Subscribed to Customer Marketing}}";
   var mktoTokenCustomerNewsletter = "{{lead.Subscribed to Customer Newsletter}}";
+  var mktoTokenGlobalUnsubscribe = "{{lead.Unsubscribed}}";
 
   var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
 
@@ -76,7 +77,8 @@ Checkboxes can populate directly from the Marketo Tokens, meaning they don't nee
       [document.getElementById('Subscribed_to_Promotions__c'), "{{lead.Subscribed to Promotions}}", "Subscribed_to_Promotions__c"],
       [document.getElementById('Subscribed_to_Newsletter__c'), "{{lead.Subscribed to Newsletter}}", "Subscribed_to_Newsletter__c"],
       [document.getElementById('Subscribed_to_Customer_Marketing__c'), "{{lead.Subscribed to Customer Marketing}}", "Subscribed_to_Customer_Marketing__c"],
-      [document.getElementById('Subscribed_to_Customer_Newsletter__c'), "{{lead.Subscribed to Customer Newsletter}}", "Subscribed_to_Customer_Newsletter__c"]
+      [document.getElementById('Subscribed_to_Customer_Newsletter__c'), "{{lead.Subscribed to Customer Newsletter}}", "Subscribed_to_Customer_Newsletter__c"],
+      [document.getElementById('Unsubscribed'), "{{lead.Unsubscribed}}", "Unsubscribed"]
     ]
 
     for (var i = 0; i < arrayPrepopCheckboxFields.length; i++) { //Loop through the number of fields defined above
@@ -172,6 +174,7 @@ function resetForm() {
         mktoTokenNewsletter = 0; //sets this subscription to "unsubscribed"
         mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
         mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
+        mktoTokenGlobalUnsubscribe = 0; //sets this subscription to "subscribed"
         privacyPolicy(); //calls the function that shows/hides and makes Country required
     });
 
@@ -206,6 +209,48 @@ If the Country chosen is one that requires additional privacy functionality, sho
 
   $("[id=Marketing_Country__c]").change(privacyPolicy);
 </script>
+
+<script>
+/*************/
+/*Description*/
+/*************/
+/*
+
+*/
+
+//Gloabl Opt Out Warning
+  function globalUnsubscribeWarning() {
+
+    var wrapperGlobalUnsubscribeWarning = document.getElementById('global-unsubscribe-warning-wrapper');
+
+    //Subscriptions
+    var fieldContentPromo = document.getElementById('Subscribed_to_Promotions__c');
+    var fieldContentNewsletter = document.getElementById('Subscribed_to_Newsletter__c');
+    var fieldCustomerPromo = document.getElementById('Subscribed_to_Customer_Marketing__c');
+    var fieldCustomerNewsletter = document.getElementById('Subscribed_to_Customer_Newsletter__c');
+
+    //Global Unsubscribe
+    var fieldUnsubscribed = document.getElementById('Unsubscribed');
+
+    $(fieldContentPromo).change(function() { //if ANY of the subscriptions change
+        if(this.checked && fieldUnsubscribed.checked) { //if ANY of the subscriptions are checked and the global is checked
+            $(wrapperGlobalUnsubscribeWarning).fadeIn();
+        } else if (!this.checked) { //if ALL of the subscriptions are unchecked
+          $(wrapperGlobalUnsubscribeWarning).fadeOut();
+        }
+    });
+
+    //if the global unsub is unchecked
+    $(fieldUnsubscribed).change(function() {
+        if(!this.checked) {
+            $(wrapperGlobalUnsubscribeWarning).fadeOut();
+        }
+    });
+
+  }
+
+</script>
+
 
 
 <!--NOTE: recaptcha goes here-->

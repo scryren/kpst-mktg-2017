@@ -14,8 +14,8 @@
   <script>
 
   //If globally opted out and checks a subscription
-  $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c').change(function(){
-    if ($('#Unsubscribed').is(":checked") && $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c').is(":checked"))
+  $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c,#Subscribed_to_Customer_Newsletter__c').change(function(){
+    if ($('#Unsubscribed').is(":checked") && $('#Subscribed_to_Newsletter__c,#Subscribed_to_Promotions__c,#Subscribed_to_Customer_Marketing__c,#Subscribed_to_Customer_Newsletter__c').is(":checked"))
     {
       document.getElementById('optOutWarning').style.display = "";
     } else {
