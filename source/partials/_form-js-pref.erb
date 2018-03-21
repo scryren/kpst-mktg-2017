@@ -1,0 +1,272 @@
+<!--START GLOBAL VARIABLES -->
+<script type="text/javascript">
+/*
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+*/
+
+  var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
+  var mktoTokenEmail = "{{lead.Email Address}}";
+
+  var mktoTokenContentPromo = "{{lead.Subscribed to Promotions}}";
+  var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}"; //mktoTokenContentNewsletter
+  var mktoTokenCustomerPromo = "{{lead.Subscribed to Customer Marketing}}";
+  var mktoTokenCustomerNewsletter = "{{lead.Subscribed to Customer Newsletter}}";
+
+  var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
+
+</script>
+<!--END GLOBAL VARIABLES -->
+
+<!--START PRE-POPULATE TEXT FIELDS-->
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+Text fields can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do, but we need to talk to the floating labels so the loop needs to happen. If we didn't need to call the floating labels, then document.getElementById('FirstName').value = {{lead.First Name}} could be used.
+
+Note: If the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
+*/
+
+  function prePopulateTextFields() {
+
+    // 0: Field ID | 1: Marketo Token
+    var arrayPrepopTextFields = [
+      [document.getElementById('Email'), "{{lead.Email Address}}", "Email"]
+    ]
+
+    for (var i = 0; i < arrayPrepopTextFields.length; i++) { //Loop through the number of fields defined above
+        if (arrayPrepopTextFields[i][1] !== "") {
+          arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
+          var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
+          $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+        }
+    }
+
+    //Show #form-reset if the user is known to Marketo
+    if(mktoTokenEmail !== ""){
+      $('#form-reset').fadeIn();
+    }
+  }
+
+</script>
+<!--END PRE-POPULATE TEXT FIELDS -->
+
+<!--START PRE-POPULATE CHECKBOX FIELDS-->
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+Checkboxes can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do, but if the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
+*/
+
+  function prePopulateCheckboxFields() {
+
+    // 0: Field ID | 1: Marketo Token
+    var arrayPrepopCheckboxFields = [
+      [document.getElementById('Subscribed_to_Promotions__c'), "{{lead.Subscribed to Promotions}}", "Subscribed_to_Promotions__c"],
+      [document.getElementById('Subscribed_to_Newsletter__c'), "{{lead.Subscribed to Newsletter}}", "Subscribed_to_Newsletter__c"],
+      [document.getElementById('Subscribed_to_Customer_Marketing__c'), "{{lead.Subscribed to Customer Marketing}}", "Subscribed_to_Customer_Marketing__c"],
+      [document.getElementById('Subscribed_to_Customer_Newsletter__c'), "{{lead.Subscribed to Customer Newsletter}}", "Subscribed_to_Customer_Newsletter__c"]
+    ]
+
+    for (var i = 0; i < arrayPrepopCheckboxFields.length; i++) { //Loop through the number of fields defined above
+        if (arrayPrepopCheckboxFields[i][1] == 1) {
+          arrayPrepopCheckboxFields[i][0].checked = true;
+        } else {
+          arrayPrepopCheckboxFields[i][0].checked = false;
+        }
+    }
+  }
+
+</script>
+<!--END PRE-POPULATE CHECKBOX FIELDS -->
+
+
+<!--START PRE-POPULATE PICKLISTS-->
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+
+This function only runs when the page loads (document.ready). This is defined in the page HEAD.
+
+Picklists cannot populate from Marketo Tokens like text fields can. The Marketo Token value must be compared to the options in the picklist to see if there is a match. This is done by looping through the arrays (defined globally above) to see if the Marketo Token matches a value in the array. If it matches, put the array value as the selected option in the picklist.
+
+The third value in the array ([2]) is so the function can talk to the input's label (using "for"). The labels and inputs have the same identifier, but [0] says "the element that has the Id of x"], not "x" itself.
+*/
+
+function prePopulatePicklists() {
+
+  // 0: Field ID | 1: Marketo Token
+  var arrayPrepopSelect = [
+    [document.getElementById('Marketing_Country__c'), "{{lead.Marketing Country}}", "Marketing_Country__c"]
+  ]
+
+  for (var i = 0; i < arrayPrepopSelect.length; i++) { //Loop through the number of fields defined above
+
+    if (arrayPrepopSelect[i][1] !== "") {
+
+      for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
+        if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
+            arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+            var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
+            $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+            $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
+
+          break;
+        }
+      }
+    }
+
+  }
+
+}
+</script>
+<!--END PRE-POPULATE PICKLISTS-->
+
+<!--START FORM RESET-->
+<script>
+/*************/
+/*Description*/
+/*************/
+/*
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+
+Every pre-populating form needs a "whoops, that's not me!" function to reset the form.
+*/
+
+function resetForm() {
+
+    var resetFormFieldIDs = [
+      [document.getElementById('Email')],
+      [document.getElementById('Marketing_Country__c')]
+    ]
+
+    $('#formReset').on('click', function() {
+      document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
+
+      //loop through each form field
+      for (var i = 0; i < resetFormFieldIDs.length; i++) {
+          $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
+          $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
+          $(resetFormFieldIDs[i][0]).removeClass("ignore");
+
+        }
+
+        $('.float-label').removeClass('show');
+        $('select').addClass('watermark'); //makes the selects the correct placeholder color
+        //$('select').removeClass('watermark');
+        mktoTokenContentPromo = 0; //sets this subscription to "unsubscribed"
+        mktoTokenNewsletter = 0; //sets this subscription to "unsubscribed"
+        mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
+        mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
+        privacyPolicy(); //calls the function that shows/hides and makes Country required
+    });
+
+}
+</script>
+<!--END FORM RESET-->
+
+<script>
+/*************/
+/*Description*/
+/*************/
+/*
+This function runs every time the Country field value changes. This is defined in this script tag, but must be outside the function.
+
+If the Country chosen is one that requires additional privacy functionality, show the privacy statement and make it required.
+*/
+
+//Privacy Policy Show/Hide
+  function privacyPolicy() {
+
+    var wrapperPrivacyStatement = document.getElementById('privacy-statement');
+
+    //if the user's Country value is in the list of countries that require express consent, add privacy statement to layout
+    //always show regardless of country? Comment out everything but the fadeIn row
+    if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
+      $(wrapperPrivacyStatement).fadeIn();
+    } else {
+      $(wrapperPrivacyStatement).fadeOut();
+    }
+
+  }
+
+  $("[id=Marketing_Country__c]").change(privacyPolicy);
+</script>
+
+
+<!--NOTE: recaptcha goes here-->
+
+
+<script>
+//VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+/*
+Source: https://jqueryvalidation.org/
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+*/
+
+$("#kapostmktoform").validate({
+
+  ignore: ".ignore",
+  rules: {
+    Email: {required: true, email: true},
+    Marketing_Country__c: {required: true},
+    legalCheckbox:
+    { required:
+      { depends:
+        function () { //Start Function
+
+          //Gets values from the function called "privacyPolicy"
+          //Always require? Comment out everything but return true row
+          if(listExpressCountries.indexOf(fieldMarketingCountry.value) !== -1){
+            return true; //required
+          } else {
+            return false; //not required
+          }
+
+        } //End Function
+      } //End Depends
+    } //End Required
+  }, //End Rules
+
+  submitHandler: function(form) {
+
+    var reCAPTCHAResponse = grecaptcha.getResponse();
+    document.getElementById('reCaptcha_Response__c').value=reCAPTCHAResponse;
+
+    if (!reCAPTCHAResponse) {
+      // reCaptcha Failed
+      console.log('Submit hander function ran. reCaptcha failed.');
+    } else {
+      //reCaptcha Passed
+      console.log('Submit hander function ran. reCaptcha passed.');
+      Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+      Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+      Cookies.remove('kapostsource', { domain: 'kapost.com' });
+      Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+      Cookies.remove('kapostsearch');
+      Cookies.remove('kapostsocial');
+      Cookies.remove('kapostsource');
+      Cookies.remove('kapostpaid');
+      form.submit();
+    }
+
+  }
+
+}); //End .validate
+
+
+</script>
