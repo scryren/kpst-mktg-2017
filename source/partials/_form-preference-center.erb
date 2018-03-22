@@ -37,7 +37,8 @@
             <div class="form-group form-padding col-md-6">
             <!--Email Address-->
               <label class="col-form-label float-label"  for="Email">Email Address</label>
-              <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address" value="">
+              <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address"  value="">
+              <!--onblur="checkForCustomer(); prePopulateCheckboxFields()"-->
             </div>
 
             <div class="form-group form-padding col-md-6 float-label ">
@@ -295,12 +296,12 @@
 
 
             <!--Start Content Marketing Promotional-->
-            <div id="sub-content-promo" class="row" style="margin-bottom: 1em;">
+            <div id="sub-content-promo" class="row con-mktg" style="margin-bottom: 1em;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
                     <div class="onoffswitch">
-                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription onoffswitch-checkbox" >
                         <label class="onoffswitch-label" for="Subscribed_to_Promotions__c">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -318,12 +319,12 @@
             <!--End Content Marketing Promotional-->
 
             <!--Start Content Marketing Newsletter-->
-            <div id="sub-content-newsletter" class="row" style="margin-bottom: 1em;">
+            <div id="sub-content-newsletter" class="row con-mktg" style="margin-bottom: 1em;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
                     <div class="onoffswitch">
-                        <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="subscription onoffswitch-checkbox" >
                         <label class="onoffswitch-label" for="Subscribed_to_Newsletter__c">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -341,12 +342,12 @@
             <!--End Newsletter-->
 
             <!--Start Customer Marketing Promotional-->
-            <div id="sub-customer-promo" class="row" style="margin-bottom: 1em; display: show;">
+            <div id="sub-customer-promo" class="row cust-mktg" style="margin-bottom: 1em; display: show;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
                     <div class="onoffswitch">
-                        <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="subscription onoffswitch-checkbox" >
                         <label class="onoffswitch-label" for="Subscribed_to_Customer_Marketing__c">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -364,12 +365,12 @@
             <!--End Customer Marketing Promotional-->
 
             <!--Start Customer Marketing Newsletter-->
-            <div id="sub-customer-newsletter" class="row" style="margin-bottom: 1em; display: show;">
+            <div id="sub-customer-newsletter" class="row cust-mktg" style="margin-bottom: 1em; display: show;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
                     <div class="onoffswitch">
-                        <input id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" type="checkbox" class="onoffswitch-checkbox" >
+                        <input id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" type="checkbox" class="subscription onoffswitch-checkbox" >
                         <label class="onoffswitch-label" for="Subscribed_to_Customer_Newsletter__c">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -467,7 +468,9 @@
             Subscribed to Promotions: {{lead.Subscribed to Promotions}}<br>
             Subscribed to Newsletter: {{lead.Subscribed to Newsletter}}<br>
             Subscribed to Customer Promotions: {{lead.Subscribed to Customer Marketing}}<br>
-            Subscribed to Customer Newsletter: {{lead.Subscribed to Customer Newsletter}}<br><br>
+            Subscribed to Customer Newsletter: {{lead.Subscribed to Customer Newsletter}}<br>
+            Account Status: {{lead.Account Status (C)}}<br>
+            Kapost User Status: {{lead.Kapost User Status}}<br><br>
 
           </div>
 

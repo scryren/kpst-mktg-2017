@@ -6,12 +6,16 @@ WARNING: This section has been modified for the preference center. Do not copy/p
 
   var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
   var mktoTokenEmail = "{{lead.Email Address}}";
+  var wrapperGlobalUnsubscribeWarning = document.getElementById('global-unsubscribe-warning-wrapper');
 
   var mktoTokenContentPromo = "{{lead.Subscribed to Promotions}}";
   var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}"; //mktoTokenContentNewsletter
   var mktoTokenCustomerPromo = "{{lead.Subscribed to Customer Marketing}}";
   var mktoTokenCustomerNewsletter = "{{lead.Subscribed to Customer Newsletter}}";
   var mktoTokenGlobalUnsubscribe = "{{lead.Unsubscribed}}";
+
+  var mktoTokenAccountStatus = "{{lead.Account Status (C)}}";
+  var mktoTokenKapostUserStatus = "{{lead.Kapost User Status}}";
 
   var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
 
@@ -51,6 +55,7 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
     //Show #form-reset if the user is known to Marketo
     if(mktoTokenEmail !== ""){
       $('#form-reset').fadeIn();
+      $('#Email').prop('disabled', true);
     }
   }
 
@@ -175,7 +180,12 @@ function resetForm() {
         mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
         mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
         mktoTokenGlobalUnsubscribe = 0; //sets this subscription to "subscribed"
+        mktoTokenAccountStatus = ""; //sets Account Status to empty
+        mktoTokenKapostUserStatus = ""; //sets Account Status to empty
         privacyPolicy(); //calls the function that shows/hides and makes Country required
+        checkForCustomer(); //calls the function that shows/hides Customer Marketing fields
+        $(wrapperGlobalUnsubscribeWarning).fadeOut(); //hides the global opt out warning
+        $('#Email').prop('disabled', false);
     });
 
 }
@@ -215,13 +225,12 @@ If the Country chosen is one that requires additional privacy functionality, sho
 /*Description*/
 /*************/
 /*
-
+Shows a warning if the end-user subscribes to a group when they're already globally opted out. Runs at ready and if an input with the .subscription is changed.
 */
 
 //Gloabl Opt Out Warning
-  function globalUnsubscribeWarning() {
 
-    var wrapperGlobalUnsubscribeWarning = document.getElementById('global-unsubscribe-warning-wrapper');
+  function globalUnsubscribeWarning() {
 
     //Subscriptions
     var fieldContentPromo = document.getElementById('Subscribed_to_Promotions__c');
@@ -232,28 +241,72 @@ If the Country chosen is one that requires additional privacy functionality, sho
     //Global Unsubscribe
     var fieldUnsubscribed = document.getElementById('Unsubscribed');
 
-    $(fieldContentPromo).change(function() { //if ANY of the subscriptions change
-        if(this.checked && fieldUnsubscribed.checked) { //if ANY of the subscriptions are checked and the global is checked
+    //if ANY of the subscriptions change
+    $('.subscription').change(function() {
+          //if ANY of the subscriptions are checked and the global is checked
+          if( (fieldContentPromo.checked || fieldContentNewsletter.checked || fieldCustomerPromo.checked || fieldCustomerNewsletter.checked) && fieldUnsubscribed.checked) {
             $(wrapperGlobalUnsubscribeWarning).fadeIn();
-        } else if (!this.checked) { //if ALL of the subscriptions are unchecked
-          $(wrapperGlobalUnsubscribeWarning).fadeOut();
-        }
-    });
-
-    //if the global unsub is unchecked
-    $(fieldUnsubscribed).change(function() {
-        if(!this.checked) {
+          }
+            //if ALL of the subscriptions are unchecked
+            else if (!fieldContentPromo.checked && !fieldContentNewsletter.checked && !fieldCustomerPromo.checked && !fieldCustomerNewsletter.checked) {
             $(wrapperGlobalUnsubscribeWarning).fadeOut();
-        }
-    });
+          }
+      });
+
+      //if the global unsub is unchecked
+      $(fieldUnsubscribed).change(function() {
+          if(!this.checked) {
+              $(wrapperGlobalUnsubscribeWarning).fadeOut();
+          }
+      });
 
   }
 
 </script>
 
+<script type="text/javascript">
+/*************/
+/*Description*/
+/*************/
+/*
+Shows or hides customer marketing subscriptions (flagged with the class .cust-mktg) based on if the end-user is a Kapost customer. Looks at Account Status and Kapost User Status
+*/
 
+  //Show/hide customer only groups
+  function checkForCustomer() {
 
-<!--NOTE: recaptcha goes here-->
+    var wrapperCustomerMarketing = document.getElementsByClassName('cust-mktg');
+
+    if (mktoTokenAccountStatus === "Customer" || mktoTokenKapostUserStatus === "Active") {
+      $(wrapperCustomerMarketing).fadeIn();
+    } else {
+      $(wrapperCustomerMarketing).fadeOut();
+    }
+
+  }
+</script>
+
+<script type="text/javascript">
+//INVISIBLE RECAPTCHA
+//Must run before google.com/recaptcha/api.js
+
+  var onloadCallback = function() {
+    console.log('recaptcha callback ran');
+    grecaptcha.render('g-recaptcha', {
+      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+      'size': 'invisible'
+    });
+    grecaptcha.reset();
+    grecaptcha.execute();
+    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+
+  };
+
+</script>
+
+<!--INVISIBLE RECAPTCHA JS LIBRARY-->
+<!--Must run after recaptcha callback is defined-->
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
 
 
 <script>
