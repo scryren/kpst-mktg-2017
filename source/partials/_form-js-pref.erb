@@ -14,8 +14,10 @@ WARNING: This section has been modified for the preference center. Do not copy/p
   var mktoTokenCustomerNewsletter = "{{lead.Subscribed to Customer Newsletter}}";
   var mktoTokenGlobalUnsubscribe = "{{lead.Unsubscribed}}";
 
+
   var mktoTokenAccountStatus = "{{lead.Account Status (C)}}";
   var mktoTokenKapostUserStatus = "{{lead.Kapost User Status}}";
+  var formResetCustomerStatus = false;
 
   var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
 
@@ -55,7 +57,7 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
     //Show #form-reset if the user is known to Marketo
     if(mktoTokenEmail !== ""){
       $('#form-reset').fadeIn();
-      $('#Email').prop('disabled', true);
+      //$('#Email').prop('disabled', true);
     }
   }
 
@@ -183,9 +185,10 @@ function resetForm() {
         mktoTokenAccountStatus = ""; //sets Account Status to empty
         mktoTokenKapostUserStatus = ""; //sets Account Status to empty
         privacyPolicy(); //calls the function that shows/hides and makes Country required
+        formResetCustomerStatus = true; //sets variable to true so Customer Subs show on reset
         checkForCustomer(); //calls the function that shows/hides Customer Marketing fields
         $(wrapperGlobalUnsubscribeWarning).fadeOut(); //hides the global opt out warning
-        $('#Email').prop('disabled', false);
+        //$('#Email').prop('disabled', false);
     });
 
 }
@@ -269,7 +272,7 @@ Shows a warning if the end-user subscribes to a group when they're already globa
 /*Description*/
 /*************/
 /*
-Shows or hides customer marketing subscriptions (flagged with the class .cust-mktg) based on if the end-user is a Kapost customer. Looks at Account Status and Kapost User Status
+Shows or hides customer marketing subscriptions (flagged with the class .cust-mktg) based on if the end-user is a Kapost customer. Looks at Account Status, Kapost User Status, or the Form Reset global variable.
 */
 
   //Show/hide customer only groups
@@ -277,7 +280,7 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
 
     var wrapperCustomerMarketing = document.getElementsByClassName('cust-mktg');
 
-    if (mktoTokenAccountStatus === "Customer" || mktoTokenKapostUserStatus === "Active") {
+    if (mktoTokenAccountStatus == "Customer" || mktoTokenKapostUserStatus == "Active" || formResetCustomerStatus == true ) {
       $(wrapperCustomerMarketing).fadeIn();
     } else {
       $(wrapperCustomerMarketing).fadeOut();
@@ -303,6 +306,9 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
   };
 
 </script>
+
+
+
 
 <!--INVISIBLE RECAPTCHA JS LIBRARY-->
 <!--Must run after recaptcha callback is defined-->

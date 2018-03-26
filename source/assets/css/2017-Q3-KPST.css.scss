@@ -534,6 +534,11 @@ body.modal-open .blur{
   border-image-slice: 1;
 }
 
+#kapostmktoform input:disabled,
+#kapostmktoform option:disabled {
+  //set disabled color
+}
+
 #kapostmktoform textarea {
  padding: 0.475rem 0.75rem 0.275rem 0.75rem;
 }
