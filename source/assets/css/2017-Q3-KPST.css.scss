@@ -472,23 +472,27 @@ body.modal-open .blur{
   opacity: 0.8;
 }
 
-.modal-nav-content {
-  width: 100%;
-  height: auto;
+.modal-xs {
+  max-width: 190px;
 }
 
-.modal-nav-body {
+.modal-content {
+  background-color: transparent;
+  border: 0px;
+}
+
+.modal-body {
   margin-top: 100px;
 }
 
-.modal-nav-body ul {
+.modal-body ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-.modal-nav-body ul a {
+.modal-body ul a {
   color: rgba(255, 255, 255, 0.7);
   font-weight: 700;
   line-height: 24px;
@@ -497,17 +501,19 @@ body.modal-open .blur{
   text-decoration: none;
 }
 
-.modal-nav-body ul a:hover {
+.modal-body ul a:hover {
   color: rgba(255, 255, 255, 1);
 }
 
 
-.modal-nav-body ul li {
+.modal-body ul li {
   text-align: center;
   padding: 8px;
 }
 
-
+.navbar-light .navbar-toggler {
+  border: 0px;
+}
 
 /* Marketo Form Styling and Override
 *********************************/
