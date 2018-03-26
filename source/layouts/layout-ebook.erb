@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
-    <%=  partial "partials/ga" %>
+    <%=  partial "partials/js-header" %>
 
     <%= partial "partials/mkto-variables-main" %>
     <%= partial "partials/mkto-variables-form" %>
@@ -45,16 +45,16 @@
       });
     </script>
 
-    <link href="http://resources.kapost.com/rs/389-IOX-111/images/2017-Q3-KPST.css" rel="stylesheet">
-    <%# stylesheet_link_tag '2017-Q3-KPST' %>
+    <!--<link href="http://resources.kapost.com/rs/389-IOX-111/images/2017-Q3-KPST.css" rel="stylesheet">-->
+    <%= stylesheet_link_tag '2017-Q3-KPST' %>
 
   </head>
 
   <body class="<%= page_classes %>">
-    <%= partial "partials/header-no-menu" %>
+    <%= partial "partials/header-nav-off" %>
       <%= yield %>
-      <%= partial "partials/footer" %>
-    <%=  partial "partials/footer-js" %>
+      <%= partial "partials/page-footer" %>
+    <%=  partial "partials/js-footer" %>
   </body>
 
 </html>

@@ -1,7 +1,7 @@
 <section id="form-container">
     <div class="container">
       <div class="row no-gutters justify-content-center">
-        <div class="col-12 col-lg-10">
+        <div class="col-12 col-lg-5">
           <div class="form-wrapper">
 
             <!--Start Form Code-->
@@ -29,39 +29,39 @@
               </div>
             </div>
 
-            <div class="row justify-content-md-center"> <!-- Start field row -->
+            <div class="row"> <!-- Start field row -->
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
               <!--First Name-->
                 <label class="col-form-label float-label" for="FirstName">First Name</label>
                 <input id="FirstName" name="FirstName"  type="text" class="form-control" placeholder="First Name" value="">
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
               <!--Last Name-->
                 <label class="col-form-label float-label" for="LastName">Last Name</label>
                 <input id="LastName" name="LastName"  type="text" class="form-control" placeholder="Last Name" value="">
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
               <!--Email Address-->
                 <label class="col-form-label float-label"  for="Email">Email Address</label>
                 <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address" value="">
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
               <!--Phone Number-->
                 <label class="col-form-label float-label" for="Phone">Phone Number</label>
                 <input id="Phone" name="Phone"  type="text" class="form-control" placeholder="Phone Number" value="">
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
               <!--Company Name-->
                 <label class="col-form-label float-label" for="Company">Company</label>
                 <input id="Company" name="Company"  type="text" class="form-control" placeholder="Company Name" value="">
               </div>
 
-              <div class="form-group form-padding col-md-4 float-label ">
+              <div class="form-group form-padding col-12 float-label ">
                 <!--Country-->
                 <label class="col-form-label float-label" for="Marketing_Country__c">Country</label>
                 <select id="Marketing_Country__c" name="Marketing_Country__c" class="form-control ">
@@ -308,11 +308,10 @@
                   <option value="Yugoslavia" >Yugoslavia</option>
                   <option value="Zambia" >Zambia</option>
                   <option value="Zimbabwe" >Zimbabwe</option>
-
                 </select>
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
                 <!--Title Category-->
                 <label class="col-form-label float-label" for="Title_Category__c">Title Category</label>
                 <select id="Title_Category__c" name="Title_Category__c" class="form-control">
@@ -327,7 +326,7 @@
                 </select>
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
                 <!--Department-->
                 <label class="col-form-label float-label" for="Department__c">Department</label>
                 <select id="Department__c" name="Department__c" onChange="populateJobRoleOptions();" class="form-control">
@@ -349,7 +348,7 @@
                 </select>
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
                 <!--Job Role-->
                 <label class="col-form-label float-label" for="Job_Role__c">Job Role</label>
                 <select id="Job_Role__c" name="Job_Role__c" class="form-control" size="1">
@@ -358,7 +357,7 @@
               </div>
 
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
                 <!--Marketing Automation-->
                 <label class="col-form-label float-label" for="Marketing_Automation__c">Marketing Automation</label>
                 <select id="Marketing_Automation__c" name="Marketing_Automation__c" class="form-control">
@@ -380,7 +379,7 @@
                 </select>
               </div>
 
-              <div class="form-group form-padding col-md-4">
+              <div class="form-group form-padding col-12">
                 <!--Business Type-->
                 <label class="col-form-label float-label" for="Business_Type__c">Business Type</label>
                 <select id="Business_Type__c" name="Business_Type__c" class="form-control">
@@ -391,25 +390,20 @@
                 </select>
               </div>
 
-
-            </div> <!--End Field Row-->
-
-            <!--Contact Sales Message-->
-            <div class="row justify-content-md-center">
-              <div id="textarea-wrapper" class="form-group col-md-8" style="display: ${mkto-form-contact-comment};">
+              <!--Contact Sales Message-->
+              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-contact-comment};">
                 <label class="col-form-label float-label" for="Contact_Sales_Message__c">Message (Optional)</label>
                 <textarea id="Contact_Sales_Message__c" name="Contact_Sales_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
               </div>
-            </div>
 
-            <!--Demo Request Message-->
-            <div class="row justify-content-md-center">
-              <div id="textarea-wrapper" class="form-group col-md-8" style="display: ${mkto-form-demo-comment};">
+              <!--Demo Request Message-->
+              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-demo-comment};">
                 <label class="col-form-label float-label" for="Demo_Request_Message__c">Message (Optional)</label>
                 <textarea id="Demo_Request_Message__c" name="Demo_Request_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
               </div>
-            </div>
 
+
+            </div> <!--End Field Row-->
 
             <!--reCAPTCHA-->
             <div id="recaptcha-wrapper" class="row justify-content-center" style="margin-top: 1rem;">
@@ -420,9 +414,10 @@
             </div>
 
 
+
             <!--Submit Button-->
             <div class="row justify-content-center">
-              <div class="col-md-8">
+              <div class="col-12">
                 <button name="kapostmktoform" type="submit" class="btn btn-block">${mkto-form-button-copy}</button>
               </div>
             </div>
@@ -452,6 +447,8 @@
           </form>
 
           <%= partial "partials/js-form-handraiser" %>
+
+
 
         </div>
       </div>

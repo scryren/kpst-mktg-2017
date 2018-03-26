@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
-    <%= partial "partials/js-header" %>
+    <%=  partial "partials/js-header" %>
 
     <%= partial "partials/mkto-variables-main" %>
     <%= partial "partials/mkto-variables-form" %>
@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
 
     <!--Referral Source Code-->
     <script src="https://kapost.com/assets/tracking/url.js"></script>
@@ -33,26 +34,29 @@
     <script>
       $(document).ready(function () {
         prePopulateTextFields();
+        prePopulateCheckboxFields();
         prePopulatePicklists();
-        populateJobRoleOptions();
-        prePopulateJobRole();
+        //populateJobRoleOptions();
+        //prePopulateJobRole();
+        globalUnsubscribeWarning();
         privacyPolicy();
-        newsletterSubscriber();
-        toggleVisibilityMain();
+        checkForCustomer();
+        //newsletterSubscriber();
+        //toggleVisibilityMain();
         cookiesHiddenFields();
         resetForm();
       });
     </script>
 
-    <link href="http://resources.kapost.com/rs/389-IOX-111/images/2017-Q3-KPST.css" rel="stylesheet">
-    <%# stylesheet_link_tag '2017-Q3-KPST' %>
+    <!--<link href="http://resources.kapost.com/rs/389-IOX-111/images/2017-Q3-KPST.css" rel="stylesheet">-->
+    <%= stylesheet_link_tag '2017-Q3-KPST' %>
 
   </head>
 
-  <body class="<%= page_classes %>">
-    <%= partial "partials/header-nav-on" %>
+  <body class="page-short">
+    <%= partial "partials/header-nav-off" %>
       <%= yield %>
-      <%= partial "partials/page-footer" %>
+      <%# partial "partials/page-footer" %>
     <%=  partial "partials/js-footer" %>
   </body>
 

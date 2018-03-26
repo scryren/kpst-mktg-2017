@@ -50,12 +50,6 @@
               </div>
 
               <div class="form-group form-padding col-12">
-              <!--Phone Number-->
-                <label class="col-form-label float-label" for="Phone">Phone Number</label>
-                <input id="Phone" name="Phone"  type="text" class="form-control" placeholder="Phone Number" value="">
-              </div>
-
-              <div class="form-group form-padding col-12">
               <!--Company Name-->
                 <label class="col-form-label float-label" for="Company">Company</label>
                 <input id="Company" name="Company"  type="text" class="form-control" placeholder="Company Name" value="">
@@ -390,18 +384,6 @@
                 </select>
               </div>
 
-              <!--Contact Sales Message-->
-              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-contact-comment};">
-                <label class="col-form-label float-label" for="Contact_Sales_Message__c">Message (Optional)</label>
-                <textarea id="Contact_Sales_Message__c" name="Contact_Sales_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
-              </div>
-
-              <!--Demo Request Message-->
-              <div id="textarea-wrapper" class="form-group col-12" style="display: ${mkto-form-demo-comment};">
-                <label class="col-form-label float-label" for="Demo_Request_Message__c">Message (Optional)</label>
-                <textarea id="Demo_Request_Message__c" name="Demo_Request_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
-              </div>
-
               <!--Newsletter-->
               <div id="newsletter-wrapper" class="form-group col-12" style="display: none;">
                 <div class="form-check">
@@ -409,7 +391,7 @@
                     <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c"  type="checkbox">
                     <span class="checkbox-option" style="font-weight: 700;">The Content Marketeer</span>
                   </label>
-                  <p class="checkbox-description">Subscribe to our weekly newsletter and get fresh insights, stories, data and best practices delivered right to your inbox.</span>
+                  <p class="checkbox-description">Subscribe to our weekly newsletter and stay up to date on the latest research, thought leadership, and marketing tips.</span>
                 </div>
               </div>
 
@@ -457,7 +439,7 @@
 
           </form>
 
-          <%= partial "partials/form-js-below" %>
+          <%= partial "partials/js-form-ebook" %>
 
 
 

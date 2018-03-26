@@ -22,6 +22,12 @@ body.form_only {
   background-color: #fefefe;
 }
 
+/*
+body.page-short {
+  background-color: #607D8B;
+} */
+
+
 /* Typeography
 *********************************/
 
@@ -256,8 +262,8 @@ header {
 *********************************/
 
 #content {
-  margin-bottom: 5em;
-//  background-color: #fefefe;
+  padding-bottom: 5em;
+  background-color: #fefefe;
 }
 
 #content-form-only {
@@ -268,7 +274,8 @@ header {
 }
 
 #form-wrapper {
-  margin-bottom: 5em;
+  padding-bottom: 5em;
+  background-color: #fefefe;
 }
 
 #content .lead {

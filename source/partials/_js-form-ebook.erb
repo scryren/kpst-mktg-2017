@@ -1,5 +1,6 @@
 <!--START GLOBAL VARIABLES -->
 <script type="text/javascript">
+/* NOTE: "eBook" forms do not have phone numbers in them */
 
   var showJobRole = null;
   var showDepartment = null;
@@ -46,7 +47,6 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
       [document.getElementById('FirstName'), "{{lead.First Name}}", "FirstName"],
       [document.getElementById('LastName'), "{{lead.Last Name}}", "LastName"],
       [document.getElementById('Email'), "{{lead.Email Address}}", "Email"],
-      [document.getElementById('Phone'), "{{lead.Phone Number}}", "Phone"],
       [document.getElementById('Company'), "{{company.Company Name}}", "Company"]
     ]
 
@@ -275,7 +275,6 @@ function resetForm() {
       [document.getElementById('FirstName')],
       [document.getElementById('LastName')],
       [document.getElementById('Email')],
-      [document.getElementById('Phone')],
       [document.getElementById('Company')],
       [document.getElementById('Marketing_Country__c')],
       [document.getElementById('Title_Category__c')],
@@ -376,7 +375,6 @@ function toggleVisibilityMain() {
   var arrayShowHideFieldID = [
     [document.getElementById('FirstName'), "{{lead.First Name}}"],
     [document.getElementById('LastName'), "{{lead.Last Name}}"],
-    [document.getElementById('Phone'), "{{lead.Phone Number}}"],
     [document.getElementById('Company'), "{{company.Company Name}}"],
     [document.getElementById('Title_Category__c'), "{{lead.Title Category}}"],
     [document.getElementById('Marketing_Automation__c'), "{{lead.Marketing Automation}}"],
@@ -480,7 +478,6 @@ $("#kapostmktoform").validate({
     FirstName: {required: true},
     LastName: {required: true},
     Email: {required: true, email: true},
-    Phone: {required: true},
     Company: {required: true},
     Marketing_Country__c: {required: true},
     Title_Category__c: {required: true},
