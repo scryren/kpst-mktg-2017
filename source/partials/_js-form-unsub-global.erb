@@ -1,0 +1,65 @@
+<script type="text/javascript">
+//INVISIBLE RECAPTCHA
+//Must run before google.com/recaptcha/api.js
+
+  var onloadCallback = function() {
+    console.log('recaptcha callback ran');
+    grecaptcha.render('g-recaptcha', {
+      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+      'size': 'invisible'
+    });
+    grecaptcha.reset();
+    grecaptcha.execute();
+    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+
+  };
+
+</script>
+
+<!--INVISIBLE RECAPTCHA JS LIBRARY-->
+<!--Must run after recaptcha callback is defined-->
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
+
+
+<script>
+//VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
+/*
+Source: https://jqueryvalidation.org/
+WARNING: This section has been modified for the preference center. Do not copy/paste this back into them main javascript file.
+*/
+
+$("#kapostmktoform").validate({
+
+  ignore: ".ignore",
+  rules: {
+    Email: {required: true, email: true}
+  }, //End Rules
+
+  submitHandler: function(form) {
+
+    var reCAPTCHAResponse = grecaptcha.getResponse();
+    document.getElementById('reCaptcha_Response__c').value=reCAPTCHAResponse;
+
+    if (!reCAPTCHAResponse) {
+      // reCaptcha Failed
+      console.log('Submit hander function ran. reCaptcha failed.');
+    } else {
+      //reCaptcha Passed
+      console.log('Submit hander function ran. reCaptcha passed.');
+      Cookies.remove('kapostsearch', { domain: 'kapost.com' });
+      Cookies.remove('kapostsocial', { domain: 'kapost.com' });
+      Cookies.remove('kapostsource', { domain: 'kapost.com' });
+      Cookies.remove('kapostpaid', { domain: 'kapost.com' });
+      Cookies.remove('kapostsearch');
+      Cookies.remove('kapostsocial');
+      Cookies.remove('kapostsource');
+      Cookies.remove('kapostpaid');
+      form.submit();
+    }
+
+  }
+
+}); //End .validate
+
+
+</script>

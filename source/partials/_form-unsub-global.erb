@@ -30,8 +30,8 @@
 
             <div class="form-group form-padding col-md-6">
             <!--Email Address-->
-              <label class="col-form-label float-label"  for="Email">Email Address</label>
-              <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address" value="">
+              <label class="col-form-label float-label" for="Email">Email Address</label>
+              <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address" value="{{lead.Email Address}}">
 
             </div>
 
@@ -59,7 +59,7 @@
 
           <%= partial "partials/page-floating-footer" %>
 
-          <%# partial "partials/js-form-unsub-global" %>
+          <%= partial "partials/js-form-unsub-global" %>
 
       </div>
     </div>
