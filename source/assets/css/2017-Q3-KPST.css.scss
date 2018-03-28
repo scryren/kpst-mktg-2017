@@ -840,6 +840,61 @@ body {
 
 
 
+/* Bootstrap 4 custom form overrides
+   ================================== */
+
+.custom-control-label::after, .custom-control-label::before {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  -ms-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  transition-property: border;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: initial;
+  -webkit-transition: border 0.2s linear;
+  -moz-transition: border 0.2s linear;
+  -o-transition: border 0.2s linear;
+  -ms-transition: border 0.2s linear;
+  transition: border 0.2s linear;
+  transition-property: border;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: initial;
+}
+
+.custom-control-label::after {
+  cursor: pointer;
+}
+
+.custom-control-input:valid:focus ~ .custom-control-label::before, .custom-control-input.is-valid:focus ~ .custom-control-label::before {
+  box-shadow: none;
+}
+
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #51ABF5;
+  border: 1px solid #51ABF5;
+  color: #fff;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 2px;
+}
+
+.custom-control-label::before {
+  background-color: #FAFAFA;
+  border: 1px solid #C5C5C5;
+  cursor: pointer;
+}
+
+.pref-lg.custom-control-label::before, .pref-lg.custom-control-label::after {
+  height: 30px;
+  width: 30px;
+}
+
+
 /* On/Off Switch
    ================================== */
 /* Modified From: https://proto.io/freebies/onoff/ */
@@ -863,7 +918,7 @@ body {
 .onoffswitch-inner {
     display: block;
     margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
+    //transition: margin 0.3s ease-in 0s;
     width: 200%;
 
 }

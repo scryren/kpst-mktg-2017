@@ -307,18 +307,14 @@
 
           </div> <!--End Field Row-->
 
-
             <!--Start Content Marketing Promotional-->
-            <div id="sub-content-promo" class="row con-mktg" style="margin-bottom: 1em;">
+            <div id="sub-content-promo" class="row con-mktg mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
-                    <div class="onoffswitch">
-                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription onoffswitch-checkbox" >
-                        <label class="onoffswitch-label" for="Subscribed_to_Promotions__c">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription custom-control-input" >
+                        <label class="custom-control-label pref-lg" for="Subscribed_to_Promotions__c"></label>
                     </div>
                 </div>
 
@@ -332,16 +328,13 @@
             <!--End Content Marketing Promotional-->
 
             <!--Start Content Marketing Newsletter-->
-            <div id="sub-content-newsletter" class="row con-mktg" style="margin-bottom: 1em;">
+            <div id="sub-content-newsletter" class="row con-mktg mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
-                    <div class="onoffswitch">
-                        <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="subscription onoffswitch-checkbox" >
-                        <label class="onoffswitch-label" for="Subscribed_to_Newsletter__c">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="subscription custom-control-input" >
+                        <label class="custom-control-label pref-lg" for="Subscribed_to_Newsletter__c"></label>
                     </div>
                 </div>
 
@@ -355,16 +348,13 @@
             <!--End Newsletter-->
 
             <!--Start Customer Marketing Promotional-->
-            <div id="sub-customer-promo" class="row cust-mktg" style="margin-bottom: 1em; display: show;">
+            <div id="sub-customer-promo" class="row cust-mktg mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
-                    <div class="onoffswitch">
-                        <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="subscription onoffswitch-checkbox" >
-                        <label class="onoffswitch-label" for="Subscribed_to_Customer_Marketing__c">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="subscription custom-control-input" >
+                        <label class="custom-control-label pref-lg" for="Subscribed_to_Customer_Marketing__c"></label>
                     </div>
                 </div>
 
@@ -378,16 +368,13 @@
             <!--End Customer Marketing Promotional-->
 
             <!--Start Customer Marketing Newsletter-->
-            <div id="sub-customer-newsletter" class="row cust-mktg" style="margin-bottom: 1em; display: show;">
+            <div id="sub-customer-newsletter" class="row cust-mktg mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
-                    <div class="onoffswitch">
-                        <input id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" type="checkbox" class="subscription onoffswitch-checkbox" >
-                        <label class="onoffswitch-label" for="Subscribed_to_Customer_Newsletter__c">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" type="checkbox" class="subscription custom-control-input" >
+                        <label class="custom-control-label pref-lg" for="Subscribed_to_Customer_Newsletter__c"></label>
                     </div>
                 </div>
 
@@ -403,16 +390,13 @@
             <hr>
 
             <!--Start Global-->
-            <div id="sub-global" class="row" style="margin-bottom: 1em;">
+            <div id="sub-global" class="row mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
-                    <div class="onoffswitch">
-                        <input id="Unsubscribed" name="Unsubscribed" type="checkbox" class="onoffswitch-checkbox" >
-                        <label class="onoffswitch-label" for="Unsubscribed">
-                            <span id="global-onoffswitch" class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        <input id="Unsubscribed" name="Unsubscribed" type="checkbox" class="custom-control-input" >
+                        <label class="custom-control-label pref-lg" for="Unsubscribed"></label>
                     </div>
                 </div>
 
@@ -454,16 +438,17 @@
               <div class="col-12">
 
 
-                <div id="privacy-statement"><!--<h5>Terms of Service</h5>-->
+                <div id="privacy-statement">
 
                   <div id="privacy-statement-checkbox">
 
-                    <input id="legalCheckbox" name="legalCheckbox" type="checkbox">
-
-                    <span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost's use of my contact information to communicate with me regarding Kapost's products, services, and events. I may unsubscribe at any time.</span>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input id="legalCheckbox" name="legalCheckbox" type="checkbox" class="custom-control-input" >
+                      <label class="custom-control-label" for="legalCheckbox"></label>
+                      <span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost's use of my contact information to communicate with me regarding Kapost's products, services, and events. I may unsubscribe at any time.</span>
+                    </div>
 
                   </div>
-
 
                 </div>
 
@@ -474,18 +459,16 @@
 
           </form>
 
-          <div style="border: solid 1px rgb(199, 199, 199); padding: 30px; margin: 30px 0px;">
 
-            <h3 style="text-align: center;">Test area</h3>
+          <script>
+          console.log('Promotions: {{lead.Subscribed to Promotions}}' + '\n' +
+            'Newsletter: {{lead.Subscribed to Newsletter}}' + '\n' +
+            'Customer Promotions: {{lead.Subscribed to Customer Marketing}}' + '\n' +
+            'Customer Newsletter: {{lead.Subscribed to Customer Newsletter}}' + '\n' +
+            'Account Status: {{lead.Account Status (C)}}' + '\n' +
+            'Kapost User Status: {{lead.Kapost User Status}}')
+          </script>
 
-            Subscribed to Promotions: {{lead.Subscribed to Promotions}}<br>
-            Subscribed to Newsletter: {{lead.Subscribed to Newsletter}}<br>
-            Subscribed to Customer Promotions: {{lead.Subscribed to Customer Marketing}}<br>
-            Subscribed to Customer Newsletter: {{lead.Subscribed to Customer Newsletter}}<br>
-            Account Status: {{lead.Account Status (C)}}<br>
-            Kapost User Status: {{lead.Kapost User Status}}<br><br>
-
-          </div>
 
           <%= partial "partials/js-form-pref" %>
 
