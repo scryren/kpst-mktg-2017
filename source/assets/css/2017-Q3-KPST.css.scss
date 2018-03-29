@@ -80,17 +80,29 @@ a {
 a:focus, a:hover {
   color: #7ad7cf; }
 
-footer a:link, footer a:visited {
+footer a:link,
+footer a:visited {
   color: inherit; }
 
-footer a:hover, footer a:focus {
+footer a:hover,
+footer a:focus {
   color: inherit; }
 
-#floating-footer a:link, #floating-footer a:visited {
-  color: inherit; }
+a.social:link,
+a.social:visited {
+  color: #2196F3; }
 
-#floating-footer a:hover, #floating-footer a:focus {
-  color: inherit; }
+a.social:hover,
+a.social:focus {
+  color: #54a6e6; }
+
+#floating-footer a:link,
+#floating-footer a:visited {
+  color: #888888; }
+
+#floating-footer a:hover,
+#floating-footera a:focus {
+  color: #888888; }
 
 a:link,
 a:visited,
@@ -663,13 +675,13 @@ body.modal-open .blur{
   //margin-left: 0.1rem;
   //padding: 0.475rem 0.75rem;
   text-transform: none;
-  padding-left: .4rem;
+  //padding-left: .4rem;
   margin-bottom: 0rem;
 }
 
 #kapostmktoform #privacy-statement label.error {
   font-size: 0.825rem !important;
-  padding-left: 0rem;
+  padding-left: 1rem;
 }
 
 
@@ -820,12 +832,13 @@ body {
   //line-height: 1.813em;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 0.825rem;
-  text-align: justify !important;
+  //text-align: justify !important;
   margin-top: 10px;
 }
 
-#kapostmktoform #privacy-statement h5 {
-  text-align: center;
+
+#kapostmktoform .privacy-statement {
+  margin-left: 1rem;
 }
 
 #kapostmktoform  #privacy-statement .LV_invalid {}
@@ -835,8 +848,12 @@ body {
   display: inline;
 }
 
-#kapostmktoform #legalCheckbox {
-  margin: 0px 10px 0px 0px; }
+
+//Override for Privacy Statement
+#kapostmktoform #privacy-statement .custom-control-inline {
+  margin-right: 0rem;
+  min-height: 1rem;
+}
 
 
 
@@ -889,73 +906,12 @@ body {
   cursor: pointer;
 }
 
+.custom-control-label::before, .custom-control-label::after {
+  height: 20px;
+  width: 20px;
+}
+
 .pref-lg.custom-control-label::before, .pref-lg.custom-control-label::after {
   height: 30px;
   width: 30px;
-}
-
-
-/* On/Off Switch
-   ================================== */
-/* Modified From: https://proto.io/freebies/onoff/ */
-
-.onoffswitch {
-    -moz-user-select:none;
-    -ms-user-select: none;
-    -webkit-user-select:none;
-    margin-top: 0.5em;
-    position: relative;
-    width: 30px;
-}
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    cursor: pointer;
-    display: block;
-    overflow: hidden;
-}
-.onoffswitch-inner {
-    display: block;
-    margin-left: -100%;
-    //transition: margin 0.3s ease-in 0s;
-    width: 200%;
-
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    background-clip: padding-box;
-    box-sizing: border-box;
-    color: #ffffff;
-    display: block;
-    float: left;
-    font-family: FontAwesome, "Open Sans";
-    font-weight: 700;
-    height: 30px;
-    line-height: 30px; /* "Vertical padding" */
-    padding: 0;
-    text-align: center;
-    width: 50%;
-}
-.onoffswitch-inner:before {
-    background-color: #2196F3;
-    content: "\f00c ";
-}
-.onoffswitch-inner:after {
-    background-color: #bebebe;
-    content: "\f00d ";
-}
-/*
-.onoffswitch-switch {
-    display: block; width: 0px; margin: 0px;
-    background: #000000;
-    position: absolute; top: 0; bottom: 0;
-    right: 107px;
-    transition: all 0.3s ease-in 0s;
-} */
-
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px;
 }
