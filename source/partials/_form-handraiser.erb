@@ -402,18 +402,15 @@
                 <textarea id="Demo_Request_Message__c" name="Demo_Request_Message__c" class="form-control" placeholder="Message (Optional)"  rows="3"></textarea>
               </div>
 
-
             </div> <!--End Field Row-->
 
             <!--reCAPTCHA-->
-            <div id="recaptcha-wrapper" class="row justify-content-center" style="margin-top: 1rem;">
+            <div id="recaptcha-wrapper" class="row justify-content-center">
               <div class="col-12">
                 <!--reCaptcha challenge loads here-->
                 <div id="g-recaptcha"></div>
               </div>
             </div>
-
-
 
             <!--Submit Button-->
             <div class="row justify-content-center">
@@ -424,31 +421,27 @@
 
             <!--LEGAL STATEMENT-->
             <div class="row">
-              <div class="col-12">
 
+              <div id="privacy-statement" class="form-group col-12" style="display: none;">
+                <div class="media">
 
-                <div id="privacy-statement"><!--<h5>Terms of Service</h5>-->
+                  <div class="align-self-top">
+                      <div class="custom-control custom-checkbox my-1">
+                          <input id="legalCheckbox" name="legalCheckbox" type="checkbox" class="custom-control-input" >
+                          <div class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost's use of my contact information to communicate with me regarding Kapost's products, services, and events. I may unsubscribe at any time.</div>
+                          <label class="custom-control-label" for="legalCheckbox"></label>
 
-                  <div id="privacy-statement-checkbox">
-
-                    <input id="legalCheckbox" name="legalCheckbox" type="checkbox">
-
-                    <span class="privacy-statement">By submitting this form, I acknowledge and agree to the storing and processing of my personal data by Kapost as described in their <a href="https://kapost.com/privacy-policy/" target="_blank">Privacy Policy</a>, as well as Kapost's use of my contact information to communicate with me regarding Kapost's products, services, and events. I may unsubscribe at any time.</span>
-
+                      </div>
                   </div>
 
 
                 </div>
-
               </div>
             </div>
-
 
           </form>
 
           <%= partial "partials/js-form-handraiser" %>
-
-
 
         </div>
       </div>
