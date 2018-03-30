@@ -44,13 +44,12 @@
           </div>
 
 
-          <div class="row justify-content-md-center" style="margin-bottom: 75px;"> <!-- Start field row -->
+          <div class="row justify-content-md-center mb-5"> <!-- Start field row -->
 
             <div class="form-group form-padding col-md-6">
             <!--Email Address-->
               <label class="col-form-label float-label"  for="Email">Email Address</label>
               <input id="Email" name="Email" data-validation="email" type="text" class="form-control" placeholder="Email Address" value="">
-              <!--onblur="Munchkin.munchkinFunction(); checkForCustomer(); prePopulateCheckboxFields()"-->
             </div>
 
             <div class="form-group form-padding col-md-6 float-label ">
@@ -306,28 +305,30 @@
 
           </div> <!--End Field Row-->
 
-            <!--Start Content Marketing Promotional-->
-            <div id="sub-content-promo" class="row con-mktg mb-2">
-              <div class="media">
+          <!--Start Content Marketing Promotional-->
+          <div id="sub-content-promo" class="form-group con-mktg mb-2">
+            <div class="media">
 
-                <div class="align-self-top mr-3">
-                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                        <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription custom-control-input" >
-                        <label class="custom-control-label pref-lg" for="Subscribed_to_Promotions__c"></label>
-                    </div>
-                </div>
-
-                <div>
-                  <b style="font-size: 14px">New Resources</b>
-                  <p style="font-size: 80%">Stay updated on the latest research, thought leadership, and marketing tips.</p>
-                </div>
-
+              <div class="align-self-top mr-3">
+                  <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                      <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription custom-control-input" >
+                      <label class="custom-control-label pref-lg" for="Subscribed_to_Promotions__c"></label>
+                  </div>
               </div>
+
+              <div>
+                <b style="font-size: 14px">New Resources</b>
+                <p style="font-size: 80%">Stay updated on the latest research, thought leadership, and marketing tips.</p>
+              </div>
+
             </div>
-            <!--End Content Marketing Promotional-->
+          </div>
+          <!--End Content Marketing Promotional-->
+
+
 
             <!--Start Content Marketing Newsletter-->
-            <div id="sub-content-newsletter" class="row con-mktg mb-2">
+            <div id="sub-content-newsletter" class="form-group con-mktg mb-2">
               <div class="media">
 
                 <div class="align-self-top mr-3">
@@ -344,10 +345,11 @@
 
               </div>
             </div>
-            <!--End Newsletter-->
+            <!--End Content Marketing Newsletter-->
+
 
             <!--Start Customer Marketing Promotional-->
-            <div id="sub-customer-promo" class="row cust-mktg mb-2" style="display: none;">
+            <div id="sub-customer-promo" class="form-group cust-mktg mb-2" style="display: none;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
@@ -367,7 +369,7 @@
             <!--End Customer Marketing Promotional-->
 
             <!--Start Customer Marketing Newsletter-->
-            <div id="sub-customer-newsletter" class="row cust-mktg mb-2" style="display: none;">
+            <div id="sub-customer-newsletter" class="form-group cust-mktg mb-2" style="display: none;">
               <div class="media">
 
                 <div class="align-self-top mr-3">
@@ -386,10 +388,10 @@
             </div>
             <!--End Customer Marketing Newsletter-->
 
-            <hr>
+            <div class="row section-pref">Global Unsubscribe</div>
 
             <!--Start Global-->
-            <div id="sub-global" class="row mb-2">
+            <div id="sub-global" class="form-group">
               <div class="media">
 
                 <div class="align-self-top mr-3">
@@ -410,7 +412,7 @@
 
             <!--Global Opt Out Warning-->
             <div id="global-unsubscribe-warning-wrapper" class="row justify-content-center" style="display: none;">
-              <div class="col-12  col-md-10 text-center">
+              <div class="col-12 col-md-10 text-center">
                 <p style="font-size: 80%; color: rgb(201, 71, 41); font-weight: 700;">Heads up! You've added one or more subscriptions to your preferences but you're still globally unsubscribed.</p>
               </div>
             </div>

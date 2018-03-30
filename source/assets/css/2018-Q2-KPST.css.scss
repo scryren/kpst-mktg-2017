@@ -269,10 +269,14 @@ header {
 }
 
 #content-summary li:before, #content-callout li:before {
+    color: #96DAFB;
     content: "\f067";
     font-family: FontAwesome;
-    color: #96DAFB;
+    font-size: 15px;
+    left: -15px;
     margin-right: .5em;
+    //padding-left: .5em;
+    position: absolute;
 }
 
 
@@ -280,8 +284,12 @@ header {
 *********************************/
 
 #content {
-  padding-bottom: 5em;
   background-color: #fefefe;
+  font-family: 'Merriweather';
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 34px;
+  padding-bottom: 5em;
 }
 
 #content-form-only {
@@ -303,9 +311,18 @@ header {
 
 #content li {
   padding-bottom: 1rem;
+  list-style-type: none;
 }
 
 
+
+#content li:before {
+  content: '\f054';
+  font-family: 'FontAwesome';
+  font-size: 15px;
+  left: 15px;
+  position: absolute;
+}
 
 
 .btn {
@@ -697,10 +714,25 @@ body.modal-open .blur{
   margin: 2rem 0 0 0;
 }
 
-#kapostmktoform #newsletter-wrapper .checkbox-description {
+ #newsletter-wrapper .checkbox-description {
   padding-left: 25px;
   font-size: 80%;
   margin-bottom: 0rem;
+}
+
+// Form Section
+#kapostmktoform .section-pref {
+-webkit-font-smoothing: antialiased;
+background-color: #ededed;
+border-top: 1px solid #cccccc;
+color: #ababab;
+font-size: 12px;
+font-weight: bold;
+letter-spacing: 2px;
+padding: .1rem 1rem;
+margin-top: 2rem;
+margin-bottom: 1rem;
+text-transform: uppercase;
 }
 
 
