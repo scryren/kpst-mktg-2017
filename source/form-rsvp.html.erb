@@ -3,6 +3,26 @@ title: Kapost
 layout: layout-rsvp
 ---
 
+<style type="text/css">
+  @media (max-width: 33.9em) {
+    #hero {
+      background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
+      background-position: center center; } }
+  @media (min-width: 34em) and (max-width: 47.9em) {
+    #hero {
+      background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
+      background-position: center center; } }
+  @media (min-width: 48em) and (max-width: 61.9em) {
+    #hero {
+      background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
+      background-position: center center; } }
+  @media (min-width: 62em) {
+    #hero {
+      background-image: url("http://resources.kapost.com/rs/389-IOX-111/images/bg-test-02.jpg");
+      background-position: center center; } }
+</style>
+
+
 <div id="hero" class="container-fluid">
 
   <div id="title" class="container-fluid">
@@ -104,6 +124,12 @@ layout: layout-rsvp
 
 <div id="form-wrapper" class="container-fluid">
   <div class="container">
-    <%= partial "partials/form-vertical" %>
+    <section id="form-container">
+      <div class="row no-gutters justify-content-center">
+        <div class="col-12 col-lg-6 col-xl-5">
+          <%= partial "partials/form-vertical" %>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
