@@ -541,7 +541,7 @@ body.modal-open .blur{
   -moz-appearance: none;
   appearance: none;
   padding: 0.475rem 0.75rem 0.275rem 0rem;
-  background: url('http://resources.kapost.com/rs/389-IOX-111/images/form-chevron-down-font-awesome.svg');
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiIHZpZXdCb3g9IjAgLTI1NiAxNzkyIDE3OTIiIGlkPSJzdmczMDAxIiB2ZXJzaW9uPSIxLjEiIGlua3NjYXBlOnZlcnNpb249IjAuNDguMy4xIHI5ODg2IiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzb2RpcG9kaTpkb2NuYW1lPSJjaGV2cm9uX2Rvd25fZm9udF9hd2Vzb21lLnN2ZyI+DQogIDxtZXRhZGF0YSBpZD0ibWV0YWRhdGEzMDExIj4NCiAgICA8cmRmOlJERj4NCiAgICAgIDxjYzpXb3JrIHJkZjphYm91dD0iIj4NCiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+DQogICAgICAgIDxkYzp0eXBlIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiLz4NCiAgICAgIDwvY2M6V29yaz4NCiAgICA8L3JkZjpSREY+DQogIDwvbWV0YWRhdGE+DQogIDxkZWZzIGlkPSJkZWZzMzAwOSIvPg0KICA8c29kaXBvZGk6bmFtZWR2aWV3IHBhZ2Vjb2xvcj0iI2ZmZmZmZiIgYm9yZGVyY29sb3I9IiM2NjY2NjYiIGJvcmRlcm9wYWNpdHk9IjEiIG9iamVjdHRvbGVyYW5jZT0iMTAiIGdyaWR0b2xlcmFuY2U9IjEwIiBndWlkZXRvbGVyYW5jZT0iMTAiIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIiBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIiBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjY0MCIgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iNDgwIiBpZD0ibmFtZWR2aWV3MzAwNyIgc2hvd2dyaWQ9ImZhbHNlIiBpbmtzY2FwZTp6b29tPSIwLjEzMTY5NjQzIiBpbmtzY2FwZTpjeD0iODk2IiBpbmtzY2FwZTpjeT0iODk2IiBpbmtzY2FwZTp3aW5kb3cteD0iMCIgaW5rc2NhcGU6d2luZG93LXk9IjI1IiBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIwIiBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmczMDAxIi8+DQogIDxnIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLC0xLDY4LjMzODk4MywxMTMzLjU1OTMpIiBpZD0iZzMwMDMiPg0KICAgIDxwYXRoIGQ9Im0gMTYxMSw4MzIgcSAwLC01MyAtMzcsLTkwIEwgOTIzLDkxIFEgODg1LDUzIDgzMiw1MyA3NzgsNTMgNzQyLDkxIEwgOTEsNzQyIHEgLTM4LDM2IC0zOCw5MCAwLDUzIDM4LDkxIGwgNzQsNzUgcSAzOSwzNyA5MSwzNyA1MywwIDkwLC0zNyBsIDQ4NiwtNDg2IDQ4Niw0ODYgcSAzNywzNyA5MCwzNyA1MiwwIDkxLC0zNyBsIDc1LC03NSBxIDM3LC0zOSAzNywtOTEgeiIgaWQ9InBhdGgzMDA1IiBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIiBzdHlsZT0iZmlsbDpjdXJyZW50Q29sb3IiLz4NCiAgPC9nPg0KPC9zdmc+);
   background-position: right 10px top 60%;
   background-size: 10px;
   background-repeat: no-repeat;
@@ -781,7 +781,6 @@ body {
 }
 
 
-
 /* Privacy Statement
    ================================== */
 #kapostmktoform #privacy-statement {
@@ -791,7 +790,6 @@ body {
   //text-align: justify !important;
   margin-top: 10px;
 }
-
 
 #kapostmktoform .privacy-statement {
   margin-left: 1rem;
@@ -804,7 +802,6 @@ body {
   clear: both;
   display: inline;
 }
-
 
 //Override for Privacy Statement
 #kapostmktoform #privacy-statement .custom-control-inline {
@@ -873,23 +870,3 @@ body {
   width: 30px;
   top: .40rem;
 }
-
-
-/* Test Media Queries */
-/**********************/
-
-@media (max-width: 33.9em) {
-  .test {
-    border: 1px solid #ff0000; }}
-@media (min-width: 34em) and (max-width: 47.9em) {
-  .test {
-    border: 1px solid #00ff00; }}
-@media (min-width: 48em) and (max-width: 61.9em) {
-  .test {
-    border: 1px solid #0000ff; }}
-@media (min-width: 62em) and (max-width: 74.9em) {
-  .test {
-    border: 1px solid #ffff00; }}
-@media (min-width: 75em) {
-  .test {
-    border: 1px solid #00ffff; }}
