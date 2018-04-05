@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Merriweather:300,400,400i,700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800);
 
-
 html, body {
   width: 100%;
   height: 100%;
@@ -11,15 +10,8 @@ body {
   background-color: #fefefe;
   color: #1a233c;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
-  //font-family: "Merriweather", Georgia, serif;
   font-size: 1rem;
   font-weight: 400;
-  //line-height: 1.7em;
-}
-
-body.form_only {
-  //adjusts for interstitial pop-up version
-  background-color: #fefefe;
 }
 
 /* Typeography
@@ -33,11 +25,9 @@ h2, h3 {
   font-family: "Merriweather", Georgia, serif;
 }
 
-
 h1 {
   font-size: 2.813rem;
   line-height: 1.4em;
-
 }
 
 h2 {
@@ -50,7 +40,6 @@ h3 {
   line-height: 1.6em;
   padding-bottom: 1em;
 }
-
 
 h4 {
   font-size: 1.125rem;
@@ -67,7 +56,6 @@ h5 {
   h2 {font-size:1.4rem; line-height: 1.4em;}
   h3 {font-size:1.2rem;}
 }
-
 
 /* Links
 *********************************/
@@ -128,12 +116,8 @@ a.nav-link {
 
 /* Header
 *********************************/
-
 header {
-//  padding-top: 0.5em;
-//  padding-bottom: 0.5em;
   background-color: #fefefe;
-
 }
 
 /* Title / Hero
@@ -157,7 +141,6 @@ header {
 }
 
 #title {
-  //padding-bottom: 4em;
   background-color: #fefefe;
   box-shadow: inset 0px 3px 3px -3px rgba(0, 0, 0, 0.22);
   color: #1a233c;
@@ -181,8 +164,6 @@ header {
 }
 
 #hero #title {
-  //box-shadow: inset 0px 3px 3px -3px rgba(0, 0, 0, 0.22);
-  //padding-bottom: 4em;
   background-color: transparent;
   box-shadow: none;
   color: #ffffff;
@@ -204,19 +185,14 @@ header {
   background-size: cover;
   margin-bottom: 5em;
   min-height: 350px;
-
 }
-
 
 
 /* Content-Summary & Callout
 *********************************/
-
 #content-summary {
   background: linear-gradient(to top, #EDFBFF 0%,#EDFBFF 92%, #fefefe 50%, #fefefe 100%);
   margin-bottom: 5em;
-//  margin-left: 1%;
-//  margin-right: 1%;
   padding-bottom: 3em;
   margin-top: 4em;
 }
@@ -244,7 +220,6 @@ header {
   padding-top: 4em;
 }
 
-
 #content-summary ul, #content-callout ul   {
  padding-left: 0px;
 }
@@ -258,16 +233,14 @@ header {
 }
 
 #content-summary li:before, #content-callout li:before {
-    color: #96DAFB;
-    content: "\f067";
-    font-family: FontAwesome;
-    font-size: 15px;
-    left: -15px;
-    margin-right: .5em;
-    //padding-left: .5em;
-    position: absolute;
+  color: #96DAFB;
+  content: "\f067";
+  font-family: FontAwesome;
+  font-size: 15px;
+  left: -15px;
+  margin-right: .5em;
+  position: absolute;
 }
-
 
 /* Content
 *********************************/
@@ -279,13 +252,6 @@ header {
   font-weight: 100;
   line-height: 34px;
   padding-bottom: 5em;
-}
-
-#content-form-only {
-  //adjusts for interstitial pop-up version
-  padding-top: 1em;
-  padding-bottom: 1em;
-//  background-color: #fefefe;
 }
 
 #form-wrapper {
@@ -303,8 +269,6 @@ header {
   list-style-type: none;
 }
 
-
-
 #content li:before {
   content: '\f054';
   font-family: 'FontAwesome';
@@ -312,7 +276,6 @@ header {
   left: 15px;
   position: absolute;
 }
-
 
 .btn {
   -moz-user-select: none;
@@ -363,8 +326,6 @@ background-color: rgba(255, 255, 255, .8);
 color: #607D8B;
 }
 
-
-
 /* Webinar Only
 *********************************/
 #content-presenter {
@@ -381,7 +342,6 @@ color: #607D8B;
 .presenter:not(:last-child) {
   padding-bottom: 3rem;
 }
-
 
 .presenter-name {
   font-weight: 700;
@@ -420,7 +380,6 @@ color: #607D8B;
     margin: 0 auto !important;
 }
 
-
 /* Form
 *********************************/
 
@@ -432,12 +391,6 @@ color: #607D8B;
   margin-bottom: 1em;
 }
 
-
-/*
-body.confirm-unsub-promotional #form-container {
-background-color: #EDFBFF;
-padding: 5em;
-} */
 
 /* Additional Offer
 *********************************/
@@ -453,7 +406,6 @@ padding: 5em;
   font-size: 0.875em;
 }
 
-
 /* Footer
 *********************************/
 
@@ -466,9 +418,7 @@ footer {
   padding: 3em;
 }
 
-
 #floating-footer  {
-  //background-color: #607D8B;
   color: #888888;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 12px;
@@ -476,16 +426,14 @@ footer {
   padding-top: 1em;
 }
 
-
-
 /* Navigation Modal
 *********************************/
 body.modal-open .blur{
-    -webkit-filter: blur(4px);
-    -moz-filter: blur(4px);
-    -o-filter: blur(4px);
-    -ms-filter: blur(4px);
-    filter: blur(4px);
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(4px);
 }
 
 .modal-backdrop {
@@ -530,7 +478,6 @@ body.modal-open .blur{
   color: rgba(255, 255, 255, 1);
 }
 
-
 .modal-body ul li {
   text-align: center;
   padding: 8px;
@@ -554,7 +501,6 @@ body.modal-open .blur{
   font-family: "Open Sans",Arial,sans-serif;
   font-size: 16px !important;
   font-weight: normal;
-  //letter-spacing: 1.3px;
   line-height: 2rem;
   margin-top: 0.4rem;
   margin-left: 0.1rem;
@@ -590,8 +536,6 @@ body.modal-open .blur{
   margin-top: 2rem;
 }
 
-
-
 #kapostmktoform select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -608,7 +552,6 @@ body.modal-open .blur{
   cursor: pointer;
 }
 
-
 #kapostmktoform textarea{
   border: 1px solid #cccccc;
 }
@@ -616,7 +559,6 @@ body.modal-open .blur{
 .custom-control-input:focus ~ .custom-control-indicator {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(255, 0, 130, 0.25);
 }
-
 
 #kapostmktoform .form-control::placeholder {
   font-size: 16px;
@@ -632,7 +574,6 @@ body.modal-open .blur{
 }
 
 #kapostmktoform .checkbox-option {
-//  color: #616669;
   cursor: auto;
   font-family: "Open Sans",Arial,sans-serif;
   font-weight: normal;
@@ -640,7 +581,6 @@ body.modal-open .blur{
   text-transform: none;
   letter-spacing: normal;
   padding-left: 5px;
-
 }
 
 #kapostmktoform textarea {
@@ -649,11 +589,13 @@ body.modal-open .blur{
 
 // Hide "Select One" option
 #kapostmktoform select option:first-child {
-  display: none; }
+  display: none;
+}
 
 // Set Heights
 #kapostmktoform textarea {
-  min-height: 100px; }
+  min-height: 100px;
+}
 
 // Set Heights
 
@@ -663,14 +605,6 @@ body.modal-open .blur{
 #kapostmktoform input[type="tel"] {
   height: 50px;
 }
-/*
-#kapostmktoform select,
-#kapostmktoform input[type="text"],
-#kapostmktoform input[type="email"],
-#kapostmktoform input[type="tel"] {min-height: 30px;}
-#kapostmktoform select {
-  height: 50px;
-}*/
 
 #kapostmktoform label.error {
   color: #ff0000;
@@ -678,10 +612,7 @@ body.modal-open .blur{
   font-size: 10px !important;
   font-weight: normal;
   line-height: 1.5rem;
-  //margin-left: 0.1rem;
-  //padding: 0.475rem 0.75rem;
   text-transform: none;
-  //padding-left: .4rem;
   margin-bottom: 0rem;
 }
 
@@ -689,7 +620,6 @@ body.modal-open .blur{
   font-size: 0.825rem !important;
   padding-left: 1rem;
 }
-
 
 #kapostmktoform .form-group {
     margin-bottom: 0rem;
@@ -720,8 +650,6 @@ body.modal-open .blur{
   cursor: pointer;
 }
 
-
-
 // Form Section
 #kapostmktoform .section-pref {
 -webkit-font-smoothing: antialiased;
@@ -736,8 +664,6 @@ margin-top: 2rem;
 margin-bottom: 1rem;
 text-transform: uppercase;
 }
-
-
 
 /* Style Button */
 #kapostmktoform button[type="submit"], #kapostmktoform-preference button[type="submit"] {
@@ -759,7 +685,6 @@ text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  //margin: 1.250em 0;
   margin: 2.5rem 0 1rem 0;
   padding: 15px 10px;
   text-transform: uppercase;
@@ -770,8 +695,8 @@ text-transform: uppercase;
 
 #kapostmktoform button[type=submit]:hover, #kapostmktoform-preference button[type=submit]:hover {
   background-color: #54a6e6;
-  cursor: pointer; }
-
+  cursor: pointer;
+}
 
 
 /* Floating Labels Plugin (+ Some Select Styling)
@@ -790,7 +715,6 @@ text-transform: uppercase;
  margin-top: 0.2rem;
 }
 
-
 #kapostmktoform label.on {
  color: #2196F3;
 }
@@ -800,7 +724,6 @@ text-transform: uppercase;
  opacity: 1;
  font-weight: 600;
 }
-
 
 #kapostmktoform option {
  color: #1a233c;
@@ -814,7 +737,6 @@ body {
 //the following line fixes a blink in chrome https://code.google.com/p/chromium/issues/detail?id=108025
  -webkit-backface-visibility: hidden;
 }
-
 
 
 /* Form Styling by Browsers

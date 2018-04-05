@@ -2,20 +2,19 @@
 <form id="kapostmktoform" name="kapostmktoform" action="http://app-sj08.marketo.com/index.php/leadCapture/save" method="POST" target="_parent">
   <input type="hidden" name="munchkinId" value="389-IOX-111">
   <input type="hidden" name="formid" value="${mkto-form-id}">
-  <input type="hidden" name="returnLPId" value="-1"> <!--What does this do?-->
-  <input type="hidden" name="_mkt_trk" value=""> <!--Munchkin passes value into this field-->
+  <input type="hidden" name="returnLPId" value="-1">
+  <input type="hidden" name="_mkt_trk" value="">
 
-  <input type="hidden" id="leadSourceMostRecent" name="Lead_Source_Most_Recent__c" value="${mkto-form-lead-source-most-recent}"> <!-- Lead Source (Most Recent) -->
-  <input type="hidden" id="referralSourceMostRecent" name="Referral_Source_Most_Recent__c" value="Unknown"> <!-- Referral Source (Most Recent) -->
-  <input type="hidden" id="searchPlatformMostRecent" name="Search_Platform_Most_Recent__c" value="Unknown"> <!-- Search Platform (Most Recent) -->
-  <input type="hidden" id="socialNetworkMostRecent" name="Social_Network_Most_Recent__c" value="Unknown"> <!-- Social Network (Most Recent) -->
-  <input type="hidden" id="paidServiceMostRecent" name="Paid_Service_Most_Recent__c" value="Unknown"> <!-- Paid Service (Most Recent) -->
-  <input type="hidden" id="campaignPageURL" name="Campaign_Page_URL__c" value=""> <!-- Campaign Page URL -->
-  <input type="hidden" id="campaignPageURLReferrer" name="Campaign_Page_URL_Referrer__c" value=""> <!-- Campaign Page URL (Referrer) -->
-  <!--<input type="hidden" name="Hand_Raise_Most_Recent__c" value="Demo Request Form">--> <!-- Hand Raise Only -->
-  <!--<input type="hidden" name="Hand_Raised__c" value="true">--> <!-- Hand Raise Only -->
-  <!--<input type="hidden" name="ret" value="${mkto-form-redirect}" />-->
-  <input type="hidden" name="ret" value="https://kapost.com" />
+  <input type="hidden" id="leadSourceMostRecent" name="Lead_Source_Most_Recent__c" value="${mkto-form-lead-source-most-recent}">
+  <input type="hidden" id="referralSourceMostRecent" name="Referral_Source_Most_Recent__c" value="Unknown">
+  <input type="hidden" id="searchPlatformMostRecent" name="Search_Platform_Most_Recent__c" value="Unknown">
+  <input type="hidden" id="socialNetworkMostRecent" name="Social_Network_Most_Recent__c" value="Unknown">
+  <input type="hidden" id="paidServiceMostRecent" name="Paid_Service_Most_Recent__c" value="Unknown">
+  <input type="hidden" id="campaignPageURL" name="Campaign_Page_URL__c" value="">
+  <input type="hidden" id="campaignPageURLReferrer" name="Campaign_Page_URL_Referrer__c" value="">
+  <input type="hidden" name="Hand_Raise_Most_Recent__c" value="Demo Request Form">
+  <input type="hidden" name="Hand_Raised__c" value="true">
+  <input type="hidden" name="ret" value="${mkto-form-redirect}" />
 
   <div id="form-reset" class="row" style="display: none;">
     <div class="col-12 text-center">
@@ -350,7 +349,6 @@
       </select>
     </div>
 
-
     <div class="form-group form-padding col-12">
       <!--Marketing Automation-->
       <label class="col-form-label float-label" for="Marketing_Automation__c">Marketing Automation</label>
@@ -401,7 +399,6 @@
   <!--reCAPTCHA-->
   <div id="recaptcha-wrapper" class="row justify-content-center">
     <div class="col-12">
-      <!--reCaptcha challenge loads here-->
       <div id="g-recaptcha"></div>
     </div>
   </div>
@@ -413,12 +410,10 @@
     </div>
   </div>
 
-  <!--LEGAL STATEMENT-->
+  <!--Start Legal Statement-->
   <div class="row">
-
     <div id="privacy-statement" class="form-group col-12" style="display: none;">
       <div class="media">
-
         <div class="align-self-top">
             <div class="custom-control custom-checkbox my-1">
                 <input id="legalCheckbox" name="legalCheckbox" type="checkbox" class="custom-control-input" >
@@ -427,11 +422,10 @@
                 </label>
             </div>
         </div>
-
-
       </div>
     </div>
   </div>
+  <!--End Legal Statement-->
 
 </form>
 

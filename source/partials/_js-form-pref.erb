@@ -47,11 +47,11 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
     ]
 
     for (var i = 0; i < arrayPrepopTextFields.length; i++) { //Loop through the number of fields defined above
-        if (arrayPrepopTextFields[i][1] !== "") {
-          arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
-          var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
-          $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
-        }
+      if (arrayPrepopTextFields[i][1] !== "") {
+        arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
+        var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
+        $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+      }
     }
 
     //Show #form-reset if the user is known to Marketo
@@ -89,17 +89,16 @@ Checkboxes can populate directly from the Marketo Tokens, meaning they don't nee
     ]
 
     for (var i = 0; i < arrayPrepopCheckboxFields.length; i++) { //Loop through the number of fields defined above
-        if (arrayPrepopCheckboxFields[i][1] == 1) {
-          arrayPrepopCheckboxFields[i][0].checked = true;
-        } else {
-          arrayPrepopCheckboxFields[i][0].checked = false;
-        }
+      if (arrayPrepopCheckboxFields[i][1] == 1) {
+        arrayPrepopCheckboxFields[i][0].checked = true;
+      } else {
+        arrayPrepopCheckboxFields[i][0].checked = false;
+      }
     }
   }
 
 </script>
 <!--END PRE-POPULATE CHECKBOX FIELDS -->
-
 
 <!--START PRE-POPULATE PICKLISTS-->
 <script type="text/javascript">
@@ -129,10 +128,10 @@ function prePopulatePicklists() {
 
       for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
         if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
-            arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
-            var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
-            $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
-            $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
+          arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+          var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
+          $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+          $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
 
           break;
         }
@@ -158,38 +157,37 @@ Every pre-populating form needs a "whoops, that's not me!" function to reset the
 
 function resetForm() {
 
-    var resetFormFieldIDs = [
-      [document.getElementById('Email')],
-      [document.getElementById('Marketing_Country__c')]
-    ]
+  var resetFormFieldIDs = [
+    [document.getElementById('Email')],
+    [document.getElementById('Marketing_Country__c')]
+  ]
 
-    $('#formReset').on('click', function() {
-      document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
+  $('#formReset').on('click', function() {
+    document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
 
-      //loop through each form field
-      for (var i = 0; i < resetFormFieldIDs.length; i++) {
-          $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
-          $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
-          $(resetFormFieldIDs[i][0]).removeClass("ignore");
+    //loop through each form field
+    for (var i = 0; i < resetFormFieldIDs.length; i++) {
+      $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
+      $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
+      $(resetFormFieldIDs[i][0]).removeClass("ignore");
+    }
 
-        }
-
-        $('.float-label').removeClass('show');
-        $('select').addClass('watermark'); //makes the selects the correct placeholder color
-        //$('select').removeClass('watermark');
-        mktoTokenContentPromo = 0; //sets this subscription to "unsubscribed"
-        mktoTokenNewsletter = 0; //sets this subscription to "unsubscribed"
-        mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
-        mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
-        mktoTokenGlobalUnsubscribe = 0; //sets this subscription to "subscribed"
-        mktoTokenAccountStatus = ""; //sets Account Status to empty
-        mktoTokenKapostUserStatus = ""; //sets Account Status to empty
-        privacyPolicy(); //calls the function that shows/hides and makes Country required
-        formResetCustomerStatus = true; //sets variable to true so Customer Subs show on reset
-        checkForCustomer(); //calls the function that shows/hides Customer Marketing fields
-        $(wrapperGlobalUnsubscribeWarning).fadeOut(); //hides the global opt out warning
-        //$('#Email').prop('disabled', false);
-    });
+    $('.float-label').removeClass('show');
+    $('select').addClass('watermark'); //makes the selects the correct placeholder color
+    //$('select').removeClass('watermark');
+    mktoTokenContentPromo = 0; //sets this subscription to "unsubscribed"
+    mktoTokenNewsletter = 0; //sets this subscription to "unsubscribed"
+    mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
+    mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
+    mktoTokenGlobalUnsubscribe = 0; //sets this subscription to "subscribed"
+    mktoTokenAccountStatus = ""; //sets Account Status to empty
+    mktoTokenKapostUserStatus = ""; //sets Account Status to empty
+    privacyPolicy(); //calls the function that shows/hides and makes Country required
+    formResetCustomerStatus = true; //sets variable to true so Customer Subs show on reset
+    checkForCustomer(); //calls the function that shows/hides Customer Marketing fields
+    $(wrapperGlobalUnsubscribeWarning).fadeOut(); //hides the global opt out warning
+    //$('#Email').prop('disabled', false);
+  });
 
 }
 </script>
@@ -246,22 +244,22 @@ Shows a warning if the end-user subscribes to a group when they're already globa
 
     //if ANY of the subscriptions change
     $('.subscription').change(function() {
-          //if ANY of the subscriptions are checked and the global is checked
-          if( (fieldContentPromo.checked || fieldContentNewsletter.checked || fieldCustomerPromo.checked || fieldCustomerNewsletter.checked) && fieldUnsubscribed.checked) {
-            $(wrapperGlobalUnsubscribeWarning).fadeIn();
-          }
-            //if ALL of the subscriptions are unchecked
-            else if (!fieldContentPromo.checked && !fieldContentNewsletter.checked && !fieldCustomerPromo.checked && !fieldCustomerNewsletter.checked) {
-            $(wrapperGlobalUnsubscribeWarning).fadeOut();
-          }
-      });
+      //if ANY of the subscriptions are checked and the global is checked
+      if( (fieldContentPromo.checked || fieldContentNewsletter.checked || fieldCustomerPromo.checked || fieldCustomerNewsletter.checked) && fieldUnsubscribed.checked) {
+        $(wrapperGlobalUnsubscribeWarning).fadeIn();
+      }
+        //if ALL of the subscriptions are unchecked
+        else if (!fieldContentPromo.checked && !fieldContentNewsletter.checked && !fieldCustomerPromo.checked && !fieldCustomerNewsletter.checked) {
+        $(wrapperGlobalUnsubscribeWarning).fadeOut();
+      }
+    });
 
-      //if the global unsub is unchecked
-      $(fieldUnsubscribed).change(function() {
-          if(!this.checked) {
-              $(wrapperGlobalUnsubscribeWarning).fadeOut();
-          }
-      });
+    //if the global unsub is unchecked
+    $(fieldUnsubscribed).change(function() {
+        if(!this.checked) {
+            $(wrapperGlobalUnsubscribeWarning).fadeOut();
+        }
+    });
 
   }
 
@@ -307,11 +305,9 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
 
 </script>
 
-
 <!--INVISIBLE RECAPTCHA JS LIBRARY-->
 <!--Must run after recaptcha callback is defined-->
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
-
 
 <script>
 //VALIDATION CONFIG + REMOVE COOKIES ON SUBMIT
@@ -369,6 +365,5 @@ $("#kapostmktoform").validate({
   }
 
 }); //End .validate
-
 
 </script>

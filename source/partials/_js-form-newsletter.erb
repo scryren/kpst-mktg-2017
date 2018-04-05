@@ -25,7 +25,6 @@
 </script>
 <!--END GLOBAL VARIABLES -->
 
-
 <!--START PRE-POPULATE TEXT FIELDS-->
 <script type="text/javascript">
 /*************/
@@ -50,11 +49,11 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
     ]
 
     for (var i = 0; i < arrayPrepopTextFields.length; i++) { //Loop through the number of fields defined above
-        if (arrayPrepopTextFields[i][1] !== "") {
-          arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
-          var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
-          $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
-        }
+      if (arrayPrepopTextFields[i][1] !== "") {
+        arrayPrepopTextFields[i][0].value = arrayPrepopTextFields[i][1];
+        var prepopTextLabel = arrayPrepopTextFields[i][2]; //so the jquery below knows which label to talk to
+        $("label[for=" + prepopTextLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+      }
     }
 
     //Show #form-reset if the user is known to Marketo
@@ -65,7 +64,6 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
 
 </script>
 <!--END PRE-POPULATE TEXT FIELDS -->
-
 
 <!--START PRE-POPULATE PICKLISTS-->
 <script type="text/javascript">
@@ -98,10 +96,10 @@ function prePopulatePicklists() {
 
       for (var x=0; x<arrayPrepopSelect[i][0].length; x++) { //Loop through the number of options in the drop down
         if (arrayPrepopSelect[i][1]==arrayPrepopSelect[i][0].options[x].value) {
-            arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
-            var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
-            $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
-            $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
+          arrayPrepopSelect[i][0].value = arrayPrepopSelect[i][1];
+          var prepopSelectLabel = arrayPrepopSelect[i][2]; //so the jquery below knows which label to talk to
+          $("label[for=" + prepopSelectLabel + "]").addClass('show'); //tells the floating label to "show" for this field
+          $(arrayPrepopSelect[i][0]).removeClass('watermark'); //sets the select to be the color of "I'm already filled out"
 
           break;
         }
@@ -113,7 +111,6 @@ function prePopulatePicklists() {
 }
 </script>
 <!--END PRE-POPULATE PICKLISTS-->
-
 
 <!--START PROPULATE JOB ROLE OPTIONS-->
 <script>
@@ -127,7 +124,6 @@ Dynamic Picklists cannot have their options coded into the picklist on the form-
 
 Next, there is logic to define if Job Role needs to be visible to the end user (showJobRole = true or false). Then it calls the function (toggleVisibilityJobRole) do the actual show/hiding. If the Department does not have a corresponding list of Job Roles, then Job Role is set to "Not Applicable", and Job Role is hidden from the end user.
 */
-
 
 function populateJobRoleOptions() {
 
@@ -165,7 +161,6 @@ function populateJobRoleOptions() {
     jobRoleNotApplicable = false;
     showJobRole = true;
     toggleVisibilityJobRole();
-
   }
 
   //Not Applicable
@@ -253,7 +248,6 @@ Department is empty: Department shows the default value. J
       toggleVisibilityDepartment();
     }
 
-
   }
 
 </script>
@@ -270,41 +264,37 @@ Every pre-populating form needs a "whoops, that's not me!" function to reset the
 
 function resetForm() {
 
-    var resetFormFieldIDs = [
-      [document.getElementById('FirstName')],
-      [document.getElementById('LastName')],
-      [document.getElementById('Email')],
-      [document.getElementById('Company')],
-      [document.getElementById('Marketing_Country__c')],
-      [document.getElementById('Title_Category__c')],
-      [document.getElementById('Department__c')],
-      [document.getElementById('Marketing_Automation__c')],
-      [document.getElementById('Business_Type__c')]
-    ]
+  var resetFormFieldIDs = [
+    [document.getElementById('FirstName')],
+    [document.getElementById('LastName')],
+    [document.getElementById('Email')],
+    [document.getElementById('Company')],
+    [document.getElementById('Marketing_Country__c')],
+    [document.getElementById('Title_Category__c')],
+    [document.getElementById('Department__c')],
+    [document.getElementById('Marketing_Automation__c')],
+    [document.getElementById('Business_Type__c')]
+  ]
 
-    $('#formReset').on('click', function() {
-      document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
+  $('#formReset').on('click', function() {
+    document.getElementById("kapostmktoform").reset(); //sets the fields to whatever the value is in value="" on the form.
 
-      //loop through each form field
-      for (var i = 0; i < resetFormFieldIDs.length; i++) {
-          $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
-          $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
-          $(resetFormFieldIDs[i][0]).removeClass("ignore");
+    //loop through each form field
+    for (var i = 0; i < resetFormFieldIDs.length; i++) {
+      $(resetFormFieldIDs[i][0]).parents('div').eq(0).fadeIn();
+      $(resetFormFieldIDs[i][0]).parents('fieldset').eq(0).fadeIn();
+      $(resetFormFieldIDs[i][0]).removeClass("ignore");
+    }
 
-        }
-
-        $('.float-label').removeClass('show');
-        $('select').addClass('watermark'); //makes the selects the correct placeholder color
-        //$('select').removeClass('watermark');
-        privacyPolicy(); //calls the function that shows/hides and makes Country required
-    });
+    $('.float-label').removeClass('show');
+    $('select').addClass('watermark'); //makes the selects the correct placeholder color
+    //$('select').removeClass('watermark');
+    privacyPolicy(); //calls the function that shows/hides and makes Country required
+  });
 
 }
 </script>
 <!--END FORM RESET-->
-
-
-
 
 <script>
 /*************/
@@ -334,8 +324,6 @@ If the Country chosen is one that requires additional privacy functionality, sho
   $("[id=Marketing_Country__c]").change(privacyPolicy);
 </script>
 
-
-
 <!--START SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
 <script type="text/javascript">
 /*************/
@@ -360,25 +348,23 @@ function toggleVisibilityMain() {
 
   for (var i = 0; i < arrayShowHideFieldID.length; i++) { //Loop through the number of fields defined above
 
-      if (arrayShowHideFieldID[i][1] !== "") {
-        //If the field has a value in Marketo, then hide the field and ignore validation by adding Ignore class
-        $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeOut();
-        $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeOut();
-        $(arrayShowHideFieldID[i][0]).addClass("ignore");
-      } else {
-        //If the field does not have value in Marketo, then show it and add validation by removing Ignore class
-        $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeIn();
-        $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeIn();
-        $(arrayShowHideFieldID[i][0]).removeClass("ignore");
-
-      }
-
+    if (arrayShowHideFieldID[i][1] !== "") {
+      //If the field has a value in Marketo, then hide the field and ignore validation by adding Ignore class
+      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeOut();
+      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeOut();
+      $(arrayShowHideFieldID[i][0]).addClass("ignore");
+    } else {
+      //If the field does not have value in Marketo, then show it and add validation by removing Ignore class
+      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeIn();
+      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeIn();
+      $(arrayShowHideFieldID[i][0]).removeClass("ignore");
     }
+
+  }
 
 }
 </script>
 <!--END SHOW/HIDE PRE-POPULATED MAIN FORM FIELDS-->
-
 
 <script type="text/javascript">
 /*************/
@@ -419,7 +405,6 @@ function toggleVisibilityJobRole() {
 }
 
 </script>
-
 
 <script type="text/javascript">
 //INVISIBLE RECAPTCHA
@@ -524,6 +509,5 @@ $("#kapostmktoform").validate({
   }
 
 }); //End .validate
-
 
 </script>
