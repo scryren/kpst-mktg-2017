@@ -220,8 +220,13 @@ header {
   padding-top: 4em;
 }
 
-#content-summary ul, #content-callout ul   {
+#content-summary ul, #content-callout ul {
  padding-left: 0px;
+}
+
+#content-summary ol, #content-callout ol {
+ padding-left: 0px;
+ counter-reset: item;
 }
 
 #content-summary li, #content-callout li {
@@ -232,7 +237,8 @@ header {
   list-style-type: none;
 }
 
-#content-summary li:before, #content-callout li:before {
+
+#content-summary ul li:before, #content-callout ul li:before {
   color: #96DAFB;
   content: "\f067";
   font-family: FontAwesome;
@@ -241,6 +247,19 @@ header {
   margin-right: .5em;
   position: absolute;
 }
+
+#content-summary ol li:before, #content-callout ol li:before {
+  color: #96DAFB;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  content: counter(item);
+  counter-increment: item;
+  font-size: 15px;
+  left: -15px;
+  margin-right: .5em;
+  position: absolute;
+}
+
 
 /* Content
 *********************************/
@@ -264,18 +283,33 @@ header {
   line-height: 40px;
 }
 
+#content ol {
+ counter-reset: item;
+}
+
 #content li {
   padding-bottom: 1rem;
   list-style-type: none;
 }
 
-#content li:before {
+#content ul li:before {
   content: '\f054';
   font-family: 'FontAwesome';
   font-size: 15px;
   left: 15px;
   position: absolute;
 }
+
+#content ol li:before {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  content: counter(item);
+  counter-increment: item;
+  font-size: 15px;
+  left: 15px;
+  position: absolute;
+}
+
 
 .btn {
   -moz-user-select: none;
