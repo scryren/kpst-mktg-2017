@@ -60,7 +60,7 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
 
     //Show #form-reset if the user is known to Marketo
     if(mktoTokenEmail !== ""){
-      $('#form-reset').fadeIn();
+      $('#form-reset').show();
     }
   }
 
@@ -314,7 +314,7 @@ Hide everything in the newsletter wrapper if the end user is already subscribed 
     var newsletterWrapper = document.getElementById('newsletter-wrapper');
 
     if (mktoTokenNewsletter == 1) {
-      $(newsletterWrapper).fadeOut();
+      $(newsletterWrapper).hide();
     } else {
       $(newsletterWrapper).fadeIn();
     }
@@ -378,13 +378,13 @@ function toggleVisibilityMain() {
 
     if (arrayShowHideFieldID[i][1] !== "") {
       //If the field has a value in Marketo, then hide the field and ignore validation by adding Ignore class
-      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeOut();
-      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeOut();
+      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).hide();
+      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).hide();
       $(arrayShowHideFieldID[i][0]).addClass("ignore");
     } else {
       //If the field does not have value in Marketo, then show it and add validation by removing Ignore class
-      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).fadeIn();
-      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).fadeIn();
+      $(arrayShowHideFieldID[i][0]).parents('div').eq(0).show();
+      $(arrayShowHideFieldID[i][0]).parents('fieldset').eq(0).show();
       $(arrayShowHideFieldID[i][0]).removeClass("ignore");
 
     }
@@ -410,8 +410,8 @@ function toggleVisibilityDepartment() {
     $(fieldDepartment).parents('fieldset').eq(0).fadeIn();
     $(fieldDepartment).removeClass("ignore");
   } else if (showDepartment == false) {
-    $(fieldDepartment).parents('div').eq(0).fadeOut();
-    $(fieldDepartment).parents('fieldset').eq(0).fadeOut();
+    $(fieldDepartment).parents('div').eq(0).hide();
+    $(fieldDepartment).parents('fieldset').eq(0).hide();
     $(fieldDepartment).addClass("ignore");
   }
 
