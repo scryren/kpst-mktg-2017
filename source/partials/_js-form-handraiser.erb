@@ -437,17 +437,27 @@ function toggleVisibilityJobRole() {
 //INVISIBLE RECAPTCHA
 //Must run before google.com/recaptcha/api.js
 
-  var onloadCallback = function() {
-    console.log('recaptcha callback ran');
+var onloadCallback = function() {
+  console.log('recaptcha callback ran');
+
+  if ($(window).width() < 900) {
+    grecaptcha.render('g-recaptcha', {
+      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+      'badge': 'inline',
+      'size': 'invisible'
+    });
+  }
+  else {
     grecaptcha.render('g-recaptcha', {
       'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
       'size': 'invisible'
     });
-    grecaptcha.reset();
-    grecaptcha.execute();
-    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+  }
+  grecaptcha.reset();
+  grecaptcha.execute();
+  $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
 
-  };
+};
 
 </script>
 

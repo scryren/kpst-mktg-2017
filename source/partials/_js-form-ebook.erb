@@ -441,10 +441,20 @@ function toggleVisibilityJobRole() {
 
   var onloadCallback = function() {
     console.log('recaptcha callback ran');
-    grecaptcha.render('g-recaptcha', {
-      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-      'size': 'invisible'
-    });
+
+    if ($(window).width() < 900) {
+      grecaptcha.render('g-recaptcha', {
+        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+        'badge': 'inline',
+        'size': 'invisible'
+      });
+    }
+    else {
+      grecaptcha.render('g-recaptcha', {
+        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+        'size': 'invisible'
+      });
+    }
     grecaptcha.reset();
     grecaptcha.execute();
     $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
