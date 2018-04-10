@@ -5,6 +5,7 @@
   var showJobRole = null;
   var showDepartment = null;
   var jobRoleNotApplicable = null;
+  var jobRoleCounter = 0;
 
   var fieldDepartment = document.getElementById('Department__c');
   var fieldJobRole = document.getElementById('Job_Role__c');
@@ -420,11 +421,23 @@ function toggleVisibilityDepartment() {
 //This function also runs via the onChange on the Department form field.
 function toggleVisibilityJobRole() {
 
-  if (showJobRole == true) {
+  jobRoleCounter += 1;
+  console.log(jobRoleCounter);
+
+  if (showJobRole == true && jobRoleCounter <= 3 ) {
+    $(fieldJobRole).parents('div').eq(0).show();
+    $(fieldJobRole).parents('fieldset').eq(0).show();
+    $(fieldJobRole).removeClass("ignore");
+    $(fieldJobRole).addClass('watermark'); //sets the color to "I'm not filled out"
+  } else if (showJobRole == true) {
     $(fieldJobRole).parents('div').eq(0).fadeIn();
     $(fieldJobRole).parents('fieldset').eq(0).fadeIn();
     $(fieldJobRole).removeClass("ignore");
     $(fieldJobRole).addClass('watermark'); //sets the color to "I'm not filled out"
+  } else if (showJobRole == false  && jobRoleCounter <= 3) {
+    $(fieldJobRole).parents('div').eq(0).hide();
+    $(fieldJobRole).parents('fieldset').eq(0).hide();
+    $(fieldJobRole).addClass("ignore");
   } else if (showJobRole == false) {
     $(fieldJobRole).parents('div').eq(0).fadeOut();
     $(fieldJobRole).parents('fieldset').eq(0).fadeOut();

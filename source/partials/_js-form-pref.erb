@@ -56,7 +56,7 @@ Note: If the Marketo Tokens were set as the values in the form itself, .reset() 
 
     //Show #form-reset if the user is known to Marketo
     if(mktoTokenEmail !== ""){
-      $('#form-reset').fadeIn();
+      $('#form-reset').show();
       //$('#Email').prop('disabled', true);
     }
   }
@@ -279,9 +279,9 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
     var wrapperCustomerMarketing = document.getElementsByClassName('cust-mktg');
 
     if (mktoTokenAccountStatus == "Customer" || mktoTokenKapostUserStatus == "Active" || formResetCustomerStatus == true ) {
-      $(wrapperCustomerMarketing).fadeIn();
+      $(wrapperCustomerMarketing).show();
     } else {
-      $(wrapperCustomerMarketing).fadeOut();
+      $(wrapperCustomerMarketing).hide();
     }
 
   }
