@@ -8,8 +8,15 @@ layout: layout-webinar
 
     <div class="row text-center">
       <div class="col-12">
-        <h1>${mkto-header-copy}</h1>
-        <h4>${mkto-date} | ${mkto-time}</h4>
+
+        <div class="mktoText" id="mkto-header"  mktoName="Header">
+          <h1>The Hitchhiker's Guide to the Galaxy</h1>
+        </div>
+
+        <div class="mktoText" id="mkto-subheader"  mktoName="Subheader">
+          <h4>January 1, 2018 | 10:00AM MDT</h4>
+        </div>
+
       </div>
     </div>
   </div>
@@ -26,9 +33,12 @@ layout: layout-webinar
 
       <div class="col-10 col-lg-6 col-xl-6 mx-auto mt-5 align-self-center">
 
+        <div class="mktoText" id="mkto-summary-header"  mktoName="Summary Header">
+          <h2>Webinar Highlights</h2>
+        </div>
+
         <div class="mktoText" id="mkto-summary"  mktoName="Summary">
 
-          <h2>Webinar Highlights</h2>
           <ul>
 
             <li>
@@ -61,9 +71,11 @@ layout: layout-webinar
     <div class="row justify-content-center">
       <div class="col-12 col-lg-9">
 
-        <div class="mktoText" id="mkto-content"  mktoName="Content">
+        <div class="mktoText" id="mkto-content-header"  mktoName="Content Header">
           <h3>The Hitchhiker's Guide to the Galaxy has a few things to say on the subject of towels </h3>
+        </div>
 
+        <div class="mktoText" id="mkto-content"  mktoName="Content">
           <p>People of Earth, your attention, please. As you will no doubt be aware, the <a href="">plans for development</a> of the outlying regions of the Galaxy require the building of a <b>hyperspatial express route</b> through your star system. And regrettably, your planet is one of those scheduled for demolition. The process will take slightly less than two of your Earth minutes. Thank you.</p>
 
           <ul>
