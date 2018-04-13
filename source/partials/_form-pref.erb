@@ -12,6 +12,12 @@
   <input type="hidden" id="paidServiceMostRecent" name="Paid_Service_Most_Recent__c" value="Unknown">
   <input type="hidden" id="campaignPageURL" name="Campaign_Page_URL__c" value="">
   <input type="hidden" id="campaignPageURLReferrer" name="Campaign_Page_URL_Referrer__c" value="">
+  <input type="hidden" id="subscribedtoPromotions" name="subscribedtoPromotions" value="">
+  <input type="hidden" id="subscribedtoNewsletter" name="subscribedtoNewsletter" value="">
+  <input type="hidden" id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" value="">
+  <input type="hidden" id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" value="">
+  <input type="hidden" id="Unsubscribed" name="Unsubscribed" value="">
+
   <input type="hidden" name="ret" value="${mkto-form-redirect}" />
 
   <div id="" class="container-fluid text-center">
@@ -299,8 +305,8 @@
     <div class="media">
       <div class="align-self-top mr-3">
           <div class="custom-control custom-checkbox my-1">
-              <input id="Subscribed_to_Promotions__c" name="Subscribed_to_Promotions__c" type="checkbox" class="subscription custom-control-input" >
-              <label class="custom-control-label pref-lg" for="Subscribed_to_Promotions__c">
+              <input id="checkboxSubscribedToPromotional" name="checkboxSubscribedToPromotional" type="checkbox" class="subscription custom-control-input" >
+              <label class="custom-control-label pref-lg" for="checkboxSubscribedToPromotional">
                 <div class="checkbox-inline-wrapper-lg">
                   <b style="font-size: 14px">New Resources</b>
                   <p style="font-size: 80%">Stay updated on the latest research, thought leadership, and marketing tips.</p>
@@ -317,8 +323,8 @@
     <div class="media">
       <div class="align-self-top mr-3">
           <div class="custom-control custom-checkbox my-1 mr-sm-2">
-              <input id="Subscribed_to_Newsletter__c" name="Subscribed_to_Newsletter__c" type="checkbox" class="subscription custom-control-input" >
-              <label class="custom-control-label pref-lg" for="Subscribed_to_Newsletter__c">
+              <input id="checkboxSubscribedToNewsletter" name="checkboxSubscribedToNewsletter" type="checkbox" class="subscription custom-control-input" >
+              <label class="custom-control-label pref-lg" for="checkboxSubscribedToNewsletter">
                 <div class="checkbox-inline-wrapper-lg">
                   <b style="font-size: 14px">The Content Marketeer Newsletter</b>
                   <p style="font-size: 80%">Subscribe for a weekly roundup of marketing-focused blogs from industry leaders.</p>
@@ -335,8 +341,8 @@
     <div class="media">
       <div class="align-self-top mr-3">
           <div class="custom-control custom-checkbox my-1 mr-sm-2">
-              <input id="Subscribed_to_Customer_Marketing__c" name="Subscribed_to_Customer_Marketing__c" type="checkbox" class="subscription custom-control-input" >
-              <label class="custom-control-label pref-lg" for="Subscribed_to_Customer_Marketing__c">
+              <input id="checkboxSubscribedToCustomerMarketing" name="checkboxSubscribedToCustomerMarketing" type="checkbox" class="subscription custom-control-input" >
+              <label class="custom-control-label pref-lg" for="checkboxSubscribedToCustomerMarketing">
                 <div class="checkbox-inline-wrapper-lg">
                   <b style="font-size: 14px">Product Tips and Updates</b>
                   <p style="font-size: 80%">Be the first to hear about new platform features and get tips and tricks to help you optimize your Kapost instance.</p>
@@ -353,8 +359,8 @@
     <div class="media">
       <div class="align-self-top mr-3">
           <div class="custom-control custom-checkbox my-1 mr-sm-2">
-              <input id="Subscribed_to_Customer_Newsletter__c" name="Subscribed_to_Customer_Newsletter__c" type="checkbox" class="subscription custom-control-input" >
-              <label class="custom-control-label pref-lg" for="Subscribed_to_Customer_Newsletter__c">
+              <input id="checkboxSubscribedToCustomerNewsletter" name="checkboxSubscribedToCustomerNewsletter" type="checkbox" class="subscription custom-control-input" >
+              <label class="custom-control-label pref-lg" for="checkboxSubscribedToCustomerNewsletter">
                 <div class="checkbox-inline-wrapper-lg">
                   <b style="font-size: 14px">Customer Newsletter</b>
                   <p style="font-size: 80%">Coming soon! Exclusive to Kapost customers, this monthly roundup will feature a curated selection of tips, updates, and new resources designed to make you the best marketer on the block.</p>
@@ -373,8 +379,8 @@
     <div class="media">
       <div class="align-self-top mr-3">
           <div class="custom-control custom-checkbox my-1 mr-sm-2">
-              <input id="Unsubscribed" name="Unsubscribed" type="checkbox" class="custom-control-input" >
-              <label class="custom-control-label pref-lg" for="Unsubscribed">
+              <input id="checkboxUnsubscribed" name="checkboxUnsubscribed" type="checkbox" class="unsubscribe custom-control-input" >
+              <label class="custom-control-label pref-lg" for="checkboxUnsubscribed">
                 <div class="checkbox-inline-wrapper-lg">
                   <b style="font-size: 14px">Never email me again!</b>
                   <p style="font-size: 80%">Unsubscribe from all Kapost communications. Customers will still receive transactional information regarding their Kapost accounts.</p>
@@ -433,6 +439,7 @@ console.log('Promotions: {{lead.Subscribed to Promotions}}' + '\n' +
   'Customer Newsletter: {{lead.Subscribed to Customer Newsletter}}' + '\n' +
   'Account Status: {{lead.Account Status (C)}}' + '\n' +
   'Kapost User Status: {{lead.Kapost User Status}}')
+
 </script>
 
 <%= partial "partials/js-form-pref" %>

@@ -8,16 +8,29 @@ WARNING: This section has been modified for the preference center. Do not copy/p
   var mktoTokenEmail = "{{lead.Email Address}}";
   var wrapperGlobalUnsubscribeWarning = document.getElementById('global-unsubscribe-warning-wrapper');
 
-  var mktoTokenContentPromo = "{{lead.Subscribed to Promotions}}";
-  var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}"; //mktoTokenContentNewsletter
+  var mktoTokenPromo = "{{lead.Subscribed to Promotions}}";
+  var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}";
   var mktoTokenCustomerPromo = "{{lead.Subscribed to Customer Marketing}}";
   var mktoTokenCustomerNewsletter = "{{lead.Subscribed to Customer Newsletter}}";
-  var mktoTokenGlobalUnsubscribe = "{{lead.Unsubscribed}}";
-
+  var mktoTokenUnsubscribe = "{{lead.Unsubscribed}}";
 
   var mktoTokenAccountStatus = "{{lead.Account Status (C)}}";
   var mktoTokenKapostUserStatus = "{{lead.Kapost User Status}}";
   var formResetCustomerStatus = false;
+
+  //Subscription Checkboxes
+  var fieldPromo = document.getElementById('checkboxSubscribedToPromotional');
+  var fieldNewsletter = document.getElementById('checkboxSubscribedToNewsletter');
+  var fieldCustomerPromo = document.getElementById('checkboxSubscribedToCustomerMarketing');
+  var fieldCustomerNewsletter = document.getElementById('checkboxSubscribedToCustomerNewsletter');
+  var fieldUnsubscribed = document.getElementById('checkboxUnsubscribed');
+
+  //Subscription Hidden Fields
+  var hiddenPromo = document.getElementById('subscribedtoPromotions');
+  var hiddenNewsletter = document.getElementById('subscribedtoNewsletter');
+  var hiddenCustomerPromo = document.getElementById('Subscribed_to_Customer_Marketing__c');
+  var hiddenCustomerNewsletter = document.getElementById('Subscribed_to_Customer_Newsletter__c');
+  var hiddenUnsubscribed = document.getElementById('Unsubscribed');
 
   var listExpressCountries = ["Australia", "Austria", "Belgium", "Bulgaria", "Canada", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"];
 
@@ -74,25 +87,27 @@ WARNING: This section has been modified for the preference center. Do not copy/p
 
 This function only runs when the page loads (document.ready). This is defined in the page HEAD.
 
-Checkboxes can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do, but if the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens.
+Checkboxes can populate directly from the Marketo Tokens, meaning they don't need a loop like picklists do, but if the Marketo Tokens were set as the values in the form itself, .reset() would just return the Marketo Tokens. Also sets the hidden subscription fields (required to unsubscribe).
 */
 
   function prePopulateCheckboxFields() {
 
     // 0: Field ID | 1: Marketo Token
     var arrayPrepopCheckboxFields = [
-      [document.getElementById('Subscribed_to_Promotions__c'), "{{lead.Subscribed to Promotions}}", "Subscribed_to_Promotions__c"],
-      [document.getElementById('Subscribed_to_Newsletter__c'), "{{lead.Subscribed to Newsletter}}", "Subscribed_to_Newsletter__c"],
-      [document.getElementById('Subscribed_to_Customer_Marketing__c'), "{{lead.Subscribed to Customer Marketing}}", "Subscribed_to_Customer_Marketing__c"],
-      [document.getElementById('Subscribed_to_Customer_Newsletter__c'), "{{lead.Subscribed to Customer Newsletter}}", "Subscribed_to_Customer_Newsletter__c"],
-      [document.getElementById('Unsubscribed'), "{{lead.Unsubscribed}}", "Unsubscribed"]
+      [mktoTokenPromo, fieldPromo, hiddenPromo],
+      [mktoTokenNewsletter, fieldNewsletter, hiddenNewsletter],
+      [mktoTokenCustomerPromo, fieldCustomerPromo, hiddenCustomerPromo],
+      [mktoTokenCustomerNewsletter, fieldCustomerNewsletter, hiddenCustomerNewsletter],
+      [mktoTokenUnsubscribe, fieldUnsubscribed, hiddenUnsubscribed]
     ]
 
     for (var i = 0; i < arrayPrepopCheckboxFields.length; i++) { //Loop through the number of fields defined above
-      if (arrayPrepopCheckboxFields[i][1] == 1) {
-        arrayPrepopCheckboxFields[i][0].checked = true;
+      if (arrayPrepopCheckboxFields[i][0] == 1) {
+        arrayPrepopCheckboxFields[i][1].checked = true;
+        arrayPrepopCheckboxFields[i][2].value = "true";
       } else {
-        arrayPrepopCheckboxFields[i][0].checked = false;
+        arrayPrepopCheckboxFields[i][1].checked = false;
+        arrayPrepopCheckboxFields[i][2].value = "false";
       }
     }
   }
@@ -175,11 +190,11 @@ function resetForm() {
     $('.float-label').removeClass('show');
     $('select').addClass('watermark'); //makes the selects the correct placeholder color
     //$('select').removeClass('watermark');
-    mktoTokenContentPromo = 0; //sets this subscription to "unsubscribed"
+    mktoTokenPromo = 0; //sets this subscription to "unsubscribed"
     mktoTokenNewsletter = 0; //sets this subscription to "unsubscribed"
     mktoTokenCustomerPromo = 0; //sets this subscription to "unsubscribed"
     mktoTokenCustomerNewsletter = 0; //sets this subscription to "unsubscribed"
-    mktoTokenGlobalUnsubscribe = 0; //sets this subscription to "subscribed"
+    mktoTokenUnsubscribe = 0; //sets this subscription to "subscribed"
     mktoTokenAccountStatus = ""; //sets Account Status to empty
     mktoTokenKapostUserStatus = ""; //sets Account Status to empty
     privacyPolicy(); //calls the function that shows/hides and makes Country required
@@ -226,6 +241,43 @@ If the Country chosen is one that requires additional privacy functionality, sho
 /*Description*/
 /*************/
 /*
+When a subscription or the unsubscribe checkbox changes, set true or false in the hidden field. The hidden field contains the value that gets passed to Marketo. This is because unchecked checkboxes in HTML do not get passed to the server.
+*/
+
+function updateSubscription() {
+
+  // 0: Checkbox | 1: Hidden Field
+  var arraySubscriptions = [
+    [fieldPromo, hiddenPromo],
+    [fieldNewsletter, hiddenNewsletter],
+    [fieldCustomerPromo, hiddenCustomerPromo],
+    [fieldCustomerNewsletter, hiddenCustomerNewsletter],
+    [fieldUnsubscribed, hiddenUnsubscribed]
+  ]
+
+  $('.subscription, .unsubscribe').change(function() {
+
+    for (var i = 0; i < arraySubscriptions.length; i++) { //Loop through the number of fields defined above
+      if (arraySubscriptions[i][0].checked == true) {
+        arraySubscriptions[i][1].value = "true";
+        console.log(arraySubscriptions[i][0].name + ': ' + arraySubscriptions[i][0].checked + ' | ' + arraySubscriptions[i][1].value + ' | true if');
+      } else {
+        arraySubscriptions[i][1].value = "false";
+        console.log(arraySubscriptions[i][0].name + ': ' + arraySubscriptions[i][0].checked + ' | ' + arraySubscriptions[i][1].value + ' | false if');
+      }
+    }
+
+  });
+
+}
+</script>
+
+
+<script>
+/*************/
+/*Description*/
+/*************/
+/*
 Shows a warning if the end-user subscribes to a group when they're already globally opted out. Runs at ready and if an input with the .subscription is changed.
 */
 
@@ -233,23 +285,14 @@ Shows a warning if the end-user subscribes to a group when they're already globa
 
   function globalUnsubscribeWarning() {
 
-    //Subscriptions
-    var fieldContentPromo = document.getElementById('Subscribed_to_Promotions__c');
-    var fieldContentNewsletter = document.getElementById('Subscribed_to_Newsletter__c');
-    var fieldCustomerPromo = document.getElementById('Subscribed_to_Customer_Marketing__c');
-    var fieldCustomerNewsletter = document.getElementById('Subscribed_to_Customer_Newsletter__c');
-
-    //Global Unsubscribe
-    var fieldUnsubscribed = document.getElementById('Unsubscribed');
-
     //if ANY of the subscriptions change
     $('.subscription').change(function() {
       //if ANY of the subscriptions are checked and the global is checked
-      if( (fieldContentPromo.checked || fieldContentNewsletter.checked || fieldCustomerPromo.checked || fieldCustomerNewsletter.checked) && fieldUnsubscribed.checked) {
+      if( (fieldPromo.checked || fieldNewsletter.checked || fieldCustomerPromo.checked || fieldCustomerNewsletter.checked) && fieldUnsubscribed.checked) {
         $(wrapperGlobalUnsubscribeWarning).fadeIn();
       }
         //if ALL of the subscriptions are unchecked
-        else if (!fieldContentPromo.checked && !fieldContentNewsletter.checked && !fieldCustomerPromo.checked && !fieldCustomerNewsletter.checked) {
+        else if (!fieldPromo.checked && !fieldNewsletter.checked && !fieldCustomerPromo.checked && !fieldCustomerNewsletter.checked) {
         $(wrapperGlobalUnsubscribeWarning).fadeOut();
       }
     });
@@ -291,27 +334,27 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
 //INVISIBLE RECAPTCHA
 //Must run before google.com/recaptcha/api.js
 
-var onloadCallback = function() {
-  console.log('recaptcha callback ran');
+  var onloadCallback = function() {
+    console.log('recaptcha callback ran');
 
-  if ($(window).width() < 900) {
-    grecaptcha.render('g-recaptcha', {
-      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-      'badge': 'inline',
-      'size': 'invisible'
-    });
-  }
-  else {
-    grecaptcha.render('g-recaptcha', {
-      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-      'size': 'invisible'
-    });
-  }
-  grecaptcha.reset();
-  grecaptcha.execute();
-  $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+    if ($(window).width() < 900) {
+      grecaptcha.render('g-recaptcha', {
+        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+        'badge': 'inline',
+        'size': 'invisible'
+      });
+    }
+    else {
+      grecaptcha.render('g-recaptcha', {
+        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+        'size': 'invisible'
+      });
+    }
+    grecaptcha.reset();
+    grecaptcha.execute();
+    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
 
-};
+  };
 
 </script>
 
