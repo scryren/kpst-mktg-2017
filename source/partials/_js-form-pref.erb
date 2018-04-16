@@ -8,6 +8,8 @@ WARNING: This section has been modified for the preference center. Do not copy/p
   var mktoTokenEmail = "{{lead.Email Address}}";
   var wrapperGlobalUnsubscribeWarning = document.getElementById('global-unsubscribe-warning-wrapper');
 
+  var mktoRecaptchaToggle = ${mkto-recaptcha-toggle};
+
   var mktoTokenPromo = "{{lead.Subscribed to Promotions}}";
   var mktoTokenNewsletter = "{{lead.Subscribed to Newsletter}}";
   var mktoTokenCustomerPromo = "{{lead.Subscribed to Customer Marketing}}";
@@ -334,27 +336,32 @@ Shows or hides customer marketing subscriptions (flagged with the class .cust-mk
 //INVISIBLE RECAPTCHA
 //Must run before google.com/recaptcha/api.js
 
-  var onloadCallback = function() {
-    console.log('recaptcha callback ran');
+    var onloadCallback = function() {
+      console.log('recaptcha callback ran');
 
-    if ($(window).width() < 900) {
-      grecaptcha.render('g-recaptcha', {
-        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-        'badge': 'inline',
-        'size': 'invisible'
-      });
-    }
-    else {
-      grecaptcha.render('g-recaptcha', {
-        'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-        'size': 'invisible'
-      });
-    }
-    grecaptcha.reset();
-    grecaptcha.execute();
-    $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+      if (mktoRecaptchaToggle == true) {
 
-  };
+        if ($(window).width() < 900) {
+          grecaptcha.render('g-recaptcha', {
+            'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+            'badge': 'inline',
+            'size': 'invisible'
+          });
+        }
+        else {
+          grecaptcha.render('g-recaptcha', {
+            'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+            'size': 'invisible'
+          });
+        }
+
+      }
+
+      grecaptcha.reset();
+      grecaptcha.execute();
+      $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+
+    };
 
 </script>
 
@@ -395,15 +402,10 @@ $("#kapostmktoform").validate({
 
   submitHandler: function(form) {
 
-    var reCAPTCHAResponse = grecaptcha.getResponse();
-    document.getElementById('reCaptcha_Response__c').value=reCAPTCHAResponse;
-
-    if (!reCAPTCHAResponse) {
-      // reCaptcha Failed
-      console.log('Submit hander function ran. reCaptcha failed.');
+    if (mktoRecaptchaToggle !== true) {
+      alert("mktoRecaptchaToggle is not true");
     } else {
-      //reCaptcha Passed
-      console.log('Submit hander function ran. reCaptcha passed.');
+      alert("mktoRecaptchaToggle is true");
       Cookies.remove('kapostsearch', { domain: 'kapost.com' });
       Cookies.remove('kapostsocial', { domain: 'kapost.com' });
       Cookies.remove('kapostsource', { domain: 'kapost.com' });
@@ -412,6 +414,9 @@ $("#kapostmktoform").validate({
       Cookies.remove('kapostsocial');
       Cookies.remove('kapostsource');
       Cookies.remove('kapostpaid');
+      if (jobRoleNotApplicable == true) {
+        fieldJobRole.options[fieldJobRole.options.length] = new Option('Not Applicable', 'Not Applicable', false, true);
+      }
       form.submit();
     }
 

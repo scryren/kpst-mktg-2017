@@ -7,6 +7,8 @@
   var jobRoleNotApplicable = null;
   var jobRoleCounter = 0;
 
+  var mktoRecaptchaToggle = ${mkto-recaptcha-toggle};
+
   var fieldDepartment = document.getElementById('Department__c');
   var fieldJobRole = document.getElementById('Job_Role__c');
   var fieldMarketingCountry = document.getElementById('Marketing_Country__c');
@@ -450,27 +452,32 @@ function toggleVisibilityJobRole() {
 //INVISIBLE RECAPTCHA
 //Must run before google.com/recaptcha/api.js
 
-var onloadCallback = function() {
-  console.log('recaptcha callback ran');
+    var onloadCallback = function() {
+      console.log('recaptcha callback ran');
 
-  if ($(window).width() < 900) {
-    grecaptcha.render('g-recaptcha', {
-      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-      'badge': 'inline',
-      'size': 'invisible'
-    });
-  }
-  else {
-    grecaptcha.render('g-recaptcha', {
-      'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
-      'size': 'invisible'
-    });
-  }
-  grecaptcha.reset();
-  grecaptcha.execute();
-  $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+      if (mktoRecaptchaToggle == true) {
 
-};
+        if ($(window).width() < 900) {
+          grecaptcha.render('g-recaptcha', {
+            'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+            'badge': 'inline',
+            'size': 'invisible'
+          });
+        }
+        else {
+          grecaptcha.render('g-recaptcha', {
+            'sitekey' : '6LdJhi8UAAAAAOJnV3OEvHjA_RPFPVUHnsCWWntc',
+            'size': 'invisible'
+          });
+        }
+
+      }
+
+      grecaptcha.reset();
+      grecaptcha.execute();
+      $('#kapostmktoform').append('<input type="hidden" id="reCaptcha_Response__c" name="reCaptcha_Response__c" value="" />');
+
+    };
 
 </script>
 
@@ -533,15 +540,10 @@ $("#kapostmktoform").validate({
 
   submitHandler: function(form) {
 
-    var reCAPTCHAResponse = grecaptcha.getResponse();
-    document.getElementById('reCaptcha_Response__c').value=reCAPTCHAResponse;
-
-    if (!reCAPTCHAResponse) {
-      // reCaptcha Failed
-      console.log('Submit hander function ran. reCaptcha failed.');
+    if (mktoRecaptchaToggle !== true) {
+      alert("mktoRecaptchaToggle is not true");
     } else {
-      //reCaptcha Passed
-      console.log('Submit hander function ran. reCaptcha passed.');
+      alert("mktoRecaptchaToggle is true");
       Cookies.remove('kapostsearch', { domain: 'kapost.com' });
       Cookies.remove('kapostsocial', { domain: 'kapost.com' });
       Cookies.remove('kapostsource', { domain: 'kapost.com' });
