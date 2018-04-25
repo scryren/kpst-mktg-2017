@@ -150,6 +150,7 @@ header {
 #title h4 {
   padding-top: 1em;
   padding-bottom: .8em;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: #607D8B;
 }
@@ -266,10 +267,10 @@ header {
 
 #content {
   background-color: #fefefe;
-  font-family: 'Merriweather';
-  font-size: 18px;
-  font-weight: 100;
-  line-height: 34px;
+  //font-family: 'Merriweather';
+  //font-size: 16px;
+  //font-weight: 400;
+  //line-height: 1.5em;
   padding-bottom: 5em;
 }
 
@@ -298,6 +299,7 @@ header {
   font-size: 15px;
   left: 15px;
   position: absolute;
+  padding-top: 3px;
 }
 
 #content ol li:before {
@@ -308,6 +310,7 @@ header {
   font-size: 15px;
   left: 15px;
   position: absolute;
+  padding-top: 3px;
 }
 
 
@@ -367,6 +370,15 @@ color: #607D8B;
   padding-top: 5em;
   padding-bottom: 5em;
   margin-bottom: 5em;
+}
+
+
+@media (min-width: 47.9em) {
+  #content-presenter h3 {
+    padding-bottom: .5em;
+    margin-bottom: 2em;
+    border-bottom: 1px solid rgba(0,0,0,.13);
+  }
 }
 
 .row .presenter {
